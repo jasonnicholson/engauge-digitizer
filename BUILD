@@ -49,6 +49,41 @@ required by the Poppler library.
    > cd help
    > build.windows
 
+Windows - Cross-compile from Linux using MXE:
+----------------------------------------------
+These steps build engauge.exe from Linux using an MXE toolchain. This is useful when
+you want to build a Windows executable without switching to a Windows host.
+
+1) Build the MXE toolchain and required libraries. In this example MXE is in
+    /home/jason/workspace/mxe and target x86_64-w64-mingw32.static is used:
+
+       > cd /home/jason/workspace/mxe
+       > make MXE_TARGETS='x86_64-w64-mingw32.static' qtbase qttools fftw
+
+    If the requirements check fails with missing tools, install the missing prerequisites
+    shown by MXE (for Debian/Ubuntu this may include autopoint, gperf and python3-mako).
+
+2) Verify key toolchain artifacts exist:
+
+       > ls /home/jason/workspace/mxe/usr/bin/x86_64-w64-mingw32.static-qmake-qt5
+       > ls /home/jason/workspace/mxe/usr/x86_64-w64-mingw32.static/lib/libfftw3*.a
+
+3) Build engauge.exe from the repository root using the helper script:
+
+       > ./build_windows_mxe.sh
+
+    The script uses these defaults:
+       MXE_ROOT=/home/jason/workspace/mxe
+       TARGET=x86_64-w64-mingw32.static
+       BUILD_DIR=build-win-mxe
+       CONFIG+=log4cpp_null
+
+    If your MXE location differs, set MXE_ROOT before running the script.
+
+4) Output executable:
+
+       > build-win-mxe/bin/engauge.exe
+
 Linux - Steps to build and run engauge executable:
 --------------------------------------------------
 These steps build and run, in Linux, the standard engauge executable for digitizing data.
@@ -137,6 +172,23 @@ These steps build and run, in Linux, the standard engauge executable for digitiz
  |Solution (Kubuntu):   Specify the current path of the correct plugins directory (under the root Qt         |
  |                      directory) as:                                                                       |
  |                        >export QT_PLUGIN_PATH=$QTDIR/plugins                                              |
+ |-----------------------------------------------------------------------------------------------------------|
+
+ |-----------------------------------------------------------------------------------------------------------|
+ |                                          Additional Linux Issue                                            |
+ |-----------------------------------------------------------------------------------------------------------|
+ |Error message:        'Could not find the Qt platform plugin "xcb"'                                       |
+ |Description:          Runtime environment variables can force Engauge to use an incompatible or incomplete |
+ |                      Qt runtime (for example custom /opt Qt paths without libqxcb.so)                    |
+ |Solution:             Build with distro Qt and run with Qt override variables removed:                     |
+ |                        > mkdir -p build-linux-systemqt                                                    |
+ |                        > cd build-linux-systemqt                                                           |
+ |                        > /usr/bin/x86_64-linux-gnu-qmake ../engauge.pro                                   |
+ |                        > make                                                                              |
+ |                        > cd bin                                                                            |
+ |                        > env -u LD_LIBRARY_PATH -u QT_PLUGIN_PATH                                         |
+ |                          -u QT_QPA_PLATFORM_PLUGIN_PATH ./engauge                                         |
+ |Reference:            See LINUX_RUNTIME_NOTES.md in the repository root for more details                   |
  |-----------------------------------------------------------------------------------------------------------|
      
 Linux - Steps to build engauge test executables and perform tests
