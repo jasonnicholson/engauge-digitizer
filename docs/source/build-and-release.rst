@@ -30,49 +30,25 @@ with ``QMAKE_BIN`` if needed.
 Linux — almost-static Qt (portable build)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Builds against a static Qt so the resulting binary has no runtime dependency on
-the distro's Qt5 packages.  Only system libraries (``libxcb``, ``libGL``,
-``libX11``, glibc) remain as dynamic dependencies.
+Builds against a custom Qt install (for example ``/opt/qt-5.15.17-linux``),
+then bundles Qt ``.so`` libraries and plugins next to the executable. This
+removes runtime dependency on distro Qt packages while still relying on core
+system libraries (``glibc``, X11, OpenGL, etc.).
 
-Step 1 — build and install the static Qt (one-time, ~60–90 min):
+Prerequisite::
 
-.. code-block:: bash
+   sudo apt-get install patchelf
 
-   mkdir ~/workspace/qt-5.15.17-build-static
-   cd    ~/workspace/qt-5.15.17-build-static
-   ~/workspace/qt-everywhere-src-5.15.17/configure \
-     -prefix /opt/qt-5.15.17-static \
-     -release -static -opensource -confirm-license \
-     -xcb -opengl desktop -no-fontconfig \
-     -qt-zlib -qt-libpng -qt-libjpeg -qt-freetype -qt-pcre -qt-harfbuzz \
-     -no-openssl -nomake examples -nomake tests \
-     -skip qt3d -skip qtactiveqt -skip qtandroidextras \
-     -skip qtcharts -skip qtdatavis3d -skip qtdeclarative \
-     -skip qtdoc -skip qtgamepad -skip qtlocation -skip qtlottie \
-     -skip qtmultimedia -skip qtquick3d -skip qtquickcontrols \
-     -skip qtquickcontrols2 -skip qtscript -skip qtscxml \
-     -skip qtsensors -skip qtserialbus -skip qtserialport \
-     -skip qtspeech -skip qtvirtualkeyboard -skip qtwayland \
-     -skip qtwebchannel -skip qtwebengine -skip qtwebglplugin \
-     -skip qtwebsockets -skip qtwebview
-   make -j$(nproc) && sudo make install
-
-Required apt packages for the xcb platform plugin::
-
-   sudo apt install libxcb-dev libxcb1-dev libxcb-shape0-dev libxcb-xfixes0-dev \
-     libxcb-sync-dev libxcb-image0-dev libxcb-keysyms1-dev libxcb-icccm4-dev \
-     libxcb-randr0-dev libxcb-xinerama0-dev libxcb-render0-dev \
-     libxcb-render-util0-dev libxcb-util-dev libxcb-xkb-dev libxcb-cursor-dev \
-     libxcb-glx0-dev libx11-dev libx11-xcb-dev libxi-dev libxrender-dev \
-     libxkbcommon-dev libxkbcommon-x11-dev libgl1-mesa-dev libfontconfig1-dev
-
-Step 2 — build Engauge::
+Build and package::
 
    bash build_linux_almoststaticqt.sh
 
 Binary: ``build-linux-almoststaticqt/bin/engauge``
+Tarball: ``dist/engauge-linux-almoststatic-x86_64.tar.gz``
+Bundle root: ``dist/almoststatic-linux-x86_64``
 
-Set ``STATIC_QT_PREFIX`` if Qt was installed to a different path.
+Set ``QT_PREFIX`` (or ``QMAKE_BIN``) if your Qt install is not under
+``/opt/qt-5.15.17-linux``.
 
 Windows (MXE cross-compile)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^

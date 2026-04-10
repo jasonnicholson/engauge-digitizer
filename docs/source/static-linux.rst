@@ -26,10 +26,31 @@ Current Status
 
 - Windows static build via MXE: **working**.
 - Linux dynamic build against distro Qt: **working**.
+- Linux almost-static bundle using custom Qt + bundled libs/plugins: **working**.
 - Linux fully static build: **not yet achieved**.
 
-Building Against Static Qt (Phase Guide)
------------------------------------------
+Almost-Static Build (Current Working Path)
+------------------------------------------
+
+Use a custom Qt install (for example ``/opt/qt-5.15.17-linux``), build Engauge
+with that Qt, then package Qt ``.so`` libraries and plugins alongside the
+binary.
+
+From repository root::
+
+  sudo apt-get install patchelf
+  bash build_linux_almoststaticqt.sh
+
+Artifacts:
+
+- ``build-linux-almoststaticqt/bin/engauge``
+- ``dist/almoststatic-linux-x86_64`` (self-contained bundle)
+- ``dist/engauge-linux-almoststatic-x86_64.tar.gz``
+
+This produces a portable Linux build that does not require distro Qt packages.
+
+Building Against Fully Static Qt (Experimental Guide)
+-----------------------------------------------------
 
 Phase 1 — Baseline::
 
