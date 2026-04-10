@@ -1,4 +1,4 @@
-## **12.3.0**&emsp;<sub><sup>2026-04-09 ([bbf02cf...96940ed](https://github.com/jasonnicholson/engauge-digitizer/compare/bbf02cf7d11ec3145dca6071b9119f23260e27f9...96940ed06f12cbd1177aadb9085c5e570aa1410b?diff=split))</sup></sub>
+## **13.0.0**&emsp;<sub><sup>2026-04-09 ([bbf02cf...96940ed](https://github.com/jasonnicholson/engauge-digitizer/compare/bbf02cf7d11ec3145dca6071b9119f23260e27f9...96940ed06f12cbd1177aadb9085c5e570aa1410b?diff=split))</sup></sub>
 
 ### Build System
 
