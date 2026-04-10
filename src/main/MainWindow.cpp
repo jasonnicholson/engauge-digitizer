@@ -2814,7 +2814,7 @@ void MainWindow::slotHelpHelp()
 {
   LOG4CPP_INFO_S ((*mainCat)) << "MainWindow::slotHelpHelp";
 
-  QDesktopServices::openUrl (QUrl ("https://jasonhnicholson.com/engauge-digitizer/"));
+  QDesktopServices::openUrl (QUrl ("https://jasonnicholson.github.io/engauge-digitizer/"));
 }
 
 void MainWindow::slotHelpTutorial()

@@ -12,24 +12,35 @@ Packaging into distro-specific packages and installers is welcome. If others wan
 to repackage this project for platform package managers or native installers,
 that is encouraged.
 
-## Build and Release Docs
+## Documentation
 
-- Build instructions: BUILD
-- Linux runtime troubleshooting: LINUX_RUNTIME_NOTES.md
-- Linux static/near-static tracking: STATIC_BUILD_LINUX.md
-- Release workflow (artifacts, gh-pages, GitHub Releases): RELEASE_WORKFLOW.md
+Full documentation is at: **https://jasonnicholson.github.io/engauge-digitizer/**
 
-## Distribution Direction
+Key sections:
 
-- Windows: static cross-build artifacts are supported via MXE workflow.
-- Linux: near-static/portable distribution is the practical target; fully static
-  glibc-linked GUI binaries are fragile across systems.
+- [Build and Release](https://jasonnicholson.github.io/engauge-digitizer/build-and-release.html)
+- [Linux Runtime Troubleshooting](https://jasonnicholson.github.io/engauge-digitizer/linux-runtime.html)
+- [Linux Static Build Strategy](https://jasonnicholson.github.io/engauge-digitizer/static-linux.html)
+- [Developer Guide](https://jasonnicholson.github.io/engauge-digitizer/developer.html)
+
+## Quick Build
+
+**Linux** (distro Qt):
+
+```bash
+mkdir -p build-linux-systemqt && cd build-linux-systemqt
+/usr/bin/x86_64-linux-gnu-qmake ../engauge.pro
+make -j$(nproc)
+```
+
+**Windows** (MXE cross-compile):
+
+```bash
+./build_windows_mxe.sh
+```
 
 ## Releases
 
-Release artifacts are published on the GitHub Releases page for this fork.
+Release artifacts (Linux and Windows binaries) are published on the
+[GitHub Releases](https://github.com/jasonnicholson/engauge-digitizer/releases) page.
 
-## Documentation Site
-
-Sphinx-based documentation scaffolding is provided under docs/ and is intended
-to replace legacy generated root-level website files over time.

@@ -1,22 +1,16 @@
 This file gives details for building Engauge from source code.
 
-   *****************************************************************
-   *                                                               *
-   *  Build instructions are being actively revised. Use this file *
-   *  for current, verified workflows only.                        *
-   *                                                               *
-   *****************************************************************
+Full build and release documentation:
+  https://jasonnicholson.github.io/engauge-digitizer/build-and-release.html
 
 Windows Build Instructions:
 ---------------------------
-Under Re-Construction.
 
-The previous Windows build instructions (including legacy MSVC/MSI guidance)
-were removed because they were stale relative to the current toolchain and
-release workflow.
+Cross-build using MXE from repository root:
 
-For now, use the current release artifacts and the repository release workflow
-notes until this section is rebuilt.
+  > ./build_windows_mxe.sh
+
+Output: build-win-mxe/bin/engauge.exe
 
 Linux - Steps to build and run engauge executable:
 --------------------------------------------------
@@ -44,7 +38,9 @@ These steps build and run, in Linux, the standard engauge executable.
 
 3) Generate makefiles and build from the repository root.
 
-     > qmake engauge.pro
+     > mkdir -p build-linux-systemqt
+     > cd build-linux-systemqt
+     > /usr/bin/x86_64-linux-gnu-qmake ../engauge.pro
      > make -j"$(nproc)"
 
 4) Run engauge.
@@ -57,32 +53,13 @@ Error message:
 
   'Could not find the Qt platform plugin "xcb"'
 
-Description:
-
-  Environment variables can force Engauge to load an incompatible or incomplete
-  Qt runtime/plugin path.
-
 Solution:
 
   Unset Qt override variables before launch:
 
     > env -u LD_LIBRARY_PATH -u QT_PLUGIN_PATH -u QT_QPA_PLATFORM_PLUGIN_PATH ./bin/engauge
 
-  If needed, rebuild with distro Qt and run from that build output.
-
-Static Build Notes (Linux and Windows):
----------------------------------------
-Windows:
-
-- Cross-builds can be produced with MXE static targets.
-- See RELEASE_WORKFLOW.md for the current release packaging flow.
-
-Linux:
-
-- Fully static Linux builds are under active reconstruction.
-- With standard distro Qt (shared libraries), outputs remain dynamically linked.
-- For now, use dynamic Linux builds or portable packaging (AppImage/Flatpak).
-- See STATIC_BUILD_LINUX.md for the active static-build plan and progress log.
+  See: https://jasonnicholson.github.io/engauge-digitizer/linux-runtime.html
 
 Linux - Steps to build engauge test executables and perform tests:
 ------------------------------------------------------------------
@@ -98,11 +75,3 @@ Linux - Steps to build engauge test executables and perform tests:
      > cd src
      > ./build_and_run_all_gui_tests
 
-Steps to generate doxygen documentation:
-----------------------------------------
-1) Run doxygen.
-
-     > cd src
-     > doxygen
-
-2) Open doc/doxygen/html/index.html in a browser.

@@ -1,29 +1,64 @@
 Linux Runtime Troubleshooting
 =============================
 
-Known issue: xcb plugin load failure
-------------------------------------
+xcb Plugin Failure
+------------------
 
-Symptom:
+Symptom::
 
-- ``Could not find the Qt platform plugin \"xcb\"``
+   qt.qpa.plugin: Could not find the Qt platform plugin "xcb" in ""
+   This application failed to start because no Qt platform plugin could be initialized.
 
-Cause:
+Cause
+^^^^^
 
-- Qt runtime/plugin environment overrides can point to an incompatible or
-  incomplete Qt installation.
+Environment variables can direct Qt to a custom or incomplete Qt installation
+that does not include the ``xcb`` platform plugin:
 
-Fix:
+- ``LD_LIBRARY_PATH``
+- ``QT_PLUGIN_PATH``
+- ``QT_QPA_PLATFORM_PLUGIN_PATH``
 
-- Launch with overrides removed:
+If these point to paths under ``/opt`` or a custom Qt build, the system xcb
+plugin is bypassed.
+
+Diagnose
+^^^^^^^^
 
 .. code-block:: bash
 
-   env -u LD_LIBRARY_PATH -u QT_PLUGIN_PATH -u QT_QPA_PLATFORM_PLUGIN_PATH ./bin/engauge
+   echo "$LD_LIBRARY_PATH"
+   echo "$QT_PLUGIN_PATH"
+   echo "$QT_QPA_PLATFORM_PLUGIN_PATH"
 
-If your regular build still has runtime issues, rebuild against distro Qt and
-run from that output.
+If these point to ``/opt/qt-*`` paths, that is likely the cause.
 
-Reference:
+Fix: Launch with overrides cleared
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-- See ``LINUX_RUNTIME_NOTES.md`` in repository root.
+.. code-block:: bash
+
+   env -u LD_LIBRARY_PATH -u QT_PLUGIN_PATH -u QT_QPA_PLATFORM_PLUGIN_PATH \
+     ./build-linux-systemqt/bin/engauge
+
+Optional shell alias for convenience:
+
+.. code-block:: bash
+
+   alias engauge='env -u LD_LIBRARY_PATH -u QT_PLUGIN_PATH -u QT_QPA_PLATFORM_PLUGIN_PATH \
+     /path/to/engauge-digitizer/build-linux-systemqt/bin/engauge'
+
+Fix: Rebuild against distro Qt
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If the binary was not built against distro Qt::
+
+   mkdir -p build-linux-systemqt
+   cd build-linux-systemqt
+   /usr/bin/x86_64-linux-gnu-qmake ../engauge.pro
+   make -j$(nproc)
+
+Then run::
+
+   env -u LD_LIBRARY_PATH -u QT_PLUGIN_PATH -u QT_QPA_PLATFORM_PLUGIN_PATH \
+     ./build-linux-systemqt/bin/engauge
