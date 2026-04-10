@@ -39,24 +39,22 @@ Fix: Launch with overrides cleared
 .. code-block:: bash
 
    env -u LD_LIBRARY_PATH -u QT_PLUGIN_PATH -u QT_QPA_PLATFORM_PLUGIN_PATH \
-     ./build-linux-systemqt/bin/engauge
+     ./build-linux-systemqt/engauge
 
 Optional shell alias for convenience:
 
 .. code-block:: bash
 
    alias engauge='env -u LD_LIBRARY_PATH -u QT_PLUGIN_PATH -u QT_QPA_PLATFORM_PLUGIN_PATH \
-     /path/to/engauge-digitizer/build-linux-systemqt/bin/engauge'
+     /path/to/engauge-digitizer/build-linux-systemqt/engauge'
 
-Fix: Rebuild against distro Qt
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Fix: Rebuild against distro Qt6
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If the binary was not built against distro Qt::
+If the binary was not built against distro Qt6::
 
-   mkdir -p build-linux-systemqt
-   cd build-linux-systemqt
-   /usr/bin/x86_64-linux-gnu-qmake ../engauge.pro
-   make -j$(nproc)
+   cmake -B build-linux-systemqt -DCMAKE_BUILD_TYPE=Release .
+   cmake --build build-linux-systemqt --parallel
 
 Then run::
 

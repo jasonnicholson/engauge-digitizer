@@ -106,7 +106,6 @@
 #include <QProcess>
 #include <QPushButton>
 #include <QSettings>
-#include <QSignalMapper>
 #include <QTextStream>
 #if !defined(OSX_DEBUG) && !defined(OSX_RELEASE)
 #include <QtHelp>

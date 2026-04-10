@@ -9,7 +9,6 @@
 #include "FormatDegreesMinutesSecondsNonPolarTheta.h"
 #include "Logger.h"
 #include <qmath.h>
-#include <QRegExp>
 #include <QStringList>
 
 FormatDegreesMinutesSecondsNonPolarTheta::FormatDegreesMinutesSecondsNonPolarTheta()

@@ -28,6 +28,7 @@
 #include <QListWidget>
 #include <QPushButton>
 #include <QRadioButton>
+#include <QRegularExpression>
 #include <QScrollBar>
 #include <QSettings>
 #include <QTabWidget>
@@ -508,7 +509,7 @@ void DlgSettingsExportFormat::createXLabel (QGridLayout *layoutHeader,
 QString DlgSettingsExportFormat::exportedTextToExportedHtml (const QString &text,
                                                              const QString &color) const
 {
-  QRegExp re ("<br>$");
+  QRegularExpression re ("<br>$");
 
   QString textCopy (text);
   QString replaced = textCopy
