@@ -34,3 +34,7 @@ snapcraft.yaml
 stage
 transifex_downloads
 bin/engauge.ilk
+build-*/
+dist/
+docs/.venv/
+docs/build/
