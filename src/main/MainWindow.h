@@ -356,6 +356,7 @@ private slots:
   void slotGeometryWindowClosed();
   void slotGuidelineDragged(QString, double, bool, GuidelineState);
   void slotHelpAbout();
+  void slotHelpHelp();
   void slotHelpTutorial();
   void slotKeyPress (Qt::Key, bool);
   void slotLoadStartupFiles ();

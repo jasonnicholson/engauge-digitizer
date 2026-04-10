@@ -312,14 +312,12 @@ void CreateActions::createHelp (MainWindow &mw)
                                              "and/or point"));
   connect (mw.m_actionHelpTutorial, SIGNAL (triggered ()), &mw, SLOT (slotHelpTutorial()));
 
-#if !defined(OSX_DEBUG) && !defined(OSX_RELEASE)
   mw.m_actionHelpHelp = new QAction (tr ("Help"), &mw);
   mw.m_actionHelpHelp->setShortcut (QKeySequence::HelpContents);
-  mw.m_actionHelpHelp->setStatusTip (tr ("Help documentation"));
+  mw.m_actionHelpHelp->setStatusTip (tr ("Help documentation (opens in browser)"));
   mw.m_actionHelpHelp->setWhatsThis (tr ("Help Documentation\n\n"
-                                         "Searchable help documentation"));
-  // This action gets connected directly to the QDockWidget when that is created
-#endif
+                                         "Opens the online Engauge Digitizer manual in a web browser."));
+  connect (mw.m_actionHelpHelp, SIGNAL (triggered ()), &mw, SLOT (slotHelpHelp ()));
 
   mw.m_actionHelpAbout = new QAction(tr ("About Engauge"), &mw);
   mw.m_actionHelpAbout->setStatusTip (tr ("About the application."));

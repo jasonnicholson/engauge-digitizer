@@ -158,6 +158,9 @@ MainWindow::MainWindow(const QString &errorReportFile,
   m_scene (nullptr),
   m_view (nullptr),
   m_loadImageFromUrl (nullptr),
+#if !defined(OSX_DEBUG) && !defined(OSX_RELEASE)
+  m_helpWindow (nullptr),
+#endif
   m_cmdMediator (nullptr),
   m_digitizeStateContext (nullptr),
   m_transformationStateContext (nullptr),
@@ -1723,16 +1726,7 @@ void MainWindow::settingsReadMainWindow (QSettings &settings)
   move (settings.value (SETTINGS_POS,
                         QPoint (DEFAULT_MAIN_WINDOW_OFFSET_X, DEFAULT_MAIN_WINDOW_OFFSET_Y)).toPoint ());
 
-  // Help window geometry
-#if !defined(OSX_DEBUG) && !defined(OSX_RELEASE)
-  QSize helpSize = settings.value (SETTINGS_HELP_SIZE,
-                                   QSize (900, 600)).toSize();
-  m_helpWindow->resize (helpSize);
-  if (settings.contains (SETTINGS_HELP_POS)) {
-    QPoint helpPos = settings.value (SETTINGS_HELP_POS).toPoint();
-    m_helpWindow->move (helpPos);
-  }
-#endif
+  // Help window geometry (no longer used; help opens in browser)
 
   // Checklist guide wizard
   m_actionHelpChecklistGuideWizard->setChecked (settings.value (SETTINGS_CHECKLIST_GUIDE_WIZARD,
@@ -1860,10 +1854,7 @@ void MainWindow::settingsWrite ()
   settings.beginGroup (SETTINGS_GROUP_MAIN_WINDOW);
   settings.setValue (SETTINGS_SIZE, size ());
   settings.setValue (SETTINGS_POS, pos ());
-#if !defined(OSX_DEBUG) && !defined(OSX_RELEASE)
-  settings.setValue (SETTINGS_HELP_SIZE, m_helpWindow->size());
-  settings.setValue (SETTINGS_HELP_POS, m_helpWindow->pos ());
-#endif
+  // Help window size/pos no longer saved; help opens in browser
   if (m_dockChecklistGuide->isFloating()) {
 
     settings.setValue (SETTINGS_CHECKLIST_GUIDE_DOCK_AREA, Qt::NoDockWidgetArea);
@@ -2817,6 +2808,13 @@ void MainWindow::slotHelpAbout()
 
   DlgAbout dlg (*this);
   dlg.exec ();
+}
+
+void MainWindow::slotHelpHelp()
+{
+  LOG4CPP_INFO_S ((*mainCat)) << "MainWindow::slotHelpHelp";
+
+  QDesktopServices::openUrl (QUrl ("https://jasonhnicholson.com/engauge-digitizer/"));
 }
 
 void MainWindow::slotHelpTutorial()

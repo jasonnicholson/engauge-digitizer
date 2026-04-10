@@ -5,31 +5,17 @@
  ******************************************************************************************************/
 
 #include "CreateHelpWindow.h"
-#include "HelpWindow.h"
 #include "Logger.h"
 #include "MainWindow.h"
-#include <QAction>
 
 CreateHelpWindow::CreateHelpWindow()
 {
 }
 
-void CreateHelpWindow::create (MainWindow &
-#if !defined(OSX_DEBUG) && !defined(OSX_RELEASE)                               
-                               mw
-#endif                               
-                               )
+void CreateHelpWindow::create (MainWindow &)
 {
   LOG4CPP_INFO_S ((*mainCat)) << "CreateHelpWindow::create";
-
-#if !defined(OSX_DEBUG) && !defined(OSX_RELEASE)
-  mw.m_helpWindow = new HelpWindow (&mw);
-  mw.m_helpWindow->hide ();
-  mw.addDockWidget (Qt::RightDockWidgetArea,
-                    mw.m_helpWindow); // Dock area is required by addDockWidget but immediately overridden in next line
-  mw.m_helpWindow->setFloating (true);
-
-  connect (mw.m_actionHelpHelp, SIGNAL (triggered ()), mw.m_helpWindow, SLOT (show ()));
-#endif
+  // Help is now served via the online Sphinx documentation site.
+  // The Help action opens a browser URL; no embedded QHelpEngine dock widget is used.
 }
 
