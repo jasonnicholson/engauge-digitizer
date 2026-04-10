@@ -26,7 +26,7 @@ Current migrated pages:
 - glossary
 - faq additions (better accuracy, context menu windows, date formats, fixing axis points, point match requirements)
 
-All 35 legacy help/*.html pages have now been migrated to Sphinx.
+All 35 legacy ``help/*.html`` pages have now been migrated to Sphinx.
 
 Next steps:
 

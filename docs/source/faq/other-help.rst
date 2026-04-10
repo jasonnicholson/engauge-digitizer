@@ -24,3 +24,9 @@ Contact
 
 Questions, comments, and requests can be sent to the author at the email
 address shown in the **Help > About Engauge** dialog.
+
+Debugging / Error Report
+------------------------
+
+Pressing **Ctrl+Shift+E** while the **Help > About Engauge** dialog is open
+triggers a diagnostic error report, which can be helpful for bug reports.
