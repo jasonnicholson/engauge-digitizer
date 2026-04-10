@@ -91,18 +91,22 @@ GitHub Release Upload
 Deploying the Documentation Site
 ---------------------------------
 
-From the ``docs/`` directory::
+Run the deploy script from the repository root::
 
-   rm -rf build
-   uv run sphinx-build -b html source build -W
+   docs/deploy.sh
 
-   # Delete remote + local gh-pages so the deploy is always a single orphan commit
-   git push origin --delete gh-pages 2>/dev/null || true
-   git branch -D gh-pages 2>/dev/null || true
-   uv run ghp-import -n -p -f build -m "docs(site): update"
+The script builds Sphinx, then uses ``git commit-tree`` to create a parentless
+commit and force-pushes it to ``gh-pages``.  The branch always contains exactly
+one commit — no history accumulates, and rolling back means rebuilding from the
+Sphinx sources on ``master``.
 
-.. note::
+**How it works:**
 
-   Deleting the remote branch before deploying keeps gh-pages as a single
-   commit with no history. Rolling back is a matter of rebuilding from the
-   Sphinx sources on ``master``.
+1. ``git rev-parse --show-toplevel`` — locate the repository root portably.
+2. Stage ``docs/build/`` into a throwaway ``GIT_INDEX_FILE`` so the real index
+   is untouched (``--force`` bypasses ``.gitignore``).
+3. ``git write-tree --prefix=docs/build/`` — extract the subtree as a tree
+   object rooted at ``/`` (``index.html``, ``_static/``, etc. at the top level).
+4. ``git commit-tree <tree>`` with no ``-p`` parent — creates the orphan commit.
+5. ``git branch -f gh-pages <commit>`` — advance (or create) the local ref.
+6. ``git push origin gh-pages --force`` — publish.
