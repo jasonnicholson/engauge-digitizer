@@ -15,6 +15,7 @@ content to a maintained Sphinx workflow.
    dialogs
    tutorials
    faq
+   glossary
 
 .. toctree::
    :maxdepth: 2

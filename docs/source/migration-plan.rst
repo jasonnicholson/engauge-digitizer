@@ -23,9 +23,12 @@ Current migrated pages:
 - tutorials (all 5 tutorial walkthroughs)
 - dialogs (curves, measures, discretize, segments, point-match, sessions, curve-geometry, measure-geometry)
 - faq (discretizing, line graphs, point graphs, getting data out, measuring, selecting, select mode, floating axes, multiple coord systems, timezone, other help)
+- glossary
+- faq additions (better accuracy, context menu windows, date formats, fixing axis points, point match requirements)
 
-Next migration batch (recommended):
+All 35 legacy help/*.html pages have now been migrated to Sphinx.
 
-- Glossary
-- betteraccuracy, contextmenuwindows, dateformats, dialogs index page, fixingaxispoints, pointmatchrequirements
+Next steps:
+
 - Remove legacy root-level HTML files after parity check
+- Clean up help/ directory (source HTML no longer needed for docs)
