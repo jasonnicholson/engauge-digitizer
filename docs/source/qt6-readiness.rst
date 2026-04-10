@@ -70,32 +70,35 @@ Low priority
   - Sphinx 9.1.0, furo 2025.12.19, myst-parser 5.0.0.
   - uv lock check passes.
 
-Tomorrow start plan
--------------------
+Migration Plan: Qt6 and CMake (2026)
+-------------------------------------
 
-Phase 1: Prepare dual build lanes (Qt5 + Qt6)
+Phase 1: CMake and Qt6 Build System Migration
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+1. Remove all Qt5 and qmake-specific logic from build scripts and documentation.
+2. Create a new CMake-based build system targeting Qt6 only.
+3. Update all build scripts (Linux, Windows, MXE, etc.) to use CMake and Qt6 tools exclusively.
+4. Update documentation to reference only Qt6 and CMake build instructions.
+
+Phase 2: Source Compatibility and Modernization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1. Add a Qt selector in build scripts (QT_MAJOR=5|6) instead of hardcoding qt5 names.
-2. Keep current Qt5 lane working while adding a Qt6 lane in parallel.
-3. Add a matrix section in docs for supported combinations.
+1. Replace all QRegExp usage with QRegularExpression in listed files.
+2. Update QString::SkipEmptyParts usage to Qt6-compatible enum form.
+3. Replace QSignalMapper with direct lambda connections where appropriate.
+4. Raise C++ standard to at least C++17 in CMake configuration.
 
-Phase 2: Source compatibility pass
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Phase 3: Dependency and Feature Updates
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1. Replace QRegExp with QRegularExpression in all listed files.
-2. Update split behavior for SkipEmptyParts with Qt6-compatible enum form.
-3. Optional cleanup: replace QSignalMapper with direct lambda connections.
+1. Integrate poppler-qt6 for PDF support (optional, Qt6 only).
+2. Refresh all third-party dependency documentation and remove legacy advisories.
+3. Validate builds and run CLI/GUI test suites on all supported platforms.
 
-Phase 3: Dependency updates
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Phase 4: Documentation and Release Alignment
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1. Validate/populate Qt6 equivalents for optional PDF path (poppler-qt6 where available), and keep PDF feature optional.
-2. Raise language standard after compatibility pass (at least c++17 once Qt6 lane is validated).
-3. Re-run Linux and MXE builds, then test CLI and GUI suites.
-
-Phase 4: Release and docs alignment
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-1. Update build-and-release.rst and static-linux.rst to include Qt6 paths and package names.
-2. Keep legacy Qt5 instructions as fallback until Qt6 lane is stable across targets.
+1. Update all documentation (build-and-release.rst, static-linux.rst, etc.) for Qt6 and CMake only.
+2. Remove all Qt5 and qmake references from docs.
+3. Prepare release notes and migration guide for users upgrading from Qt5/qmake to Qt6/CMake.
