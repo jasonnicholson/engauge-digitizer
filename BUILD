@@ -84,6 +84,25 @@ you want to build a Windows executable without switching to a Windows host.
 
        > build-win-mxe/bin/engauge.exe
 
+Static build notes (Linux and Windows):
+---------------------------------------
+Windows (cross-compile from Linux):
+
+- The MXE target used above, x86_64-w64-mingw32.static, produces a mostly self-contained
+   Windows executable with only standard Windows system DLL dependencies.
+- To inspect dependencies:
+
+      > /home/jason/workspace/mxe/usr/bin/x86_64-w64-mingw32.static-objdump -p build-win-mxe/bin/engauge.exe | grep "DLL Name"
+
+Linux:
+
+- A fully static Linux build is not currently achievable with the default distro/Qt setup used
+   in this project, because Qt is supplied as shared libraries.
+- Attempting qmake/make with static link flags still produces a dynamically linked ELF binary.
+- Recommended Linux deliverables are either:
+   1) the normal distro-linked executable, or
+   2) a portable package format (AppImage/Flatpak) from scripts under dev/linux and dev/flatpak.
+
 Linux - Steps to build and run engauge executable:
 --------------------------------------------------
 These steps build and run, in Linux, the standard engauge executable for digitizing data.
