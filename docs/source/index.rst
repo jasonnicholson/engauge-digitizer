@@ -29,3 +29,4 @@ Engauge Digitizer Documentation
 
    developer
    privacy-policy
+   changelog

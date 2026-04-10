@@ -5,6 +5,7 @@ description = "Sphinx docs for Engauge Digitizer fork"
 requires-python = ">=3.10"
 dependencies = [
   "sphinx>=8.0",
+  "myst-parser>=3.0",
   "sphinx-autobuild",
   "furo>=2024.8.6",
   "ghp-import>=2.0"

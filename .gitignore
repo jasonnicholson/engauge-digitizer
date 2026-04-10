@@ -38,3 +38,5 @@ build-*/
 dist/
 docs/.venv/
 docs/build/
+node_modules/
+.pnpm-store/

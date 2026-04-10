@@ -1,0 +1,15 @@
+{
+  "name": "engauge-digitizer",
+  "version": "13.0.0",
+  "private": true,
+  "scripts": {
+    "postinstall": "git config core.hooksPath .githooks",
+    "version": "git-conventional-commits version -c git-conventional-commits.yaml",
+    "changelog": "git-conventional-commits changelog -c git-conventional-commits.yaml -f CHANGELOG.md",
+    "release:prepare": "pnpm run version && pnpm run changelog"
+  },
+  "devDependencies": {
+    "git-conventional-commits": "^2.8.0"
+  },
+  "packageManager": "pnpm@10.33.0"
+}
