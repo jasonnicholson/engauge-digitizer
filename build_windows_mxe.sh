@@ -3,7 +3,11 @@ set -euo pipefail
 
 # Builds engauge.exe using an MXE static x86_64 toolchain.
 
-MXE_ROOT="${MXE_ROOT:-/home/jason/workspace/mxe}"
+if [[ -z "${MXE_ROOT:-}" ]]; then
+  echo "ERROR: MXE_ROOT is not set. Export it to the directory where MXE is installed."
+  echo "  Example: export MXE_ROOT=\$HOME/mxe"
+  exit 1
+fi
 TARGET="${TARGET:-x86_64-w64-mingw32.static}"
 QMAKE_BIN="${QMAKE_BIN:-$MXE_ROOT/usr/bin/${TARGET}-qmake-qt5}"
 FFTW_HOME_DEFAULT="$MXE_ROOT/usr/${TARGET}"
