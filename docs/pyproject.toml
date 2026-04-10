@@ -6,7 +6,8 @@ requires-python = ">=3.10"
 dependencies = [
   "sphinx>=8.0",
   "sphinx-autobuild",
-  "furo>=2024.8.6"
+  "furo>=2024.8.6",
+  "ghp-import>=2.0"
 ]
 
 [build-system]
