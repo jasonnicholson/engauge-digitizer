@@ -12,7 +12,9 @@ content to a maintained Sphinx workflow.
    cli
    coordinates
    export
+   dialogs
    tutorials
+   faq
 
 .. toctree::
    :maxdepth: 2

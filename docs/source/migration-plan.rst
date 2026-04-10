@@ -21,10 +21,11 @@ Current migrated pages:
 - coordinates (coordinate system dialog)
 - export (export setup dialog)
 - tutorials (all 5 tutorial walkthroughs)
+- dialogs (curves, measures, discretize, segments, point-match, sessions, curve-geometry, measure-geometry)
+- faq (discretizing, line graphs, point graphs, getting data out, measuring, selecting, select mode, floating axes, multiple coord systems, timezone, other help)
 
 Next migration batch (recommended):
 
-- Dialogs index (dlgcurves, dlgdiscretize, dlgpointmatch, dlgsegments, etc.)
-- FAQ / answer pages (answerdiscretizing, answerfloatingaxes, etc.)
 - Glossary
+- betteraccuracy, contextmenuwindows, dateformats, dialogs index page, fixingaxispoints, pointmatchrequirements
 - Remove legacy root-level HTML files after parity check
