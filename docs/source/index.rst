@@ -6,9 +6,18 @@ content to a maintained Sphinx workflow.
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents
+   :caption: User Guide
 
    overview
+   cli
+   coordinates
+   export
+   tutorials
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Build & Release
+
    build-and-release
    linux-runtime
    static-linux

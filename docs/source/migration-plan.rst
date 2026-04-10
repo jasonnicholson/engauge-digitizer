@@ -17,10 +17,14 @@ Current migrated pages:
 - linux-runtime
 - static-linux
 - windows-build-status
+- cli (command line options)
+- coordinates (coordinate system dialog)
+- export (export setup dialog)
+- tutorials (all 5 tutorial walkthroughs)
 
 Next migration batch (recommended):
 
-- command line options
-- coordinate systems and axes setup pages
-- import/export settings pages
-- tutorial walkthrough pages
+- Dialogs index (dlgcurves, dlgdiscretize, dlgpointmatch, dlgsegments, etc.)
+- FAQ / answer pages (answerdiscretizing, answerfloatingaxes, etc.)
+- Glossary
+- Remove legacy root-level HTML files after parity check
