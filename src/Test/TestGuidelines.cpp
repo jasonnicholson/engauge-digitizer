@@ -215,7 +215,7 @@ void TestGuidelines::test00StartupWithoutTransformationReport ()
   // If there is no result for this test then NUMBER_TESTS is off
   const Result &result = m_results.front ();
   if (!result.pass ()) {
-    cout << result.problem().toLatin1().data() << endl;
+    cout << result.problem().toLatin1().data() << Qt::endl;
   }
 
   bool pass = result.pass ();
@@ -282,7 +282,7 @@ void TestGuidelines::test01AfterAddingTransformationReport ()
   // If there is no result for this test then NUMBER_TESTS is off
   const Result &result = m_results.front ();
   if (!result.pass ()) {
-    cout << result.problem().toLatin1().data() << endl;
+    cout << result.problem().toLatin1().data() << Qt::endl;
   }
 
   bool pass = result.pass ();
@@ -330,7 +330,7 @@ void TestGuidelines::test02AfterRemovingTransformationReport ()
   // If there is no result for this test then NUMBER_TESTS is off
   const Result &result = m_results.front ();
   if (!result.pass ()) {
-    cout << result.problem().toLatin1().data() << endl;
+    cout << result.problem().toLatin1().data() << Qt::endl;
   }
 
   bool pass = result.pass ();
