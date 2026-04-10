@@ -95,10 +95,14 @@ From the ``docs/`` directory::
 
    rm -rf build
    uv run sphinx-build -b html source build -W
-   GIT_LFS_SKIP_PUSH=1 uv run ghp-import -n -p -f build -m "docs(site): update"
+
+   # Delete remote + local gh-pages so the deploy is always a single orphan commit
+   git push origin --delete gh-pages 2>/dev/null || true
+   git branch -D gh-pages 2>/dev/null || true
+   uv run ghp-import -n -p -f build -m "docs(site): update"
 
 .. note::
 
-   ``GIT_LFS_SKIP_PUSH=1`` is required while the repository is a GitHub fork
-   (forks cannot upload LFS objects). After converting to a standalone repo,
-   the variable can be dropped.
+   Deleting the remote branch before deploying keeps gh-pages as a single
+   commit with no history. Rolling back is a matter of rebuilding from the
+   Sphinx sources on ``master``.
