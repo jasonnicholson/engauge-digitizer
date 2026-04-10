@@ -1,251 +1,108 @@
-This file gives details for building Engauge from source code. 
+This file gives details for building Engauge from source code.
 
    *****************************************************************
    *                                                               *
-   *  If you want to use Engauge immediately, and do not need to   *
-   *  work with the source code, then you should refer to the      *
-   *  instructions in the INSTALL file. The steps in the INSTALL   *
-   *  file can take less than a few minutes, but the steps in      *
-   *  this BUILD file can take hours.                              *
+   *  Build instructions are being actively revised. Use this file *
+   *  for current, verified workflows only.                        *
    *                                                               *
    *****************************************************************
 
-Windows - Steps to build and run engauge executable:
-----------------------------------------------------
-These steps build and run, in Microsoft Windows, the standard engauge executable for digitizing data.
+Windows Build Instructions:
+---------------------------
+Under Re-Construction.
 
-Note that support for reading PDF files, using the Poppler library, has not been available in recent
-Engauge releases due to incompatibilities between recent libraries and the many software libraries 
-required by the Poppler library.
+The previous Windows build instructions (including legacy MSVC/MSI guidance)
+were removed because they were stale relative to the current toolchain and
+release workflow.
 
-1) Install the Visual Studio 2015 version of the Qt Open Source toolkit from http://www.qt.io. 
-
-   Qt Open Source 5.2 and newer have been tested with Engauge. Qt Versions 5.1 and older do not offer
-   features added in version 5.2 that are required to build Engauge.
-
-2) Download and build fftw from http://www.fftw.org. Version 3.3.4 was tested with Engauge.
-   
-   Then following the normal configure, make and make install steps.
-
-3) Set the FFTW_HOME environment variable to point to the installation directory of fftw in the previous steps.
-
-4) Build engauge using either the command line approach, or qtcreator. 
-
-   The command line approach is run from the highest level Engauge directory:
-
-   > qmake engauge.pro CONFIG+=log4cpp_null
-   > make
-
-   Alternately, you can use the qtcreator approach instead:
-
-   > qtcreator
-   > File / Open / open engauge.pro
-   > (edit the Project settings to add 'CONFIG+=log4cpp_null' to the qmake line)
-   > Build / BuildAll
-   > Run 
-
-6) Build the help file
-
-   > cd help
-   > build.windows
-
-Windows - Cross-compile from Linux using MXE:
-----------------------------------------------
-These steps build engauge.exe from Linux using an MXE toolchain. This is useful when
-you want to build a Windows executable without switching to a Windows host.
-
-1) Build the MXE toolchain and required libraries. In this example MXE is in
-    /home/jason/workspace/mxe and target x86_64-w64-mingw32.static is used:
-
-       > cd /home/jason/workspace/mxe
-       > make MXE_TARGETS='x86_64-w64-mingw32.static' qtbase qttools fftw
-
-    If the requirements check fails with missing tools, install the missing prerequisites
-    shown by MXE (for Debian/Ubuntu this may include autopoint, gperf and python3-mako).
-
-2) Verify key toolchain artifacts exist:
-
-       > ls /home/jason/workspace/mxe/usr/bin/x86_64-w64-mingw32.static-qmake-qt5
-       > ls /home/jason/workspace/mxe/usr/x86_64-w64-mingw32.static/lib/libfftw3*.a
-
-3) Build engauge.exe from the repository root using the helper script:
-
-       > ./build_windows_mxe.sh
-
-    The script uses these defaults:
-       MXE_ROOT=/home/jason/workspace/mxe
-       TARGET=x86_64-w64-mingw32.static
-       BUILD_DIR=build-win-mxe
-       CONFIG+=log4cpp_null
-
-    If your MXE location differs, set MXE_ROOT before running the script.
-
-4) Output executable:
-
-       > build-win-mxe/bin/engauge.exe
-
-Static build notes (Linux and Windows):
----------------------------------------
-Windows (cross-compile from Linux):
-
-- The MXE target used above, x86_64-w64-mingw32.static, produces a mostly self-contained
-   Windows executable with only standard Windows system DLL dependencies.
-- To inspect dependencies:
-
-      > /home/jason/workspace/mxe/usr/bin/x86_64-w64-mingw32.static-objdump -p build-win-mxe/bin/engauge.exe | grep "DLL Name"
-
-Linux:
-
-- A fully static Linux build is not currently achievable with the default distro/Qt setup used
-   in this project, because Qt is supplied as shared libraries.
-- Attempting qmake/make with static link flags still produces a dynamically linked ELF binary.
-- Recommended Linux deliverables are either:
-   1) the normal distro-linked executable, or
-   2) a portable package format (AppImage/Flatpak) from scripts under dev/linux and dev/flatpak.
+For now, use the current release artifacts and the repository release workflow
+notes until this section is rebuilt.
 
 Linux - Steps to build and run engauge executable:
 --------------------------------------------------
-These steps build and run, in Linux, the standard engauge executable for digitizing data.
+These steps build and run, in Linux, the standard engauge executable.
 
-1) Install open source version 5 of the Qt toolkit. This is probably
-   available for your operating systems as a source tarball, or many packages.
-   If there is a development version of qt5, that should be installed as 
-   a minimum
+1) Install Qt5 development tools and required build dependencies with your
+   package manager.
 
-     --Package(s)--     --Comment--
-     *qt5-dev*          Qt version 5 toolkit for building engauge
+   Common requirements:
 
-2) In a mixed Qt4 and Qt5 environment, you need to make sure that the environment
-   points to the correct Qt version by using qtchooser and/or settings the
-   environment variable QT_SELECT=qt5
+     --Package(s)--       --Comment--
+     qtbase5-dev          Qt base headers and libs
+     qtbase5-dev-tools    qmake and base Qt tools
+     qttools5-dev         Qt tools headers and libs
+     qttools5-dev-tools   additional Qt tools
+     libfftw3-dev         FFT support
+     libjpeg-dev          JPEG support
+     liblog4cpp-dev       logging (or use CONFIG+=log4cpp_null)
 
-3) Install package dependencies using your package manager. Different packages
-   may be substituted, or additional packages added, according to the feedback
-   supplied in step #3. The suggested list of packages for non-Debian and 
-   non-Ubuntu distributions is:
+2) In mixed Qt4/Qt5 environments, ensure Qt5 is selected.
 
-     --Package(s)--     --Comment--
-     libfftw3-dev       For computing fourier transforms. Tested with 3.3.3-7
-     libjpeg-dev        For reading jpeg image files (optional)
-     liblog4cpp-dev     For logging. Tested with 1.0.4. Alternately, use log4cpp_null
-                        at https://github.com/markummitchell/log4cpp_null
-     libopenjpeg-dev    For reading jpeg2000 image files (optional). Compiles
-                        with version 2.1.7 but not with version 2.1.3
-     libpng12-dev       For reading png image files (optional)
-     libssl1.0-dev      For import by dragging images from browsers. Version 1.0.2
-                        is known to work but newer version 1.1.0 gives error
-			'qt.network.ssl: Incompatible version of OpenSSL'
+   Example:
 
-   In Debian and Ubuntu distributions, the following packages are required for
-   building Engauge for your own use:
+     > export QT_SELECT=qt5
 
-     --Package(s)--     --Comment--
-     libfftw3-dev       Required for all distributions
-     libjpeg-dev        Required for all distributions
-     liblog4cpp5-dev    Replaces liblog4cpp-dev that is suggested above. Alternately, 
-                        use log4cpp_null at https://github.com/markummitchell/log4cpp_null
-     libpng12-dev       Required for all distributions
-     libqt5sql5-sqlite
-     qtbase5-dev  
-     qtbase5-dev-tools
-     qttools5-dev
-     qttools5-dev-tools
+3) Generate makefiles and build from the repository root.
 
-   Optional packages that are manually downloaded and installed:
+     > qmake engauge.pro
+     > make -j"$(nproc)"
 
-     poppler            Works with version 0.44.0 and 0.45.0
+4) Run engauge.
 
-4) Run qmake on this file to generate make files. The qmake executable will
-   display what functionality will, and what functionality will not, be included 
-   in engauge as a function of the currently installed packages. Run one of these
-   qmake commands in the highest level Engauge directory:
+     > ./bin/engauge
 
-     > qmake engauge.pro                       (for release version)
+Known Linux Runtime Issue:
+--------------------------
+Error message:
 
-   or
+  'Could not find the Qt platform plugin "xcb"'
 
-     > qmake CONFIG+=debug engauge.pro         (for debug version)
+Description:
 
-   By default, the release version will be built by qmake. To build a debug version
-   instead, add "CONFIG+=debug" to the qmake command line.
+  Environment variables can force Engauge to load an incompatible or incomplete
+  Qt runtime/plugin path.
 
-5) Build the executable using the make files from the previous step:
+Solution:
 
-     > make
+  Unset Qt override variables before launch:
 
-6) Generate the help files
+    > env -u LD_LIBRARY_PATH -u QT_PLUGIN_PATH -u QT_QPA_PLATFORM_PLUGIN_PATH ./bin/engauge
 
-     > ../help/build.bash
+  If needed, rebuild with distro Qt and run from that build output.
 
-7) Run engauge
+Static Build Notes (Linux and Windows):
+---------------------------------------
+Windows:
 
-     > ../bin/engauge
+- Cross-builds can be produced with MXE static targets.
+- See RELEASE_WORKFLOW.md for the current release packaging flow.
 
- |-----------------------------------------------------------------------------------------------------------|
- |                                              Known Linux Issues                                           |
- |-----------------------------------------------------------------------------------------------------------|
- |Error message:        'Cannot mix incompatible Qt library (version (0x#) with this library (version 0x#)'  |
- |Description:          Engauge is trying to use the plugins supplied by the operating system rather than    |
- |                      the plugins supplied by the current Qt framework. This will not work since the       |
- |                      two sets of plugins were built with different versions of Qt                         |
- |Solution (Kubuntu):   Specify the current path of the correct plugins directory (under the root Qt         |
- |                      directory) as:                                                                       |
- |                        >export QT_PLUGIN_PATH=$QTDIR/plugins                                              |
- |-----------------------------------------------------------------------------------------------------------|
+Linux:
 
- |-----------------------------------------------------------------------------------------------------------|
- |                                          Additional Linux Issue                                            |
- |-----------------------------------------------------------------------------------------------------------|
- |Error message:        'Could not find the Qt platform plugin "xcb"'                                       |
- |Description:          Runtime environment variables can force Engauge to use an incompatible or incomplete |
- |                      Qt runtime (for example custom /opt Qt paths without libqxcb.so)                    |
- |Solution:             Build with distro Qt and run with Qt override variables removed:                     |
- |                        > mkdir -p build-linux-systemqt                                                    |
- |                        > cd build-linux-systemqt                                                           |
- |                        > /usr/bin/x86_64-linux-gnu-qmake ../engauge.pro                                   |
- |                        > make                                                                              |
- |                        > cd bin                                                                            |
- |                        > env -u LD_LIBRARY_PATH -u QT_PLUGIN_PATH                                         |
- |                          -u QT_QPA_PLATFORM_PLUGIN_PATH ./engauge                                         |
- |Reference:            See LINUX_RUNTIME_NOTES.md in the repository root for more details                   |
- |-----------------------------------------------------------------------------------------------------------|
-     
-Linux - Steps to build engauge test executables and perform tests
----------------------------------------------------------
-These steps build and test engauge, in Linux.
+- Fully static Linux builds are under active reconstruction.
+- With standard distro Qt (shared libraries), outputs remain dynamically linked.
+- For now, use dynamic Linux builds or portable packaging (AppImage/Flatpak).
+- See STATIC_BUILD_LINUX.md for the active static-build plan and progress log.
 
-1) Verify the standard version of engauge executable can be built and run
+Linux - Steps to build engauge test executables and perform tests:
+------------------------------------------------------------------
+1) Verify the standard executable builds and runs.
 
-2) Run the command-line tests. Every line PASS/FAIL line should say PASS. If 
-   no PASS/FAIL lines appear then the build probably failed, in which case the 
-   build_and_run_all_cli_tests.log file can be examined to identify the build issues
+2) Run command-line tests.
 
      > cd src
      > ./build_and_run_all_cli_tests
 
-3) Run the graphical user interface tests.
+3) Run GUI tests.
 
-     > cd src (if not already in that directory)
+     > cd src
      > ./build_and_run_all_gui_tests
 
-Steps to generate doxygen documentation
----------------------------------------
-This generates doxygen documentation
-
-1) Run doxygen
+Steps to generate doxygen documentation:
+----------------------------------------
+1) Run doxygen.
 
      > cd src
      > doxygen
 
-2) Open engauge6/doc/doxygen/html/index.html in your browser
-
-Steps to generate a software metrics report
--------------------------------------------
-This generates doxygen documentation
-
-1) Run cccc
-
-     > cd src
-     > docccc
-
-2) Open engauge6/doc/cccc/index.html in your browser
+2) Open doc/doxygen/html/index.html in a browser.
