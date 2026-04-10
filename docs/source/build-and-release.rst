@@ -3,14 +3,15 @@ Build and Release
 
 Distribution direction:
 
-- **Windows** — static cross-build artifacts via MXE toolchain
-- **Linux** — dynamically linked build against distro Qt; near-static portability is the target
+- **Windows** — static cross-build via MXE toolchain; produces a single portable ``.exe``
+- **Linux (distro Qt)** — dynamically linked against the OS Qt5 packages; simple and fast
+- **Linux (almost-static)** — linked against a self-built static Qt; portable across distros
 
 Building from Source
 --------------------
 
-Linux
-^^^^^
+Linux — distro Qt (quick build)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Install dependencies::
 
@@ -25,6 +26,53 @@ Binary: ``build-linux-systemqt/bin/engauge``
 
 The script auto-detects ``x86_64-linux-gnu-qmake`` or ``qmake-qt5``. Override
 with ``QMAKE_BIN`` if needed.
+
+Linux — almost-static Qt (portable build)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Builds against a static Qt so the resulting binary has no runtime dependency on
+the distro's Qt5 packages.  Only system libraries (``libxcb``, ``libGL``,
+``libX11``, glibc) remain as dynamic dependencies.
+
+Step 1 — build and install the static Qt (one-time, ~60–90 min):
+
+.. code-block:: bash
+
+   mkdir ~/workspace/qt-5.15.17-build-static
+   cd    ~/workspace/qt-5.15.17-build-static
+   ~/workspace/qt-everywhere-src-5.15.17/configure \
+     -prefix /opt/qt-5.15.17-static \
+     -release -static -opensource -confirm-license \
+     -xcb -opengl desktop -no-fontconfig \
+     -qt-zlib -qt-libpng -qt-libjpeg -qt-freetype -qt-pcre -qt-harfbuzz \
+     -no-openssl -nomake examples -nomake tests \
+     -skip qt3d -skip qtactiveqt -skip qtandroidextras \
+     -skip qtcharts -skip qtdatavis3d -skip qtdeclarative \
+     -skip qtdoc -skip qtgamepad -skip qtlocation -skip qtlottie \
+     -skip qtmultimedia -skip qtquick3d -skip qtquickcontrols \
+     -skip qtquickcontrols2 -skip qtscript -skip qtscxml \
+     -skip qtsensors -skip qtserialbus -skip qtserialport \
+     -skip qtspeech -skip qtvirtualkeyboard -skip qtwayland \
+     -skip qtwebchannel -skip qtwebengine -skip qtwebglplugin \
+     -skip qtwebsockets -skip qtwebview
+   make -j$(nproc) && sudo make install
+
+Required apt packages for the xcb platform plugin::
+
+   sudo apt install libxcb-dev libxcb1-dev libxcb-shape0-dev libxcb-xfixes0-dev \
+     libxcb-sync-dev libxcb-image0-dev libxcb-keysyms1-dev libxcb-icccm4-dev \
+     libxcb-randr0-dev libxcb-xinerama0-dev libxcb-render0-dev \
+     libxcb-render-util0-dev libxcb-util-dev libxcb-xkb-dev libxcb-cursor-dev \
+     libxcb-glx0-dev libx11-dev libx11-xcb-dev libxi-dev libxrender-dev \
+     libxkbcommon-dev libxkbcommon-x11-dev libgl1-mesa-dev libfontconfig1-dev
+
+Step 2 — build Engauge::
+
+   bash build_linux_almoststaticqt.sh
+
+Binary: ``build-linux-almoststaticqt/bin/engauge``
+
+Set ``STATIC_QT_PREFIX`` if Qt was installed to a different path.
 
 Windows (MXE cross-compile)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
