@@ -27,3 +27,10 @@ content to a maintained Sphinx workflow.
    static-linux
    windows-build-status
    migration-plan
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Project
+
+   developer
+   privacy-policy
