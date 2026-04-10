@@ -19,14 +19,12 @@ Install dependencies::
 
 Build::
 
-   mkdir -p build-linux-systemqt
-   cd build-linux-systemqt
-   /usr/bin/x86_64-linux-gnu-qmake ../engauge.pro
-   make -j$(nproc)
+   bash build_linux_systemqt.sh
 
 Binary: ``build-linux-systemqt/bin/engauge``
 
-In environments with mixed Qt4/Qt5 set ``QT_SELECT=qt5`` before running qmake.
+The script auto-detects ``x86_64-linux-gnu-qmake`` or ``qmake-qt5``. Override
+with ``QMAKE_BIN`` if needed.
 
 Windows (MXE cross-compile)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -35,9 +33,9 @@ From repository root::
 
    ./build_windows_mxe.sh
 
-Requires MXE with the Qt5 static x86_64 target. Set ``MXE_ROOT`` if installed
-outside the default ``/home/jason/workspace/mxe``. See ``build_windows_mxe.sh``
-for all overridable variables.
+Requires MXE with the Qt5 static x86_64 target. ``MXE_ROOT`` must be set to
+your MXE installation directory. See ``build_windows_mxe.sh`` for all
+overridable variables.
 
 Binary: ``build-win-mxe/bin/engauge.exe``
 
