@@ -15,7 +15,10 @@ find_package(Qt6 REQUIRED COMPONENTS
     Xml
 )
 
-qt_standard_project_setup()
+# qt_standard_project_setup() requires Qt 6.3+; manually replicate for Qt 6.2 compat
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
 
 # ---------------------------------------------------------------------------
 # Optional features
@@ -135,6 +138,7 @@ set(ENGAUGE_SOURCES
     src/Create/CreateCommandStackShadow.cpp
     src/Create/CreateDockableWidgets.cpp
     src/Create/CreateFacade.cpp
+    src/Create/CreateHelpWindow.cpp
     src/Create/CreateIcons.cpp
     src/Create/CreateLoadImage.cpp
     src/Create/CreateMenus.cpp
@@ -176,6 +180,7 @@ set(ENGAUGE_SOURCES
     src/Dlg/DlgFilterThread.cpp
     src/Dlg/DlgFilterWorker.cpp
     src/Dlg/DlgImportAdvanced.cpp
+    src/Dlg/DlgImportCroppingNonPdf.cpp
     src/Dlg/DlgRequiresTransform.cpp
     src/Dlg/DlgSettingsAbstractBase.cpp
     src/Dlg/DlgSettingsAxesChecker.cpp
@@ -358,6 +363,7 @@ set(ENGAUGE_SOURCES
     src/Help/HelpBrowser.cpp
     src/Help/HelpWindow.cpp
     src/Import/ImportCroppingUtilBase.cpp
+    src/Import/ImportCroppingUtilNonPdf.cpp
     src/Import/ImportImageExtensions.cpp
     src/Line/LineStyle.cpp
     src/Load/LoadFileInfo.cpp
@@ -372,6 +378,10 @@ set(ENGAUGE_SOURCES
     src/Mime/MimePointsDetector.cpp
     src/Mime/MimePointsExport.cpp
     src/Mime/MimePointsImport.cpp
+    src/Network/NetworkClient.cpp
+    src/NonPdf/NonPdf.cpp
+    src/NonPdf/NonPdfCropping.cpp
+    src/NonPdf/NonPdfFrameHandle.cpp
     src/Ordinal/OrdinalGenerator.cpp
     src/Pdf/PdfResolution.cpp
     src/Point/Point.cpp
@@ -469,10 +479,42 @@ set(ENGAUGE_TRANSLATIONS
     translations/engauge_zh.ts
 )
 
-# Process translations: generate .qm files from .ts files
-qt_add_translations(engauge
-    TS_FILES ${ENGAUGE_TRANSLATIONS}
+# Compile .ts -> .qm using lrelease.
+# Qt 6.2.4 on Ubuntu 22.04 does not ship lrelease in a usable location;
+# fall back to the Qt5 lrelease which handles the same .ts format.
+find_program(LRELEASE_EXECUTABLE
+    NAMES lrelease lrelease-qt6
+    PATHS
+        /usr/lib/qt6/bin
+        /usr/lib/x86_64-linux-gnu/qt6/bin
+        /usr/lib/qt5/bin
+        /usr/lib/x86_64-linux-gnu/qt5/bin
+    NO_DEFAULT_PATH
+    DOC "Qt lrelease translation compiler"
 )
+if(NOT LRELEASE_EXECUTABLE)
+    find_program(LRELEASE_EXECUTABLE NAMES lrelease lrelease-qt6 lrelease-qt5)
+endif()
+
+set(ENGAUGE_QM_FILES "")
+if(LRELEASE_EXECUTABLE)
+    foreach(_ts ${ENGAUGE_TRANSLATIONS})
+        get_filename_component(_qm_base "${_ts}" NAME_WE)
+        set(_qm_file "${CMAKE_CURRENT_SOURCE_DIR}/translations/${_qm_base}.qm")
+        add_custom_command(
+            OUTPUT  "${_qm_file}"
+            COMMAND "${LRELEASE_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/${_ts}" -qm "${_qm_file}"
+            DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${_ts}"
+            COMMENT "Compiling translation ${_ts}"
+            VERBATIM
+        )
+        list(APPEND ENGAUGE_QM_FILES "${_qm_file}")
+    endforeach()
+else()
+    message(WARNING "lrelease not found; translations will not be compiled")
+endif()
+
+add_custom_target(engauge_translations ALL DEPENDS ${ENGAUGE_QM_FILES})
 
 # ---------------------------------------------------------------------------
 # Executable target
@@ -653,9 +695,21 @@ install(TARGETS engauge
     BUNDLE  DESTINATION .
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
-qt_generate_deploy_app_script(
-    TARGET engauge
-    OUTPUT_SCRIPT deploy_script
-    NO_UNSUPPORTED_PLATFORM_ERROR
+
+# Install .qm translation files alongside the binary
+install(FILES ${ENGAUGE_QM_FILES}
+    DESTINATION ${CMAKE_INSTALL_BINDIR}/translations
 )
-install(SCRIPT ${deploy_script})
+
+# Copy .qm files to the build-tree translations/ dir so the app works when run directly
+foreach(_qm ${ENGAUGE_QM_FILES})
+    add_custom_command(TARGET engauge_translations POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E make_directory
+            "$<TARGET_FILE_DIR:engauge>/translations"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${_qm}"
+            "$<TARGET_FILE_DIR:engauge>/translations/"
+        VERBATIM
+    )
+endforeach()
+

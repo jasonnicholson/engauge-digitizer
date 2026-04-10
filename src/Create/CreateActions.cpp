@@ -15,6 +15,7 @@
 #include "Logger.h"
 #include "MainWindow.h"
 #include <QAction>
+#include <QActionGroup>
 #include <QIcon>
 #include <QPixmap>
 #include <QWhatsThis>

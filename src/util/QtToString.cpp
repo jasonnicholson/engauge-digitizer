@@ -123,7 +123,6 @@ QString roleAsString (int role)
     rolesAsStringsLookupTable [Qt::AccessibleDescriptionRole] = "AccessibleDescriptionRole";
     rolesAsStringsLookupTable [Qt::AccessibleTextRole] = "AccessibleTextRole";
     rolesAsStringsLookupTable [Qt::BackgroundRole] = "BackgroundRole";
-    rolesAsStringsLookupTable [Qt::BackgroundColorRole] = "BackgroundColorRole";
     rolesAsStringsLookupTable [Qt::CheckStateRole] = "CheckStateRole";
     rolesAsStringsLookupTable [Qt::DecorationRole] = "DecorationRole";
     rolesAsStringsLookupTable [Qt::DisplayRole] = "DisplayRole";
@@ -134,7 +133,6 @@ QString roleAsString (int role)
     rolesAsStringsLookupTable [Qt::SizeHintRole] = "SizeHintRole";
     rolesAsStringsLookupTable [Qt::StatusTipRole] = "StatusTipRole";
     rolesAsStringsLookupTable [Qt::TextAlignmentRole] = "TextAlignmentRole";
-    rolesAsStringsLookupTable [Qt::TextColorRole] = "TextColorRole";
     rolesAsStringsLookupTable [Qt::ToolTipRole] = "ToolTipRole";
     rolesAsStringsLookupTable [Qt::UserRole] = "UserRole";
     rolesAsStringsLookupTable [Qt::WhatsThisRole] = "WhatsThisRole";

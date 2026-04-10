@@ -358,7 +358,7 @@ void DlgSettingsMainWindow::loadMainWindowModel (CmdMediator &cmdMediator,
   index = m_cmbLocale->findText (locLabel);
   if (index < 0) {
     // Somehow an invalid locale is selected. Fix it by setting to default
-    locLabel = QLocaleToString (QLocale::system().name());
+    locLabel = QLocaleToString (QLocale::system());
     index = m_cmbLocale->findText (locLabel);
   }
   m_cmbLocale->setCurrentIndex(index);
