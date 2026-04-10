@@ -79,7 +79,6 @@ class QGridLayout;
 class QMenu;
 class QPushButton;
 class QSettings;
-class QSignalMapper;
 class QTextStream;
 class QTimer;
 class QToolBar;
@@ -595,7 +594,6 @@ private:
   QAction *m_actionZoomOut;
   QAction *m_actionZoomIn;
   QActionGroup *m_groupZoom;
-  QSignalMapper *m_mapperZoomFactor;
   QAction *m_actionZoomFill;
   QAction *m_actionZoom16To1;
   QAction *m_actionZoom16To1Farther;

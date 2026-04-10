@@ -3,9 +3,9 @@ Build and Release
 
 Distribution direction:
 
-- **Windows** — static cross-build via MXE toolchain; produces a single portable ``.exe``
-- **Linux (distro Qt)** — dynamically linked against the OS Qt5 packages; simple and fast
-- **Linux (almost-static)** — linked against a self-built static Qt; portable across distros
+- **Windows** — static cross-build via MXE toolchain with Qt6; produces a single portable ``.exe``
+- **Linux (distro Qt)** — dynamically linked against the OS Qt6 packages; simple and fast
+- **Linux (almost-static)** — linked against a self-built Qt6 install; portable across distros
 
 Building from Source
 --------------------
@@ -15,22 +15,19 @@ Linux — distro Qt (quick build)
 
 Install dependencies::
 
-   sudo apt install qtbase5-dev qtbase5-dev-tools qttools5-dev qttools5-dev-tools \
-                    libfftw3-dev libjpeg-dev
+   sudo apt install qt6-base-dev qt6-tools-dev qt6-tools-dev-tools qt6-l10n-tools \
+                    libfftw3-dev libjpeg-dev cmake
 
 Build::
 
    bash build_linux_systemqt.sh
 
-Binary: ``build-linux-systemqt/bin/engauge``
+Binary: ``build-linux-systemqt/engauge``
 
-The script auto-detects ``x86_64-linux-gnu-qmake`` or ``qmake-qt5``. Override
-with ``QMAKE_BIN`` if needed.
+Linux — almost-static Qt6 (portable build)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Linux — almost-static Qt (portable build)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Builds against a custom Qt install (for example ``/opt/qt-5.15.17-linux``),
+Builds against a custom Qt6 install (for example ``/opt/qt6-linux``),
 then bundles Qt ``.so`` libraries and plugins next to the executable. This
 removes runtime dependency on distro Qt packages while still relying on core
 system libraries (``glibc``, X11, OpenGL, etc.).
@@ -43,25 +40,24 @@ Build and package::
 
    bash build_linux_almoststaticqt.sh
 
-Binary: ``build-linux-almoststaticqt/bin/engauge``
+Binary: ``build-linux-almoststaticqt/engauge``
 Tarball: ``dist/engauge-linux-almoststatic-x86_64.tar.gz``
 Bundle root: ``dist/almoststatic-linux-x86_64``
 
-Set ``QT_PREFIX`` (or ``QMAKE_BIN``) if your Qt install is not under
-``/opt/qt-5.15.17-linux``.
+Set ``QT_PREFIX`` if your Qt6 install is not under ``/opt/qt6-linux``.
 
-Windows (MXE cross-compile)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Windows (MXE cross-compile with Qt6)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 From repository root::
 
    ./build_windows_mxe.sh
 
-Requires MXE with the Qt5 static x86_64 target. ``MXE_ROOT`` must be set to
-your MXE installation directory. See ``build_windows_mxe.sh`` for all
-overridable variables.
+Requires MXE built with Qt6 and CMake support for the x86_64 static target.
+``MXE_ROOT`` must be set to your MXE installation directory.
+See ``build_windows_mxe.sh`` for all overridable variables.
 
-Binary: ``build-win-mxe/bin/engauge.exe``
+Binary: ``build-win-mxe/engauge.exe``
 
 Tests
 -----
@@ -82,8 +78,8 @@ Packaging Artifacts
 From repository root::
 
    mkdir -p dist
-   cp build-win-mxe/bin/engauge.exe dist/engauge-windows-x86_64.exe
-   cp build-linux-systemqt/bin/engauge dist/engauge-linux-x86_64
+   cp build-win-mxe/engauge.exe dist/engauge-windows-x86_64.exe
+   cp build-linux-systemqt/engauge dist/engauge-linux-x86_64
 
    cd dist
    sha256sum engauge-windows-x86_64.exe engauge-linux-x86_64 > SHA256SUMS.txt

@@ -17,7 +17,6 @@
 #include <QAction>
 #include <QIcon>
 #include <QPixmap>
-#include <QSignalMapper>
 #include <QWhatsThis>
 
 CreateActions::CreateActions()
@@ -608,167 +607,138 @@ void CreateActions::createView (MainWindow &mw)
   // setShortCut is called by updateSettingsCreateActions
   connect (mw.m_actionZoomIn, SIGNAL (triggered ()), &mw, SLOT (slotViewZoomIn ()));
 
-  mw.m_mapperZoomFactor = new QSignalMapper (&mw);
-  connect (mw.m_mapperZoomFactor, SIGNAL (mapped (int)), &mw, SLOT (slotViewZoomFactorInt (int)));
-
   mw.m_actionZoom16To1 = new QAction (tr ("16:1 (1600%)"), &mw);
   mw.m_actionZoom16To1->setCheckable (true);
   mw.m_actionZoom16To1->setStatusTip (tr ("Zoom 16:1"));
-  connect (mw.m_actionZoom16To1, SIGNAL (triggered ()), mw.m_mapperZoomFactor, SLOT (map ()));
-  mw.m_mapperZoomFactor->setMapping (mw.m_actionZoom16To1, ZOOM_16_TO_1);
+  connect (mw.m_actionZoom16To1, &QAction::triggered, &mw, [&mw] { mw.slotViewZoomFactorInt (ZOOM_16_TO_1); });
 
   mw.m_actionZoom16To1Farther = new QAction (tr ("16:1 farther (1270%)"), &mw);
   mw.m_actionZoom16To1Farther->setCheckable (true);
   mw.m_actionZoom16To1Farther->setStatusTip (tr ("Zoom 12.7:1"));
-  connect (mw.m_actionZoom16To1Farther, SIGNAL (triggered ()), mw.m_mapperZoomFactor, SLOT (map ()));
-  mw.m_mapperZoomFactor->setMapping (mw.m_actionZoom16To1Farther, ZOOM_16_TO_1_FARTHER);
+  connect (mw.m_actionZoom16To1Farther, &QAction::triggered, &mw, [&mw] { mw.slotViewZoomFactorInt (ZOOM_16_TO_1_FARTHER); });
 
   mw.m_actionZoom8To1Closer = new QAction (tr ("8:1 closer (1008%)"), &mw);
   mw.m_actionZoom8To1Closer->setCheckable (true);
   mw.m_actionZoom8To1Closer->setStatusTip (tr ("Zoom 10.08:1"));
-  connect (mw.m_actionZoom8To1Closer, SIGNAL (triggered ()), mw.m_mapperZoomFactor, SLOT (map ()));
-  mw.m_mapperZoomFactor->setMapping (mw.m_actionZoom8To1Closer, ZOOM_8_TO_1_CLOSER);
+  connect (mw.m_actionZoom8To1Closer, &QAction::triggered, &mw, [&mw] { mw.slotViewZoomFactorInt (ZOOM_8_TO_1_CLOSER); });
 
   mw.m_actionZoom8To1 = new QAction (tr ("8:1 (800%)"), &mw);
   mw.m_actionZoom8To1->setCheckable (true);
   mw.m_actionZoom8To1->setStatusTip (tr ("Zoom 8:1"));
-  connect (mw.m_actionZoom8To1, SIGNAL (triggered ()), mw.m_mapperZoomFactor, SLOT (map ()));
-  mw.m_mapperZoomFactor->setMapping (mw.m_actionZoom8To1, ZOOM_8_TO_1);
+  connect (mw.m_actionZoom8To1, &QAction::triggered, &mw, [&mw] { mw.slotViewZoomFactorInt (ZOOM_8_TO_1); });
 
   mw.m_actionZoom8To1Farther = new QAction (tr ("8:1 farther (635%)"), &mw);
   mw.m_actionZoom8To1Farther->setCheckable (true);
   mw.m_actionZoom8To1Farther->setStatusTip (tr ("Zoom 6.35:1"));
-  connect (mw.m_actionZoom8To1Farther, SIGNAL (triggered ()), mw.m_mapperZoomFactor, SLOT (map ()));
-  mw.m_mapperZoomFactor->setMapping (mw.m_actionZoom8To1Farther, ZOOM_8_TO_1_FARTHER);
+  connect (mw.m_actionZoom8To1Farther, &QAction::triggered, &mw, [&mw] { mw.slotViewZoomFactorInt (ZOOM_8_TO_1_FARTHER); });
 
   mw.m_actionZoom4To1Closer = new QAction (tr ("4:1 closer (504%)"), &mw);
   mw.m_actionZoom4To1Closer->setCheckable (true);
   mw.m_actionZoom4To1Closer->setStatusTip (tr ("Zoom 5.04:1"));
-  connect (mw.m_actionZoom4To1Closer, SIGNAL (triggered ()), mw.m_mapperZoomFactor, SLOT (map ()));
-  mw.m_mapperZoomFactor->setMapping (mw.m_actionZoom4To1Closer, ZOOM_4_TO_1_CLOSER);
+  connect (mw.m_actionZoom4To1Closer, &QAction::triggered, &mw, [&mw] { mw.slotViewZoomFactorInt (ZOOM_4_TO_1_CLOSER); });
 
   mw.m_actionZoom4To1 = new QAction (tr ("4:1 (400%)"), &mw);
   mw.m_actionZoom4To1->setCheckable (true);
   mw.m_actionZoom4To1->setStatusTip (tr ("Zoom 4:1"));
-  connect (mw.m_actionZoom4To1, SIGNAL (triggered ()), mw.m_mapperZoomFactor, SLOT (map ()));
-  mw.m_mapperZoomFactor->setMapping (mw.m_actionZoom4To1, ZOOM_4_TO_1);
+  connect (mw.m_actionZoom4To1, &QAction::triggered, &mw, [&mw] { mw.slotViewZoomFactorInt (ZOOM_4_TO_1); });
 
   mw.m_actionZoom4To1Farther = new QAction (tr ("4:1 farther (317%)"), &mw);
   mw.m_actionZoom4To1Farther->setCheckable (true);
   mw.m_actionZoom4To1Farther->setStatusTip (tr ("Zoom 3.17:1"));
-  connect (mw.m_actionZoom4To1Farther, SIGNAL (triggered ()), mw.m_mapperZoomFactor, SLOT (map ()));
-  mw.m_mapperZoomFactor->setMapping (mw.m_actionZoom4To1Farther, ZOOM_4_TO_1_FARTHER);
+  connect (mw.m_actionZoom4To1Farther, &QAction::triggered, &mw, [&mw] { mw.slotViewZoomFactorInt (ZOOM_4_TO_1_FARTHER); });
 
   mw.m_actionZoom2To1Closer = new QAction (tr ("2:1 closer (252%)"), &mw);
   mw.m_actionZoom2To1Closer->setCheckable (true);
   mw.m_actionZoom2To1Closer->setStatusTip (tr ("Zoom 2.52:1"));
-  connect (mw.m_actionZoom2To1Closer, SIGNAL (triggered ()), mw.m_mapperZoomFactor, SLOT (map ()));
-  mw.m_mapperZoomFactor->setMapping (mw.m_actionZoom2To1Closer, ZOOM_2_TO_1_CLOSER);
+  connect (mw.m_actionZoom2To1Closer, &QAction::triggered, &mw, [&mw] { mw.slotViewZoomFactorInt (ZOOM_2_TO_1_CLOSER); });
 
   mw.m_actionZoom2To1 = new QAction (tr ("2:1 (200%)"), &mw);
   mw.m_actionZoom2To1->setCheckable (true);
   mw.m_actionZoom2To1->setStatusTip (tr ("Zoom 2:1"));
-  connect (mw.m_actionZoom2To1, SIGNAL (triggered ()), mw.m_mapperZoomFactor, SLOT (map ()));
-  mw.m_mapperZoomFactor->setMapping (mw.m_actionZoom2To1, ZOOM_2_TO_1);
+  connect (mw.m_actionZoom2To1, &QAction::triggered, &mw, [&mw] { mw.slotViewZoomFactorInt (ZOOM_2_TO_1); });
 
   mw.m_actionZoom2To1Farther = new QAction (tr ("2:1 farther (159%)"), &mw);
   mw.m_actionZoom2To1Farther->setCheckable (true);
   mw.m_actionZoom2To1Farther->setStatusTip (tr ("Zoom 1.59:1"));
-  connect (mw.m_actionZoom2To1Farther, SIGNAL (triggered ()), mw.m_mapperZoomFactor, SLOT (map ()));
-  mw.m_mapperZoomFactor->setMapping (mw.m_actionZoom2To1Farther, ZOOM_2_TO_1_FARTHER);
+  connect (mw.m_actionZoom2To1Farther, &QAction::triggered, &mw, [&mw] { mw.slotViewZoomFactorInt (ZOOM_2_TO_1_FARTHER); });
 
   mw.m_actionZoom1To1Closer = new QAction (tr ("1:1 closer (126%)"), &mw);
   mw.m_actionZoom1To1Closer->setCheckable (true);
   mw.m_actionZoom1To1Closer->setChecked (true);
   mw.m_actionZoom1To1Closer->setStatusTip (tr ("Zoom 1.3:1"));
-  connect (mw.m_actionZoom1To1Closer, SIGNAL (triggered ()), mw.m_mapperZoomFactor, SLOT (map ()));
-  mw.m_mapperZoomFactor->setMapping (mw.m_actionZoom1To1Closer, ZOOM_1_TO_1_CLOSER);
+  connect (mw.m_actionZoom1To1Closer, &QAction::triggered, &mw, [&mw] { mw.slotViewZoomFactorInt (ZOOM_1_TO_1_CLOSER); });
 
   mw.m_actionZoom1To1 = new QAction (tr ("1:1 (100%)"), &mw);
   mw.m_actionZoom1To1->setCheckable (true);
   mw.m_actionZoom1To1->setChecked (true);
   mw.m_actionZoom1To1->setStatusTip (tr ("Zoom 1:1"));
-  connect (mw.m_actionZoom1To1, SIGNAL (triggered ()), mw.m_mapperZoomFactor, SLOT (map ()));
-  mw.m_mapperZoomFactor->setMapping (mw.m_actionZoom1To1, ZOOM_1_TO_1);
+  connect (mw.m_actionZoom1To1, &QAction::triggered, &mw, [&mw] { mw.slotViewZoomFactorInt (ZOOM_1_TO_1); });
 
   mw.m_actionZoom1To1Farther = new QAction (tr ("1:1 farther (79%)"), &mw);
   mw.m_actionZoom1To1Farther->setCheckable (true);
   mw.m_actionZoom1To1Farther->setChecked (true);
   mw.m_actionZoom1To1Farther->setStatusTip (tr ("Zoom 0.8:1"));
-  connect (mw.m_actionZoom1To1Farther, SIGNAL (triggered ()), mw.m_mapperZoomFactor, SLOT (map ()));
-  mw.m_mapperZoomFactor->setMapping (mw.m_actionZoom1To1Farther, ZOOM_1_TO_1_FARTHER);
+  connect (mw.m_actionZoom1To1Farther, &QAction::triggered, &mw, [&mw] { mw.slotViewZoomFactorInt (ZOOM_1_TO_1_FARTHER); });
 
   mw.m_actionZoom1To2Closer = new QAction (tr ("1:2 closer (63%)"), &mw);
   mw.m_actionZoom1To2Closer->setCheckable (true);
   mw.m_actionZoom1To2Closer->setStatusTip (tr ("Zoom 1.3:2"));
-  connect (mw.m_actionZoom1To2Closer, SIGNAL (triggered ()), mw.m_mapperZoomFactor, SLOT (map ()));
-  mw.m_mapperZoomFactor->setMapping (mw.m_actionZoom1To2Closer, ZOOM_1_TO_2_CLOSER);
+  connect (mw.m_actionZoom1To2Closer, &QAction::triggered, &mw, [&mw] { mw.slotViewZoomFactorInt (ZOOM_1_TO_2_CLOSER); });
 
   mw.m_actionZoom1To2 = new QAction (tr ("1:2 (50%)"), &mw);
   mw.m_actionZoom1To2->setCheckable (true);
   mw.m_actionZoom1To2->setStatusTip (tr ("Zoom 1:2"));
-  connect (mw.m_actionZoom1To2, SIGNAL (triggered ()), mw.m_mapperZoomFactor, SLOT (map ()));
-  mw.m_mapperZoomFactor->setMapping (mw.m_actionZoom1To2, ZOOM_1_TO_2);
+  connect (mw.m_actionZoom1To2, &QAction::triggered, &mw, [&mw] { mw.slotViewZoomFactorInt (ZOOM_1_TO_2); });
 
   mw.m_actionZoom1To2Farther = new QAction (tr ("1:2 farther (40%)"), &mw);
   mw.m_actionZoom1To2Farther->setCheckable (true);
   mw.m_actionZoom1To2Farther->setStatusTip (tr ("Zoom 0.8:2"));
-  connect (mw.m_actionZoom1To2Farther, SIGNAL (triggered ()), mw.m_mapperZoomFactor, SLOT (map ()));
-  mw.m_mapperZoomFactor->setMapping (mw.m_actionZoom1To2Farther, ZOOM_1_TO_2_FARTHER);
+  connect (mw.m_actionZoom1To2Farther, &QAction::triggered, &mw, [&mw] { mw.slotViewZoomFactorInt (ZOOM_1_TO_2_FARTHER); });
 
   mw.m_actionZoom1To4Closer = new QAction (tr ("1:4 closer (31%)"), &mw);
   mw.m_actionZoom1To4Closer->setCheckable (true);
   mw.m_actionZoom1To4Closer->setStatusTip (tr ("Zoom 1.3:4"));
-  connect (mw.m_actionZoom1To4Closer, SIGNAL (triggered ()), mw.m_mapperZoomFactor, SLOT (map ()));
-  mw.m_mapperZoomFactor->setMapping (mw.m_actionZoom1To4Closer, ZOOM_1_TO_4_CLOSER);
+  connect (mw.m_actionZoom1To4Closer, &QAction::triggered, &mw, [&mw] { mw.slotViewZoomFactorInt (ZOOM_1_TO_4_CLOSER); });
 
   mw.m_actionZoom1To4 = new QAction (tr ("1:4 (25%)"), &mw);
   mw.m_actionZoom1To4->setCheckable (true);
   mw.m_actionZoom1To4->setStatusTip (tr ("Zoom 1:4"));
-  connect (mw.m_actionZoom1To4, SIGNAL (triggered ()), mw.m_mapperZoomFactor, SLOT (map ()));
-  mw.m_mapperZoomFactor->setMapping (mw.m_actionZoom1To4, ZOOM_1_TO_4);
+  connect (mw.m_actionZoom1To4, &QAction::triggered, &mw, [&mw] { mw.slotViewZoomFactorInt (ZOOM_1_TO_4); });
 
   mw.m_actionZoom1To4Farther = new QAction (tr ("1:4 farther (20%)"), &mw);
   mw.m_actionZoom1To4Farther->setCheckable (true);
   mw.m_actionZoom1To4Farther->setStatusTip (tr ("Zoom 0.8:4"));
-  connect (mw.m_actionZoom1To4Farther, SIGNAL (triggered ()), mw.m_mapperZoomFactor, SLOT (map ()));
-  mw.m_mapperZoomFactor->setMapping (mw.m_actionZoom1To4Farther, ZOOM_1_TO_4_FARTHER);
+  connect (mw.m_actionZoom1To4Farther, &QAction::triggered, &mw, [&mw] { mw.slotViewZoomFactorInt (ZOOM_1_TO_4_FARTHER); });
 
   mw.m_actionZoom1To8Closer = new QAction (tr ("1:8 closer (12.5%)"), &mw);
   mw.m_actionZoom1To8Closer->setCheckable (true);
   mw.m_actionZoom1To8Closer->setStatusTip (tr ("Zoom 1:8"));
-  connect (mw.m_actionZoom1To8Closer, SIGNAL (triggered ()), mw.m_mapperZoomFactor, SLOT (map ()));
-  mw.m_mapperZoomFactor->setMapping (mw.m_actionZoom1To8Closer, ZOOM_1_TO_8_CLOSER);
+  connect (mw.m_actionZoom1To8Closer, &QAction::triggered, &mw, [&mw] { mw.slotViewZoomFactorInt (ZOOM_1_TO_8_CLOSER); });
 
   mw.m_actionZoom1To8 = new QAction (tr ("1:8 (12.5%)"), &mw);
   mw.m_actionZoom1To8->setCheckable (true);
   mw.m_actionZoom1To8->setStatusTip (tr ("Zoom 1:8"));
-  connect (mw.m_actionZoom1To8, SIGNAL (triggered ()), mw.m_mapperZoomFactor, SLOT (map ()));
-  mw.m_mapperZoomFactor->setMapping (mw.m_actionZoom1To8, ZOOM_1_TO_8);
+  connect (mw.m_actionZoom1To8, &QAction::triggered, &mw, [&mw] { mw.slotViewZoomFactorInt (ZOOM_1_TO_8); });
 
   mw.m_actionZoom1To8Farther = new QAction (tr ("1:8 farther (10%)"), &mw);
   mw.m_actionZoom1To8Farther->setCheckable (true);
   mw.m_actionZoom1To8Farther->setStatusTip (tr ("Zoom 0.8:8"));
-  connect (mw.m_actionZoom1To8Farther, SIGNAL (triggered ()), mw.m_mapperZoomFactor, SLOT (map ()));
-  mw.m_mapperZoomFactor->setMapping (mw.m_actionZoom1To8Farther, ZOOM_1_TO_8_FARTHER);
+  connect (mw.m_actionZoom1To8Farther, &QAction::triggered, &mw, [&mw] { mw.slotViewZoomFactorInt (ZOOM_1_TO_8_FARTHER); });
 
   mw.m_actionZoom1To16Closer = new QAction (tr ("1:16 closer (8%)"), &mw);
   mw.m_actionZoom1To16Closer->setCheckable (true);
   mw.m_actionZoom1To16Closer->setStatusTip (tr ("Zoom 1.3:16"));
-  connect (mw.m_actionZoom1To16Closer, SIGNAL (triggered ()), mw.m_mapperZoomFactor, SLOT (map ()));
-  mw.m_mapperZoomFactor->setMapping (mw.m_actionZoom1To16Closer, ZOOM_1_TO_16_CLOSER);
+  connect (mw.m_actionZoom1To16Closer, &QAction::triggered, &mw, [&mw] { mw.slotViewZoomFactorInt (ZOOM_1_TO_16_CLOSER); });
 
   mw.m_actionZoom1To16 = new QAction (tr ("1:16 (6.25%)"), &mw);
   mw.m_actionZoom1To16->setCheckable (true);
   mw.m_actionZoom1To16->setStatusTip (tr ("Zoom 1:16"));
-  connect (mw.m_actionZoom1To16, SIGNAL (triggered ()), mw.m_mapperZoomFactor, SLOT (map ()));
-  mw.m_mapperZoomFactor->setMapping (mw.m_actionZoom1To16, ZOOM_1_TO_16);
+  connect (mw.m_actionZoom1To16, &QAction::triggered, &mw, [&mw] { mw.slotViewZoomFactorInt (ZOOM_1_TO_16); });
 
   mw.m_actionZoomFill = new QAction (tr ("Fill"), &mw);
   mw.m_actionZoomFill->setCheckable (true);
   mw.m_actionZoomFill->setStatusTip (tr ("Zoom with stretching to fill window"));
-  connect (mw.m_actionZoomFill, SIGNAL (triggered ()), mw.m_mapperZoomFactor, SLOT (map ()));
-  mw.m_mapperZoomFactor->setMapping (mw.m_actionZoomFill, ZOOM_FILL);
+  connect (mw.m_actionZoomFill, &QAction::triggered, &mw, [&mw] { mw.slotViewZoomFactorInt (ZOOM_FILL); });
 
   mw.m_groupZoom = new QActionGroup (&mw);
   mw.m_groupZoom->addAction (mw.m_actionZoom16To1);

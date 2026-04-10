@@ -11,6 +11,7 @@
 #include "EngaugeAssert.h"
 #include "Logger.h"
 #include <QDebug>
+#include <QRegularExpression>
 
 const int MIN_WIDTH_BROWSER = 340; // Make just big enough that each "More..." appears on same line
 
@@ -83,7 +84,7 @@ void ChecklistGuideBrowser::divHide (QString &html,
                        .arg (TAG_DIV_DELIMITER_START_SLASH)
                        .arg (anchor)
                        .arg (TAG_DIV_DELIMITER_END);
-  QRegExp regExp  (expression);
+  QRegularExpression regExp  (expression);
   html.replace (regExp, "");
 }
 
@@ -104,8 +105,8 @@ void ChecklistGuideBrowser::divShow (QString &html,
                             .arg (TAG_DIV_DELIMITER_START_SLASH)
                             .arg (anchor)
                             .arg (TAG_DIV_DELIMITER_END);
-    QRegExp regExpStart (expressionStart);
-    QRegExp regExpEnd (expressionEnd);
+    QRegularExpression regExpStart (expressionStart);
+    QRegularExpression regExpEnd (expressionEnd);
     html.replace (regExpStart, "");
     html.replace (regExpEnd, "");
   }
