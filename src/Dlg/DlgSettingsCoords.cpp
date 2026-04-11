@@ -229,14 +229,14 @@ void DlgSettingsCoords::createDateTime (QGridLayout *layout,
   m_cmbDate->setWhatsThis (tr ("Date format to be used for date values, and date portion of mixed date/time values, "
                                "during input and output.\n\n"
                                "Setting the format to an empty value results in just the time portion appearing in output."));
-  connect (m_cmbDate, SIGNAL (activated (const QString &)), this, SLOT (slotDate (const QString &)));
+  connect (m_cmbDate, SIGNAL (activated (int)), this, SLOT (slotDate (int)));
   layoutCombos->addWidget (m_cmbDate);
 
   m_cmbTime = new QComboBox;
   m_cmbTime->setWhatsThis (tr ("Time format to be used for time values, and time portion of mixed date/time values, "
                                "during input and output.\n\n"
                                "Setting the format to an empty value results in just the date portion appearing in output."));
-  connect (m_cmbTime, SIGNAL (activated (const QString &)), this, SLOT (slotTime (const QString &)));
+  connect (m_cmbTime, SIGNAL (activated (int)), this, SLOT (slotTime (int)));
   layoutCombos->addWidget (m_cmbTime);
 }
 
@@ -297,7 +297,7 @@ void DlgSettingsCoords::createGroupXTheta (QGridLayout *layout,
   layoutXTheta->addWidget (labelThetaUnits, rowGroup++, COLUMN_0);
 
   m_cmbXThetaUnits = new QComboBox;
-  connect (m_cmbXThetaUnits, SIGNAL (activated (const QString &)), this, SLOT (slotUnitsXTheta(const QString &))); // activated() ignores code changes
+  connect (m_cmbXThetaUnits, SIGNAL (activated (int)), this, SLOT (slotUnitsXTheta (int))); // activated() ignores code changes
   layoutXTheta->addWidget (m_cmbXThetaUnits, rowGroup++, COLUMN_0, 1, 2);
 }
 
@@ -342,7 +342,7 @@ void DlgSettingsCoords::createGroupYRadius (QGridLayout *layout,
   layoutYRadius->addWidget (labelUnits, rowGroup++, COLUMN_0);
   
   m_cmbYRadiusUnits = new QComboBox;
-  connect (m_cmbYRadiusUnits, SIGNAL (activated (const QString &)), this, SLOT (slotUnitsYRadius(const QString &))); // activated() ignores code changes
+  connect (m_cmbYRadiusUnits, SIGNAL (activated (int)), this, SLOT (slotUnitsYRadius (int))); // activated() ignores code changes
   layoutYRadius->addWidget (m_cmbYRadiusUnits, rowGroup++, COLUMN_0, 1, 2);
 }
 
@@ -751,7 +751,7 @@ void DlgSettingsCoords::slotCartesianPolar (bool)
   updatePreview();
 }
 
-void DlgSettingsCoords::slotDate(const QString &)
+void DlgSettingsCoords::slotDate(int)
 {
   LOG4CPP_INFO_S ((*mainCat)) << "DlgSettingsCoords::slotDate";
 
@@ -772,7 +772,7 @@ void DlgSettingsCoords::slotPolarOriginRadius(const QString &)
   updatePreview();
 }
 
-void DlgSettingsCoords::slotTime(const QString &)
+void DlgSettingsCoords::slotTime(int)
 {
   LOG4CPP_INFO_S ((*mainCat)) << "DlgSettingsCoords::slotTime";
 
@@ -782,7 +782,7 @@ void DlgSettingsCoords::slotTime(const QString &)
   updatePreview();
 }
 
-void DlgSettingsCoords::slotUnitsXTheta(const QString &)
+void DlgSettingsCoords::slotUnitsXTheta(int)
 {
   LOG4CPP_INFO_S ((*mainCat)) << "DlgSettingsCoords::slotUnitsXTheta";
 
@@ -797,7 +797,7 @@ void DlgSettingsCoords::slotUnitsXTheta(const QString &)
   updatePreview();
 }
 
-void DlgSettingsCoords::slotUnitsYRadius(const QString &)
+void DlgSettingsCoords::slotUnitsYRadius(int)
 {
   LOG4CPP_INFO_S ((*mainCat)) << "DlgSettingsCoords::slotUnitsYRadius";
 

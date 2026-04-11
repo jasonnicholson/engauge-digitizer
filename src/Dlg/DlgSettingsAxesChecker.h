@@ -37,8 +37,8 @@ public:
 
 private slots:
   void slotGroupMode (QAbstractButton*);
-  void slotLineColor(const QString &);
-  void slotSeconds (const QString &);
+  void slotLineColor(int);
+  void slotSeconds (int);
 
 protected:
   virtual void handleOk ();

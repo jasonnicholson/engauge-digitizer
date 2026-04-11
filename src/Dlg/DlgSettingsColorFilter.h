@@ -52,7 +52,7 @@ signals:
                           double high);
 
 private slots:
-  void slotCurveName(const QString &curveName);
+  void slotCurveName(int);
   void slotDividerHigh (double);
   void slotDividerLow (double);
   void slotForeground();

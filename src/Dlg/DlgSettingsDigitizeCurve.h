@@ -39,9 +39,9 @@ public:
 
 private slots:
   void slotCursorCustom (bool);
-  void slotCursorInnerRadius (const QString &);
-  void slotCursorLineWidth (const QString &);
-  void slotCursorSize (const QString &);
+  void slotCursorInnerRadius (int);
+  void slotCursorLineWidth (int);
+  void slotCursorSize (int);
   void slotCursorStandard (bool);
 
 protected:

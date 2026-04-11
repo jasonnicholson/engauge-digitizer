@@ -38,13 +38,13 @@ private slots:
   void slotRemoveGridLines (int);
   void slotCloseDistance(const QString &);
 
-  void slotDisableX(const QString &);
+  void slotDisableX(int);
   void slotCountX(const QString &);
   void slotStartX(const QString &);
   void slotStepX(const QString &);
   void slotStopX(const QString &);
 
-  void slotDisableY(const QString &);
+  void slotDisableY(int);
   void slotCountY(const QString &);
   void slotStartY(const QString &);
   void slotStepY(const QString &);

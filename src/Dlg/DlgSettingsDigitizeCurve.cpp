@@ -94,7 +94,7 @@ void DlgSettingsDigitizeCurve::createControls (QGridLayout *layout,
   ENGAUGE_ASSERT (m_cmbSize->count() == NUM_CURSOR_SIZES);
   m_cmbSize->setWhatsThis (tr ("Horizontal and vertical size of the cursor in pixels"));
   layoutCursor->addWidget (m_cmbSize, rowCursor++, 1);
-  connect (m_cmbSize, SIGNAL (currentIndexChanged (const QString &)), this, SLOT (slotCursorSize (const QString &)));
+  connect (m_cmbSize, SIGNAL (currentIndexChanged (int)), this, SLOT (slotCursorSize (int)));
 
   QLabel *labelInnerRadius = new QLabel(QString ("%1:").arg (tr ("Inner radius (pixels)")));
   layoutCursor->addWidget (labelInnerRadius, rowCursor, 0);
@@ -103,7 +103,7 @@ void DlgSettingsDigitizeCurve::createControls (QGridLayout *layout,
   m_spinInnerRadius->setRange (INNER_RADIUS_MIN, INNER_RADIUS_MAX);
   m_spinInnerRadius->setWhatsThis (tr ("Radius of circle at the center of the cursor that will remain empty"));
   layoutCursor->addWidget (m_spinInnerRadius, rowCursor++, 1);
-  connect (m_spinInnerRadius, SIGNAL (valueChanged(const QString &)), this, SLOT (slotCursorInnerRadius (const QString &)));
+  connect (m_spinInnerRadius, SIGNAL (valueChanged (int)), this, SLOT (slotCursorInnerRadius (int)));
 
   QLabel *labelLineWidth = new QLabel(QString ("%1:").arg (tr ("Line width (pixels)")));
   layoutCursor->addWidget (labelLineWidth, rowCursor, 0);
@@ -112,7 +112,7 @@ void DlgSettingsDigitizeCurve::createControls (QGridLayout *layout,
   m_spinLineWidth->setRange (LINE_WIDTH_MIN, LINE_WIDTH_MAX);
   m_spinLineWidth->setWhatsThis (tr ("Width of each arm of the cross of the cursor"));
   layoutCursor->addWidget (m_spinLineWidth, rowCursor++, 1);
-  connect (m_spinLineWidth, SIGNAL (valueChanged(const QString &)), this, SLOT (slotCursorLineWidth (const QString &)));
+  connect (m_spinLineWidth, SIGNAL (valueChanged (int)), this, SLOT (slotCursorLineWidth (int)));
 }
 
 void DlgSettingsDigitizeCurve::createOptionalSaveDefault (QHBoxLayout * /* layout */)
@@ -227,7 +227,7 @@ void DlgSettingsDigitizeCurve::slotCursorCustom (bool)
   updatePreview();
 }
 
-void DlgSettingsDigitizeCurve::slotCursorInnerRadius (const QString &)
+void DlgSettingsDigitizeCurve::slotCursorInnerRadius (int)
 {
   LOG4CPP_INFO_S ((*mainCat)) << "DlgSettingsDigitizeCurve::slotCursorInnerRadius";
 
@@ -236,7 +236,7 @@ void DlgSettingsDigitizeCurve::slotCursorInnerRadius (const QString &)
   updatePreview();
 }
 
-void DlgSettingsDigitizeCurve::slotCursorLineWidth (const QString &)
+void DlgSettingsDigitizeCurve::slotCursorLineWidth (int)
 {
   LOG4CPP_INFO_S ((*mainCat)) << "DlgSettingsDigitizeCurve::slotCursorLineWidth";
 
@@ -245,7 +245,7 @@ void DlgSettingsDigitizeCurve::slotCursorLineWidth (const QString &)
   updatePreview();
 }
 
-void DlgSettingsDigitizeCurve::slotCursorSize (const QString &)
+void DlgSettingsDigitizeCurve::slotCursorSize (int)
 {
   LOG4CPP_INFO_S ((*mainCat)) << "DlgSettingsDigitizeCurve::slotCursorSize";
 

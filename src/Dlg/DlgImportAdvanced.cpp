@@ -56,7 +56,7 @@ QWidget *DlgImportAdvanced::createSubPanel ()
                                             "Specifies the total number of coordinate systems that will be used in the imported image. "
                                             "There can be one or more graphs in the image, and each graph can have one or more "
                                             "coordinate systems. Each coordinate system is defined by a pair of coordinate axes."));
-  connect (m_spinCoordSystemCount, SIGNAL (valueChanged (const QString &)), this, SLOT (slotCoordSystemCount (const QString &)));
+  connect (m_spinCoordSystemCount, SIGNAL (valueChanged (int)), this, SLOT (slotCoordSystemCount (int)));
   layout->addWidget (m_spinCoordSystemCount, row++, 2);
 
   // Axes point count
@@ -133,7 +133,7 @@ void DlgImportAdvanced::slotAxesPointCount (bool)
   LOG4CPP_INFO_S ((*mainCat)) << "DlgCoordSystem::slotAxesPointCount";
 }
 
-void DlgImportAdvanced::slotCoordSystemCount (const QString &)
+void DlgImportAdvanced::slotCoordSystemCount (int)
 {
   LOG4CPP_INFO_S ((*mainCat)) << "DlgCoordSystem::slotImportAdvanced";
 }

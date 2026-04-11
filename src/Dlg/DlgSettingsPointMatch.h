@@ -36,11 +36,11 @@ public:
   virtual void setSmallDialogs (bool smallDialogs);
 
 private slots:
-  void slotAcceptedPointColor (const QString &);
-  void slotCandidatePointColor (const QString &);
+  void slotAcceptedPointColor (int);
+  void slotCandidatePointColor (int);
   void slotMaxPointSize (int);
   void slotMouseMove (QPointF pos);
-  void slotRejectedPointColor (const QString &);
+  void slotRejectedPointColor (int);
 
 protected:
   virtual void handleOk ();

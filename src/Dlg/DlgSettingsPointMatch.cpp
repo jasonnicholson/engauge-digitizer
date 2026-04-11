@@ -101,7 +101,7 @@ void DlgSettingsPointMatch::createControls (QGridLayout *layout,
   m_cmbAcceptedPointColor = new QComboBox;
   m_cmbAcceptedPointColor->setWhatsThis (tr ("Select a color for matched points that are accepted"));
   populateColorComboWithTransparent (*m_cmbAcceptedPointColor);
-  connect (m_cmbAcceptedPointColor, SIGNAL (activated (const QString &)), this, SLOT (slotAcceptedPointColor (const QString &))); // activated() ignores code changes
+  connect (m_cmbAcceptedPointColor, SIGNAL (activated (int)), this, SLOT (slotAcceptedPointColor (int))); // activated() ignores code changes
   layout->addWidget (m_cmbAcceptedPointColor, row++, 2);
 
   QLabel *labelRejectedPointColor = new QLabel (QString ("%1:").arg (tr ("Rejected point color")));
@@ -110,7 +110,7 @@ void DlgSettingsPointMatch::createControls (QGridLayout *layout,
   m_cmbRejectedPointColor = new QComboBox;
   m_cmbRejectedPointColor->setWhatsThis (tr ("Select a color for matched points that are rejected"));
   populateColorComboWithTransparent (*m_cmbRejectedPointColor);
-  connect (m_cmbRejectedPointColor, SIGNAL (activated (const QString &)), this, SLOT (slotRejectedPointColor (const QString &))); // activated() ignores code changes
+  connect (m_cmbRejectedPointColor, SIGNAL (activated (int)), this, SLOT (slotRejectedPointColor (int))); // activated() ignores code changes
   layout->addWidget (m_cmbRejectedPointColor, row++, 2);
 
   QLabel *labelCandidatePointColor = new QLabel (QString ("%1:").arg (tr ("Candidate point color")));
@@ -119,7 +119,7 @@ void DlgSettingsPointMatch::createControls (QGridLayout *layout,
   m_cmbCandidatePointColor = new QComboBox;
   m_cmbCandidatePointColor->setWhatsThis (tr ("Select a color for the point being decided upon"));
   populateColorComboWithTransparent (*m_cmbCandidatePointColor);
-  connect (m_cmbCandidatePointColor, SIGNAL (activated (const QString &)), this, SLOT (slotCandidatePointColor (const QString &))); // activated() ignores code changes
+  connect (m_cmbCandidatePointColor, SIGNAL (activated (int)), this, SLOT (slotCandidatePointColor (int))); // activated() ignores code changes
   layout->addWidget (m_cmbCandidatePointColor, row++, 2);
 }
 
@@ -267,7 +267,7 @@ void DlgSettingsPointMatch::setSmallDialogs(bool smallDialogs)
   }
 }
 
-void DlgSettingsPointMatch::slotAcceptedPointColor (const QString &)
+void DlgSettingsPointMatch::slotAcceptedPointColor (int)
 {
   LOG4CPP_INFO_S ((*mainCat)) << "DlgSettingsPointMatch::slotAcceptedPointColor";
 
@@ -277,7 +277,7 @@ void DlgSettingsPointMatch::slotAcceptedPointColor (const QString &)
   updatePreview();
 }
 
-void DlgSettingsPointMatch::slotCandidatePointColor (const QString &)
+void DlgSettingsPointMatch::slotCandidatePointColor (int)
 {
   LOG4CPP_INFO_S ((*mainCat)) << "DlgSettingsPointMatch::slotCandidatePointColor";
 
@@ -304,7 +304,7 @@ void DlgSettingsPointMatch::slotMouseMove (QPointF pos)
   m_circle->setPos (pos);
 }
 
-void DlgSettingsPointMatch::slotRejectedPointColor (const QString &)
+void DlgSettingsPointMatch::slotRejectedPointColor (int)
 {
   LOG4CPP_INFO_S ((*mainCat)) << "DlgSettingsPointMatch::slotRejectedPointColor";
 
