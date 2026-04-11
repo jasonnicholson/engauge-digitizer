@@ -45,7 +45,8 @@ echo "Using CMake toolchain: $CMAKE_TOOLCHAIN"
 cmake -B "$BUILD_DIR" -S . \
   -DCMAKE_TOOLCHAIN_FILE="$CMAKE_TOOLCHAIN" \
   -DCMAKE_BUILD_TYPE="$BUILD_TYPE" \
-  -DENGAUGE_LOG4CPP_NULL=ON
+  -DENGAUGE_LOG4CPP_NULL=ON \
+  -DBUILD_TESTING=OFF
 
 cmake --build "$BUILD_DIR" --parallel "$(nproc)"
 
