@@ -5,6 +5,7 @@
 #include "Guidelines.h"
 #include "Logger.h"
 #include "MainWindow.h"
+#include <iostream>
 #include <QApplication>
 #include <QSettings>
 #include <QTextStream>

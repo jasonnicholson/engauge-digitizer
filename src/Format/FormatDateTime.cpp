@@ -32,7 +32,7 @@ bool FormatDateTime::ambiguityBetweenDateAndTime (CoordUnitsDate coordUnitsDate,
       coordUnitsTime != COORD_UNITS_TIME_SKIP) {
 
     // See if there is just a single number
-    QStringList fields = string.trimmed().split(QRegularExpression ("[/- :]"));
+    QStringList fields = string.trimmed().split(QRegularExpression ("[-/ :]"));
 
     if (fields.count() == 1) {
 

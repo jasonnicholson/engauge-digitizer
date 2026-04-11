@@ -36,6 +36,7 @@ option(ENGAUGE_JPEG2000 "Enable JPEG2000 input support (requires OpenJPEG)" OFF)
 option(ENGAUGE_PDF      "Enable PDF input support (requires poppler-qt6)"   OFF)
 option(ENGAUGE_LOG4CPP_NULL "Use bundled log4cpp_null stub instead of system log4cpp" ON)
 option(ENGAUGE_NETWORKING "Enable network features" ON)
+option(BUILD_TESTING     "Build unit tests (requires Qt6::Test)" ON)
 
 # ---------------------------------------------------------------------------
 # Core source files (from engauge.pro, excluding optional features)
@@ -379,7 +380,6 @@ set(ENGAUGE_SOURCES
     src/Load/LoadImageFromUrl.cpp
     src/Logger/Logger.cpp
     src/Logger/LoggerUpload.cpp
-    src/main/main.cpp
     src/main/MainDirectoryPersist.cpp
     src/main/MainWindow.cpp
     src/main/MainWindowModel.cpp
@@ -528,10 +528,17 @@ add_custom_target(engauge_translations ALL DEPENDS ${ENGAUGE_QM_FILES})
 # ---------------------------------------------------------------------------
 # Executable target
 # ---------------------------------------------------------------------------
-qt_add_executable(engauge
+# Core static library — all app code except main(). Shared between the main
+# executable and each unit-test executable so sources compile only once.
+add_library(engauge_core STATIC
     ${ENGAUGE_SOURCES}
     ${ENGAUGE_RESOURCES}
 )
+
+qt_add_executable(engauge
+    src/main/main.cpp
+)
+target_link_libraries(engauge PRIVATE engauge_core)
 
 # Exclude SQL driver plugins whose backend libraries are not available in the
 # cross-compile toolchain (e.g. MySQL, PostgreSQL in MXE static builds).
@@ -543,7 +550,7 @@ qt_import_plugins(engauge
 # ---------------------------------------------------------------------------
 # Include directories (mirrors INCLUDEPATH in engauge.pro)
 # ---------------------------------------------------------------------------
-target_include_directories(engauge PRIVATE
+target_include_directories(engauge_core PUBLIC
     src
     src/Background
     src/Callback
@@ -604,7 +611,7 @@ target_include_directories(engauge PRIVATE
 # ---------------------------------------------------------------------------
 # Qt6 link libraries (core always required)
 # ---------------------------------------------------------------------------
-target_link_libraries(engauge PRIVATE
+target_link_libraries(engauge_core PUBLIC
     Qt6::Core
     Qt6::Gui
     Qt6::Help
@@ -616,13 +623,13 @@ target_link_libraries(engauge PRIVATE
 
 # Always define NETWORKING on Linux (matches original .pro logic)
 if(UNIX AND NOT APPLE)
-    target_compile_definitions(engauge PRIVATE NETWORKING)
+    target_compile_definitions(engauge_core PUBLIC NETWORKING)
 endif()
 
 # ---------------------------------------------------------------------------
 # Release build definitions
 # ---------------------------------------------------------------------------
-target_compile_definitions(engauge PRIVATE
+target_compile_definitions(engauge_core PUBLIC
     $<$<CONFIG:Release>:QT_NO_DEBUG>
 )
 
@@ -632,10 +639,10 @@ target_compile_definitions(engauge PRIVATE
 if(ENGAUGE_JPEG2000)
     find_path(OPENJPEG_INCLUDE openjpeg.h REQUIRED)
     find_library(OPENJPEG_LIB openjp2 REQUIRED)
-    target_compile_definitions(engauge PRIVATE ENGAUGE_JPEG2000)
-    target_include_directories(engauge PRIVATE ${OPENJPEG_INCLUDE} src/Jpeg2000)
-    target_link_libraries(engauge PRIVATE ${OPENJPEG_LIB})
-    target_sources(engauge PRIVATE
+    target_compile_definitions(engauge_core PUBLIC ENGAUGE_JPEG2000)
+    target_include_directories(engauge_core PUBLIC ${OPENJPEG_INCLUDE} src/Jpeg2000)
+    target_link_libraries(engauge_core PUBLIC ${OPENJPEG_LIB})
+    target_sources(engauge_core PRIVATE
         src/Jpeg2000/Jpeg2000.cpp
         src/Jpeg2000/Jpeg2000Callbacks.cpp
         src/Jpeg2000/Jpeg2000Color.cpp
@@ -652,11 +659,11 @@ endif()
 if(ENGAUGE_PDF)
     find_package(PkgConfig REQUIRED)
     pkg_check_modules(POPPLER REQUIRED poppler-qt6)
-    target_compile_definitions(engauge PRIVATE ENGAUGE_PDF)
-    target_include_directories(engauge PRIVATE ${POPPLER_INCLUDE_DIRS} src/Pdf)
-    target_link_libraries(engauge PRIVATE ${POPPLER_LIBRARIES})
-    target_link_directories(engauge PRIVATE ${POPPLER_LIBRARY_DIRS})
-    target_sources(engauge PRIVATE
+    target_compile_definitions(engauge_core PUBLIC ENGAUGE_PDF)
+    target_include_directories(engauge_core PUBLIC ${POPPLER_INCLUDE_DIRS} src/Pdf)
+    target_link_libraries(engauge_core PUBLIC ${POPPLER_LIBRARIES})
+    target_link_directories(engauge_core PRIVATE ${POPPLER_LIBRARY_DIRS})
+    target_sources(engauge_core PRIVATE
         src/Dlg/DlgImportCroppingPdf.cpp
         src/Import/ImportCroppingUtilPdf.cpp
         src/Pdf/Pdf.cpp
@@ -672,8 +679,8 @@ endif()
 # Optional: log4cpp_null stub (bundled, recommended for most builds)
 # ---------------------------------------------------------------------------
 if(ENGAUGE_LOG4CPP_NULL)
-    target_include_directories(engauge PRIVATE src/log4cpp_null/include)
-    target_sources(engauge PRIVATE
+    target_include_directories(engauge_core PUBLIC src/log4cpp_null/include)
+    target_sources(engauge_core PRIVATE
         src/log4cpp_null/src/Appender.cpp
         src/log4cpp_null/src/Category.cpp
         src/log4cpp_null/src/CategoryStream.cpp
@@ -690,8 +697,8 @@ if(ENGAUGE_LOG4CPP_NULL)
 else()
     find_library(LOG4CPP_LIB log4cpp REQUIRED)
     find_path(LOG4CPP_INCLUDE log4cpp/Category.hh REQUIRED)
-    target_include_directories(engauge PRIVATE ${LOG4CPP_INCLUDE})
-    target_link_libraries(engauge PRIVATE ${LOG4CPP_LIB})
+    target_include_directories(engauge_core PUBLIC ${LOG4CPP_INCLUDE})
+    target_link_libraries(engauge_core PUBLIC ${LOG4CPP_LIB})
     message(STATUS "log4cpp: using system library")
 endif()
 
@@ -700,9 +707,9 @@ endif()
 # ---------------------------------------------------------------------------
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(FFTW3 REQUIRED fftw3)
-target_include_directories(engauge PRIVATE ${FFTW3_INCLUDE_DIRS})
-target_link_libraries(engauge PRIVATE ${FFTW3_LIBRARIES})
-target_link_directories(engauge PRIVATE ${FFTW3_LIBRARY_DIRS})
+target_include_directories(engauge_core PUBLIC ${FFTW3_INCLUDE_DIRS})
+target_link_libraries(engauge_core PUBLIC ${FFTW3_LIBRARIES})
+target_link_directories(engauge_core PRIVATE ${FFTW3_LIBRARY_DIRS})
 
 # ---------------------------------------------------------------------------
 # Installation
@@ -728,4 +735,42 @@ foreach(_qm ${ENGAUGE_QM_FILES})
         VERBATIM
     )
 endforeach()
+
+# ---------------------------------------------------------------------------
+# Unit tests
+# ---------------------------------------------------------------------------
+if(BUILD_TESTING)
+    include(CTest)
+    find_package(Qt6 QUIET COMPONENTS Test)
+    if(Qt6Test_FOUND)
+        set(ENGAUGE_TESTS
+            TestCorrelation
+            TestExportAlign
+            TestExport
+            TestFitting
+            TestFormats
+            TestGraphCoords
+            TestGridLineLimiter
+            TestGuidelines
+            TestMatrix
+            TestProjectedPoint
+            TestSegmentFill
+            TestSpline
+            TestSplineDrawer
+            TestTransformation
+            TestValidators
+            TestZoomTransition
+        )
+        foreach(_test ${ENGAUGE_TESTS})
+            add_executable(${_test} src/Test/${_test}.cpp)
+            target_include_directories(${_test} PRIVATE src/Test)
+            target_link_libraries(${_test} PRIVATE engauge_core Qt6::Test)
+            add_test(NAME ${_test} COMMAND ${_test})
+        endforeach()
+        message(STATUS "Unit tests: enabled")
+    else()
+        message(WARNING "Qt6::Test not found; unit tests skipped")
+    endif()
+endif()
+
 
