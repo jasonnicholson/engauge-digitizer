@@ -637,11 +637,11 @@ target_compile_definitions(engauge_core PUBLIC
 # Optional: JPEG2000 support
 # ---------------------------------------------------------------------------
 if(ENGAUGE_JPEG2000)
-    find_path(OPENJPEG_INCLUDE openjpeg.h REQUIRED)
-    find_library(OPENJPEG_LIB openjp2 REQUIRED)
+    find_package(PkgConfig REQUIRED)
+    pkg_check_modules(OPENJPEG REQUIRED IMPORTED_TARGET libopenjp2)
     target_compile_definitions(engauge_core PUBLIC ENGAUGE_JPEG2000)
-    target_include_directories(engauge_core PUBLIC ${OPENJPEG_INCLUDE} src/Jpeg2000)
-    target_link_libraries(engauge_core PUBLIC ${OPENJPEG_LIB})
+    target_include_directories(engauge_core PUBLIC ${OPENJPEG_INCLUDE_DIRS} src/Jpeg2000)
+    target_link_libraries(engauge_core PUBLIC PkgConfig::OPENJPEG)
     target_sources(engauge_core PRIVATE
         src/Jpeg2000/Jpeg2000.cpp
         src/Jpeg2000/Jpeg2000Callbacks.cpp
@@ -658,11 +658,22 @@ endif()
 # ---------------------------------------------------------------------------
 if(ENGAUGE_PDF)
     find_package(PkgConfig REQUIRED)
-    pkg_check_modules(POPPLER REQUIRED poppler-qt6)
+    pkg_check_modules(POPPLER REQUIRED IMPORTED_TARGET poppler-qt6)
     target_compile_definitions(engauge_core PUBLIC ENGAUGE_PDF)
     target_include_directories(engauge_core PUBLIC ${POPPLER_INCLUDE_DIRS} src/Pdf)
-    target_link_libraries(engauge_core PUBLIC ${POPPLER_LIBRARIES})
-    target_link_directories(engauge_core PRIVATE ${POPPLER_LIBRARY_DIRS})
+    target_link_libraries(engauge_core PUBLIC PkgConfig::POPPLER)
+    # MXE poppler-qt6 advertises private Qt libs as -lQt6Gui/-lQt6Core without
+    # always adding the Qt libdir to the link line, so add it explicitly.
+    if(MINGW)
+        get_target_property(_qt6core_location Qt6::Core IMPORTED_LOCATION_RELEASE)
+        if(NOT _qt6core_location)
+            get_target_property(_qt6core_location Qt6::Core IMPORTED_LOCATION)
+        endif()
+        if(_qt6core_location)
+            get_filename_component(_qt6_libdir "${_qt6core_location}" DIRECTORY)
+            target_link_directories(engauge_core PUBLIC "${_qt6_libdir}")
+        endif()
+    endif()
     target_sources(engauge_core PRIVATE
         src/Dlg/DlgImportCroppingPdf.cpp
         src/Import/ImportCroppingUtilPdf.cpp
@@ -706,10 +717,9 @@ endif()
 # FFTW3 (required)
 # ---------------------------------------------------------------------------
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(FFTW3 REQUIRED fftw3)
+pkg_check_modules(FFTW3 REQUIRED IMPORTED_TARGET fftw3)
 target_include_directories(engauge_core PUBLIC ${FFTW3_INCLUDE_DIRS})
-target_link_libraries(engauge_core PUBLIC ${FFTW3_LIBRARIES})
-target_link_directories(engauge_core PRIVATE ${FFTW3_LIBRARY_DIRS})
+target_link_libraries(engauge_core PUBLIC PkgConfig::FFTW3)
 
 # ---------------------------------------------------------------------------
 # Installation
