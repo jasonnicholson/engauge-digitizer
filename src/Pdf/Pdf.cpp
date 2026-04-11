@@ -7,7 +7,8 @@
 #include "DlgImportCroppingPdf.h"
 #include "ImportCroppingUtilPdf.h"
 #include "Pdf.h"
-#include "poppler-qt5.h"
+#include "poppler-qt6.h"
+#include <memory>
 #include <QApplication>
 #include <QImage>
 #include <QString>
@@ -28,7 +29,7 @@ PdfReturn Pdf::load (const QString &fileName,
                      ImportCropping importCropping,
                      bool isErrorReportRegressionTest) const
 {
-  Document *document = nullptr;
+  std::unique_ptr<Document> document;
 
   ImportCroppingUtilPdf importCroppingUtil;
   bool cropping = importCroppingUtil.applyImportCropping (isErrorReportRegressionTest,
@@ -40,7 +41,7 @@ PdfReturn Pdf::load (const QString &fileName,
   QApplication::setOverrideCursor(Qt::BusyCursor); // Since loading can be slow
   if (cropping) {
 
-    rtn = loadWithCropping (document,
+    rtn = loadWithCropping (document.get(),
                             image,
                             resolution);
 
@@ -52,9 +53,6 @@ PdfReturn Pdf::load (const QString &fileName,
 
   }
   QApplication::restoreOverrideCursor();
-
-  delete document;
-  document = nullptr;
 
   return rtn;
 }
@@ -94,12 +92,12 @@ PdfReturn Pdf::loadWithoutCropping (const QString &fileName,
   if (fileName.right (4).toLower () == ".pdf") {
 
     // Try to read the file
-    Document *document = Document::load (fileName);
+    auto document = Document::load (fileName);
 
     if (document != nullptr) {
       if (!document->isLocked ()) {
 
-        Page *page = document->page (FIRST_PAGE_1_BASED - 1);
+        auto page = document->page (FIRST_PAGE_1_BASED - 1);
         if (page != nullptr) {
 
           image = page->renderToImage (resolution,
@@ -112,12 +110,8 @@ PdfReturn Pdf::loadWithoutCropping (const QString &fileName,
           if (!image.isNull()) {
             pdfReturn = PDF_RETURN_SUCCESS;
           }
-
-          delete page;
         }
       }
-
-      delete document;
     }
   }
 

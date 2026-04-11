@@ -5,7 +5,7 @@
  ******************************************************************************************************/
 
 #include "ImportCroppingUtilPdf.h"
-#include "poppler-qt5.h"
+#include "poppler-qt6.h"
 #include <QApplication>
 
 using namespace Poppler;
@@ -17,9 +17,9 @@ ImportCroppingUtilPdf::ImportCroppingUtilPdf()
 bool ImportCroppingUtilPdf::applyImportCropping (bool isErrorReportRegressionTest,
                                                  const QString &fileName,
                                                  ImportCropping importCropping,
-                                                 Document *&document) const
+                                                 std::unique_ptr<Document> &document) const
 {
-  document = nullptr;
+  document.reset();
 
   bool cropping = false;
 

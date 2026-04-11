@@ -9,7 +9,7 @@
 #include "Logger.h"
 #include "MainWindow.h"
 #include "PdfCropping.h"
-#include "poppler-qt5.h"
+#include "poppler-qt6.h"
 #include <QApplication>
 #include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
@@ -189,7 +189,7 @@ QImage DlgImportCroppingPdf::loadImage (int page1Based) const
   QImage image;
 
   int page0Based = page1Based - 1;
-  Page *page = m_document.page (page0Based);
+  auto page = m_document.page (page0Based);
   if (page != nullptr) {
 
     image = page->renderToImage (m_resolution,
@@ -199,7 +199,7 @@ QImage DlgImportCroppingPdf::loadImage (int page1Based) const
                                  WIDTH,
                                  HEIGHT);
 
-    delete page;
+    // page is freed automatically by unique_ptr
   }
 
   return image;
