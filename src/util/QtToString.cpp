@@ -60,7 +60,7 @@ QString QLocaleToString (const QLocale &locale)
 {
   return QString ("%1/%2")
       .arg (QLocale::languageToString (locale.language()))
-      .arg (QLocale::countryToString(locale.country()));
+      .arg (QLocale::territoryToString(locale.territory()));
 }
 
 QString QTransformToString (const QTransform &transform)

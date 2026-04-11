@@ -1792,13 +1792,14 @@ void MainWindow::settingsReadMainWindow (QSettings &settings)
   // Main window settings. Preference for initial zoom factor is 100%, rather than fill mode, for issue #25. Some or all
   // settings are saved to the application AND saved to m_modelMainWindow for use in DlgSettingsMainWindow. Note that
   // TranslatorContainer has previously extracted the locale from the settings
-  QLocale localeDefault;
-  QLocale::Language language = static_cast<QLocale::Language> (settings.value (SETTINGS_LOCALE_LANGUAGE,
-                                                                               QVariant (localeDefault.language())).toInt());
-  QLocale::Country country = static_cast<QLocale::Country> (settings.value (SETTINGS_LOCALE_COUNTRY,
-                                                                            QVariant (localeDefault.country())).toInt());
-  QLocale locale (language,
-                  country);
+  // Restore locale. SETTINGS_LOCALE_NAME (bcp47 string like "en_US") is the new Qt6-safe key.
+  // The old language/country integer keys (Qt5 era) are ignored because the QLocale::Language
+  // enum was renumbered in Qt6 — saved Qt5 integers map to wrong languages in Qt6.
+  QString localeName = settings.value (SETTINGS_LOCALE_NAME, QString()).toString();
+  QLocale locale = localeName.isEmpty() ? QLocale() : QLocale(localeName);
+  if (locale.language() == QLocale::AnyLanguage) {
+    locale = QLocale(); // fall back to system locale if name is unrecognised
+  }
   slotViewZoom (static_cast<ZoomFactor> (settings.value (SETTINGS_ZOOM_FACTOR,
                                                          QVariant (ZOOM_1_TO_1)).toInt()));
   m_modelMainWindow.setLocale (locale);
@@ -1889,8 +1890,7 @@ void MainWindow::settingsWrite ()
   settings.setValue (SETTINGS_IMAGE_REPLACE_RENAMES_DOCUMENT, m_modelMainWindow.imageReplaceRenamesDocument());
   settings.setValue (SETTINGS_IMPORT_CROPPING, m_modelMainWindow.importCropping());
   settings.setValue (SETTINGS_IMPORT_PDF_RESOLUTION, m_modelMainWindow.pdfResolution ());
-  settings.setValue (SETTINGS_LOCALE_LANGUAGE, m_modelMainWindow.locale().language());
-  settings.setValue (SETTINGS_LOCALE_COUNTRY, m_modelMainWindow.locale().country());
+  settings.setValue (SETTINGS_LOCALE_NAME, m_modelMainWindow.locale().bcp47Name());
   settings.setValue (SETTINGS_MAIN_DIRECTORY_EXPORT_SAVE,
                      directoryPersist.getDirectoryExportSave().absolutePath());
   settings.setValue (SETTINGS_MAIN_DIRECTORY_IMPORT_LOAD,
