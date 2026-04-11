@@ -78,11 +78,15 @@ build configurations are:
 .. code-block:: bash
 
    # Linux — system Qt6
-   cmake -B build-linux -DCMAKE_BUILD_TYPE=Release .
-   cmake --build build-linux --parallel
+  ./build_linux_systemqt.sh
 
    # Windows — MXE static cross-compile (Qt6 + CMake)
+  export MXE_ROOT=$HOME/mxe
    ./build_windows_mxe.sh
+
+The default scripts enable optional JPEG2000 and PDF support.
+Those features require ``libopenjp2`` and ``poppler-qt6`` to be available
+via pkg-config in the target environment.
 
 See the :doc:`build-and-release` page for full instructions.
 

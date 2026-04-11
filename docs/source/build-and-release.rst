@@ -16,7 +16,13 @@ Linux — distro Qt (quick build)
 Install dependencies::
 
    sudo apt install qt6-base-dev qt6-tools-dev qt6-tools-dev-tools qt6-l10n-tools \
-                    libfftw3-dev libjpeg-dev cmake
+                    libfftw3-dev libjpeg-dev libopenjp2-7-dev cmake
+
+For PDF support (``-DENGAUGE_PDF=ON`` in the build script), install
+``poppler-qt6`` development files. On Ubuntu 22.04 this is typically built
+from source and installed under ``$HOME/.local``. Ensure ``PKG_CONFIG_PATH``
+contains that location (the Linux build script already prepends
+``$HOME/.local/lib/pkgconfig``).
 
 Build::
 
@@ -51,10 +57,26 @@ Windows (MXE cross-compile with Qt6)
 
 From repository root::
 
+   export MXE_ROOT=$HOME/mxe
    ./build_windows_mxe.sh
 
 Requires MXE built with Qt6 and CMake support for the x86_64 static target.
 ``MXE_ROOT`` must be set to your MXE installation directory.
+
+The script expects these MXE target packages to be present:
+
+- ``fftw``
+- ``openjpeg`` (JPEG2000)
+- ``poppler-qt6`` (PDF)
+
+Example MXE package install commands::
+
+   make -C "$MXE_ROOT" qt6 MXE_TARGETS=x86_64-w64-mingw32.static
+   make -C "$MXE_ROOT" fftw openjpeg poppler-qt6 MXE_TARGETS=x86_64-w64-mingw32.static
+
+Unit tests are disabled automatically for this MXE build lane
+(``-DBUILD_TESTING=OFF``) so cross-builds do not require ``Qt6::Test``.
+
 See ``build_windows_mxe.sh`` for all overridable variables.
 
 Binary: ``build-win-mxe/engauge.exe``
