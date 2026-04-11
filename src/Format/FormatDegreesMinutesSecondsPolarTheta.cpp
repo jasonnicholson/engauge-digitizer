@@ -9,7 +9,6 @@
 #include "FormatDegreesMinutesSecondsPolarTheta.h"
 #include "Logger.h"
 #include <qmath.h>
-#include <QRegExp>
 #include <QStringList>
 
 const int DECIMAL_TO_MINUTES = 60.0;

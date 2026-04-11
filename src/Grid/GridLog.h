@@ -8,6 +8,7 @@
 #define GRID_LOG_H
 
 #include "GridIndependentToDependent.h"
+#include <QPoint>
 #include <QString>
 #include <QTextStream>
 

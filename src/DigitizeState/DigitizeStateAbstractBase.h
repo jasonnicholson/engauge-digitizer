@@ -17,7 +17,7 @@ class DocumentModelDigitizeCurve;
 class DocumentModelSegments;
 class QSize;
 class QString;
-class QStringList;
+#include <QStringList>
 class Transformation;
 
 /// Set of possible states of Digitize toolbar.

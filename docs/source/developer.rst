@@ -72,17 +72,16 @@ module with a clear single responsibility:
 Build System
 ------------
 
-The project uses **qmake** via ``engauge.pro``. The two supported build
-configurations are:
+The project uses **CMake** (>= 3.16) targeting **Qt6** only. The two supported
+build configurations are:
 
 .. code-block:: bash
 
-   # Linux — system Qt
-   mkdir build-linux && cd build-linux
-   qmake ../engauge.pro CONFIG+=log4cpp_null
-   make -j$(nproc)
+   # Linux — system Qt6
+   cmake -B build-linux -DCMAKE_BUILD_TYPE=Release .
+   cmake --build build-linux --parallel
 
-   # Windows — MXE static cross-compile
+   # Windows — MXE static cross-compile (Qt6 + CMake)
    ./build_windows_mxe.sh
 
 See the :doc:`build-and-release` page for full instructions.

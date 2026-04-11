@@ -44,15 +44,15 @@ bool TestSpline::coefCheckX (const vector<double> &t,
 
   // X coordinate fit
 #ifdef SHOWCOEFFICIENTS
-  cout << endl
+  cout << Qt::endl
        << "(t,x) inputs to be copied to " << WEBPAGE.toLatin1().data()
-       << endl;
+       << Qt::endl;
   for (i = 0; i < t.size(); i++) {
-    cout << t[i] << "   " << xy[i].x() << endl;
+    cout << t[i] << "   " << xy[i].x() << Qt::endl;
   }
-  cout << endl
+  cout << Qt::endl
        << "x=d*(t-ti)^3+c*(t-ti)^2+b*(t-ti)+a natural cubic spline results to be used in this code"
-       << endl;
+       << Qt::endl;
   for (i = 0; i < t.size() - 1; i++) {
     coefShow ("x =",
               "(t-ti)",
@@ -63,9 +63,9 @@ bool TestSpline::coefCheckX (const vector<double> &t,
               s.m_elements[i].c().x(),
               s.m_elements[i].d().x());
   }
-  cout << endl
+  cout << Qt::endl
        << "x=d*t^3+c*t^2+b*t+a outputs to be compared to results from " << WEBPAGE.toLatin1().data()
-       << endl;
+       << Qt::endl;
 #endif
   for (i = 0; i < t.size() - 1; i++) {
     s.computeUntranslatedCoefficients (s.m_elements[i].a().x(),
@@ -112,15 +112,15 @@ bool TestSpline::coefCheckY (const vector<double> &t,
 
   // Y coordinate fit
 #ifdef SHOWCOEFFICIENTS
-  cout << endl
+  cout << Qt::endl
        << "(t,y) inputs to be copied to " << WEBPAGE.toLatin1().data()
-       << endl;
+       << Qt::endl;
   for (i = 0; i < xy.size(); i++) {
-    cout << t[i] << "   " << xy[i].y() << endl;
+    cout << t[i] << "   " << xy[i].y() << Qt::endl;
   }
-  cout << endl
+  cout << Qt::endl
        << "y=d*(t-ti)^3+c*(t-ti)^2+b*(t-ti)+a natural cubic spline results to be used in this code"
-       << endl;
+       << Qt::endl;
   for (i = 0; i < xy.size() - 1; i++) {
     coefShow ("y =",
               "(t-ti)",
@@ -131,9 +131,9 @@ bool TestSpline::coefCheckY (const vector<double> &t,
               s.m_elements[i].c().y(),
               s.m_elements[i].d().y());
   }
-  cout << endl
+  cout << Qt::endl
        << "y=d*t^3+c*t^2+b*t+a outputs to be compared to results from " << WEBPAGE.toLatin1().data()
-       << endl;
+       << Qt::endl;
 #endif
   for (i = 0; i < t.size() - 1; i++) {
     s.computeUntranslatedCoefficients (s.m_elements[i].a().y(),
@@ -180,7 +180,7 @@ void TestSpline::coefShow (const QString &leftHandSide,
        << d << "*" << independentVariable.toLatin1().data() << "^3 + "
        << c << "*" << independentVariable.toLatin1().data() << "^2 + "
        << b << "*" << independentVariable.toLatin1().data() << " + "
-       << a << " (" << tLow << "<t<" << tHigh << ")" << endl;
+       << a << " (" << tLow << "<t<" << tHigh << ")" << Qt::endl;
 
 }
 
@@ -304,8 +304,8 @@ void TestSpline::testSharpTransition ()
   }
 
 #ifdef GNUPLOT
-  cout << "set datafile missing \"?\"" << endl;
-  cout << "plot \"gnuplot.in\" using 1:2 with linespoints, \"gnuplot.in\" using 1:3 with lines" << endl;
+  cout << "set datafile missing \"?\"" << Qt::endl;
+  cout << "plot \"gnuplot.in\" using 1:2 with linespoints, \"gnuplot.in\" using 1:3 with lines" << Qt::endl;
 #endif
 
   // Output the merged before/after curves
@@ -347,7 +347,7 @@ void TestSpline::testSharpTransition ()
     }
 
 #ifdef GNUPLOT
-    cout << x << ", " << yB << ", " << yA << endl;
+    cout << x << ", " << yB << ", " << yA << Qt::endl;
 #endif
   }
 

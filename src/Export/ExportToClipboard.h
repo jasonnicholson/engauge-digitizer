@@ -10,7 +10,7 @@
 class Curve;
 class CurvesGraphs;
 class Document;
-class QStringList;
+#include <QStringList>
 class QTextStream;
 class Transformation;
 

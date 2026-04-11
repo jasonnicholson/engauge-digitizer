@@ -535,6 +535,7 @@ void Transformation::updateTransformFromMatrices (const QTransform &matrixScreen
                                 pointGraphLinearCart1.y(),
                                 pointGraphLinearCart2.y(),
                                 1.0,
+                                1.0,
                                 1.0);
 
   QPointF pointScreenRoundTrip0, pointScreenRoundTrip1, pointScreenRoundTrip2;

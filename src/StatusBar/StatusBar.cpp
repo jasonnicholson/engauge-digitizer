@@ -78,15 +78,12 @@ void StatusBar::createGroupUnits ()
   m_groupUnits = new QFrame;
   m_groupUnits->setFrameStyle (QFrame::Box);
   QPalette palette;
-  palette.setColor (QPalette::Foreground, Qt::gray);
+  palette.setColor (QPalette::WindowText, Qt::gray);
   m_groupUnits->setPalette (palette);
 
   QHBoxLayout *groupLayout = new QHBoxLayout;
   m_groupUnits->setLayout (groupLayout);
-  groupLayout->setContentsMargins (0, 0, 0, 0);
-  groupLayout->addWidget (m_cmbUnits);
-  groupLayout->addWidget (m_editCoords);
-  groupLayout->setMargin (2);
+  groupLayout->setContentsMargins (2, 2, 2, 2);
 
   m_statusBar.addPermanentWidget (m_groupUnits);
 }

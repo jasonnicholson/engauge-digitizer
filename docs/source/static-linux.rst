@@ -24,17 +24,17 @@ Decision
 Current Status
 --------------
 
-- Windows static build via MXE: **working**.
-- Linux dynamic build against distro Qt: **working**.
-- Linux almost-static bundle using custom Qt + bundled libs/plugins: **working**.
+- Windows static build via MXE with Qt6: **in progress** (Qt6/CMake lane established).
+- Linux dynamic build against distro Qt6: **working**.
+- Linux almost-static bundle using custom Qt6 + bundled libs/plugins: **working**.
 - Linux fully static build: **not yet achieved**.
 
 Almost-Static Build (Current Working Path)
 ------------------------------------------
 
-Use a custom Qt install (for example ``/opt/qt-5.15.17-linux``), build Engauge
-with that Qt, then package Qt ``.so`` libraries and plugins alongside the
-binary.
+Use a custom Qt6 install (for example ``/opt/qt6-linux``), build Engauge
+with CMake and that Qt6, then package Qt ``.so`` libraries and plugins alongside
+the binary.
 
 From repository root::
 
@@ -43,56 +43,59 @@ From repository root::
 
 Artifacts:
 
-- ``build-linux-almoststaticqt/bin/engauge``
+- ``build-linux-almoststaticqt/engauge``
 - ``dist/almoststatic-linux-x86_64`` (self-contained bundle)
 - ``dist/engauge-linux-almoststatic-x86_64.tar.gz``
 
 This produces a portable Linux build that does not require distro Qt packages.
 
-Building Against Fully Static Qt (Experimental Guide)
------------------------------------------------------
+Building Against Fully Static Qt6 (Experimental Guide)
+-------------------------------------------------------
 
 Phase 1 — Baseline::
 
-   qmake engauge.pro
-   make -j$(nproc)
-   file ./bin/engauge
-   ldd ./bin/engauge
+   cmake -B build-test -DCMAKE_BUILD_TYPE=Release .
+   cmake --build build-test --parallel
+   file ./build-test/engauge
+   ldd ./build-test/engauge
 
 Record the binary type and key dynamic deps before attempting static.
 
-Phase 2 — Static Qt configure outline:
+Phase 2 — Static Qt6 configure outline:
 
 .. code-block:: bash
 
    # Adjust to your Qt source and prefix
-   ./configure \
-     -static -release -opensource -confirm-license \
-     -prefix <qt-static-prefix> \
-     -qt-zlib -qt-libpng -qt-libjpeg -qt-freetype -qt-pcre -qt-harfbuzz \
-     -nomake examples -nomake tests
-   make -j$(nproc) && make install
+   cmake -B qt6-build -S qt6-src \
+     -DCMAKE_BUILD_TYPE=Release \
+     -DQT_BUILD_SHARED_LIBS=OFF \
+     -DCMAKE_INSTALL_PREFIX=<qt-static-prefix> \
+     -DQT_BUILD_EXAMPLES=OFF -DQT_BUILD_TESTS=OFF
+   cmake --build qt6-build --parallel
+   cmake --install qt6-build
 
-Phase 3 — Build Engauge against static Qt:
+Phase 3 — Build Engauge against static Qt6:
 
 .. code-block:: bash
 
-   export PATH="<qt-static-prefix>/bin:$PATH"
-   qmake engauge.pro CONFIG+=log4cpp_null
-   make -j$(nproc)
-   file ./bin/engauge
-   ldd ./bin/engauge || true
+   cmake -B build-static \
+     -DCMAKE_BUILD_TYPE=Release \
+     -DCMAKE_PREFIX_PATH=<qt-static-prefix> \
+     -DENGAUGE_LOG4CPP_NULL=ON .
+   cmake --build build-static --parallel
+   file ./build-static/engauge
+   ldd ./build-static/engauge || true
 
 Phase 4 — Runtime validation::
 
-   ./bin/engauge
+   ./build-static/engauge
    # headless check:
-   QT_QPA_PLATFORM=offscreen ./bin/engauge
+   QT_QPA_PLATFORM=offscreen ./build-static/engauge
 
 Notes
 -----
 
 - Document every command variant tried and whether it succeeded, so the process
   is reproducible.
-- The ``xcb`` static platform plugin must be included in the static Qt build or
+- The ``xcb`` static platform plugin must be included in the static Qt6 build or
   the binary will fail to start on graphical desktops.

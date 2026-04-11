@@ -109,11 +109,11 @@ void TestSegmentFill::testFindSegments()
       
         // Output in gnuplot format for plotting. A space precedes each field. This can be plotted with
         //    plot "../test/test_segment_fill.gnuplot_actual" w lp
-        outStr << point.x() << " " << point.y() << endl;
+        outStr << point.x() << " " << point.y() << Qt::endl;
       }
 
       // Blank line between curves
-      outStr << endl;
+      outStr << Qt::endl;
     }
   }
 
