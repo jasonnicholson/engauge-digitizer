@@ -4,6 +4,15 @@ project(engauge VERSION 13.0.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Stub out optional Qt6 SQL backend targets that may not be available in the
+# cross-compile toolchain (e.g. MXE built Qt6 with MySQL but we don't ship it).
+# These are INTERFACE-only placeholders so Qt6's CMake package files don't error.
+foreach(_qt_sql_stub MySQL::MySQL PostgreSQL::PostgreSQL)
+  if(NOT TARGET "${_qt_sql_stub}")
+    add_library("${_qt_sql_stub}" INTERFACE IMPORTED)
+  endif()
+endforeach()
+
 # Qt6 only
 find_package(Qt6 REQUIRED COMPONENTS
     Core
@@ -522,6 +531,13 @@ add_custom_target(engauge_translations ALL DEPENDS ${ENGAUGE_QM_FILES})
 qt_add_executable(engauge
     ${ENGAUGE_SOURCES}
     ${ENGAUGE_RESOURCES}
+)
+
+# Exclude SQL driver plugins whose backend libraries are not available in the
+# cross-compile toolchain (e.g. MySQL, PostgreSQL in MXE static builds).
+# qt_import_plugins is available since Qt 5.14.
+qt_import_plugins(engauge
+    EXCLUDE Qt::QMYSQLDriverPlugin Qt::QPSQLDriverPlugin
 )
 
 # ---------------------------------------------------------------------------
