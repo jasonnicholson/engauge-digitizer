@@ -13,13 +13,13 @@ TranslatorContainer::TranslatorContainer(QApplication & /* app */)
   QSettings settings (SETTINGS_ENGAUGE, SETTINGS_DIGITIZER);
   settings.beginGroup(SETTINGS_GROUP_MAIN_WINDOW);
 
-  // Get the locale settings outside of the settings retrieval methods in MainWindow
-  QLocale::Language language = static_cast<QLocale::Language> (settings.value (SETTINGS_LOCALE_LANGUAGE,
-                                                                               QVariant (localeDefault.language())).toInt());
-  QLocale::Country country = static_cast<QLocale::Country> (settings.value (SETTINGS_LOCALE_COUNTRY,
-                                                                            QVariant (localeDefault.country())).toInt());
-  QLocale locale (language,
-                  country);
+  // Restore locale using bcp47 name (e.g. "en_US"). Old integer keys are ignored because
+  // QLocale::Language enum was renumbered in Qt6, so Qt5-saved integers map to wrong languages.
+  QString localeName = settings.value (SETTINGS_LOCALE_NAME, QString()).toString();
+  QLocale locale = localeName.isEmpty() ? localeDefault : QLocale(localeName);
+  if (locale.language() == QLocale::AnyLanguage) {
+    locale = localeDefault;
+  }
   
   settings.endGroup();
 
