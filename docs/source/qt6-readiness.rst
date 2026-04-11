@@ -1,10 +1,11 @@
 Qt6 and CMake Migration (2026)
 ==============================
 
-Current status (2026-04-10)
+Current status (2026-04-11)
 ---------------------------
 
-All phases have been implemented on the ``Qt6`` branch.
+Qt6/CMake migration is now merged to ``main`` and tagged as
+``v14.0.0-beta.1``.
 
 Build system
 ^^^^^^^^^^^^
@@ -14,7 +15,8 @@ Build system
 - All build scripts (``build_linux_systemqt.sh``, ``build_linux_almoststaticqt.sh``,
   ``build_windows_mxe.sh``) converted to CMake/Qt6; no qmake or Qt5 references remain.
 - Optional PDF support now requires ``poppler-qt6`` (configured via CMake option
-  ``-DENGAUGE_PDF=ON``).
+  ``-DENGAUGE_PDF=ON``), and optional JPEG2000 support uses ``libopenjp2``
+  (``-DENGAUGE_JPEG2000=ON``).
 
 Source compatibility
 ^^^^^^^^^^^^^^^^^^^^
@@ -40,13 +42,12 @@ Documentation
 - ``build-and-release.rst``, ``static-linux.rst``, ``linux-runtime.rst``,
   and ``developer.rst`` updated to reference Qt6 and CMake only.
 
-Remaining work
---------------
+Validation status
+-----------------
 
-- **Validate CMake build** on a system with Qt6 installed (first ``cmake -B build`` run).
-- **MXE Qt6 toolchain**: MXE must be built with Qt6 support before the Windows lane can
-  be tested; Qt6 in MXE is experimental as of 2026.
-- **poppler-qt6**: validate PDF feature on a machine with ``libpoppler-qt6-dev`` installed
-  (``cmake -DENGAUGE_PDF=ON``).
-- **Run test suites** after first successful Qt6 CMake build.
-- **Update release notes / CHANGELOG** once first Qt6 release is verified.
+- Linux system-Qt build succeeds with ``ENGAUGE_JPEG2000=ON`` and
+  ``ENGAUGE_PDF=ON``.
+- Windows MXE cross-build succeeds with ``openjpeg`` and ``poppler-qt6`` in
+  the target sysroot.
+- ``build_windows_mxe.sh`` now checks for required MXE dependencies up front
+  (``fftw``, ``openjpeg``, ``poppler-qt6``).

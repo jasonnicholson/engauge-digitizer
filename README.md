@@ -28,14 +28,13 @@ Key sections:
 **Linux** (distro Qt):
 
 ```bash
-mkdir -p build-linux-systemqt && cd build-linux-systemqt
-/usr/bin/x86_64-linux-gnu-qmake ../engauge.pro
-make -j$(nproc)
+bash build_linux_systemqt.sh
 ```
 
 **Windows** (MXE cross-compile):
 
 ```bash
+export MXE_ROOT=$HOME/mxe
 ./build_windows_mxe.sh
 ```
 
