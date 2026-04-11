@@ -45,14 +45,14 @@ private slots:
   void slotDelimitersSpaces();
   void slotDelimitersTabs();
   void slotExclude();
-  void slotFileExtension(const QString &);
+  void slotFileExtension(int);
   void slotFunctionsExtrapolateOutsideEndpoints(int);
   void slotFunctionsLayoutAllCurves();
   void slotFunctionsLayoutOneCurve();
   void slotFunctionsPointsAllCurves();
   void slotFunctionsPointsEvenlySpaced();
   void slotFunctionsPointsEvenlySpacedInterval(const QString  &);
-  void slotFunctionsPointsEvenlySpacedIntervalUnits(const QString &);
+  void slotFunctionsPointsEvenlySpacedIntervalUnits(int);
   void slotFunctionsPointsFirstCurve();
   void slotFunctionsPointsGridLines();
   void slotFunctionsPointsRaw();
@@ -66,7 +66,7 @@ private slots:
   void slotOverrideCsvTsv(int);
   void slotRelationsPointsEvenlySpaced();
   void slotRelationsPointsEvenlySpacedInterval(const QString &);
-  void slotRelationsPointsEvenlySpacedIntervalUnits(const QString &);
+  void slotRelationsPointsEvenlySpacedIntervalUnits(int);
   void slotRelationsPointsRaw();
   void slotSaveDefault();
   void slotTabChanged (int);

@@ -43,11 +43,11 @@ public:
 
 private slots:
   void slotFillCorners (int state);
-  void slotInactiveOpacity (const QString &);
-  void slotLineColor (const QString &);
+  void slotInactiveOpacity (int);
+  void slotLineColor (int);
   void slotLineWidth (int);
-  void slotMinLength (const QString &);
-  void slotPointSeparation (const QString &);
+  void slotMinLength (int);
+  void slotPointSeparation (int);
 
 protected:
   virtual void handleOk ();

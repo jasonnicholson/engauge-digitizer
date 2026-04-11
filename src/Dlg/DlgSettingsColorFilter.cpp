@@ -66,7 +66,7 @@ void DlgSettingsColorFilter::createControls (QGridLayout *layout, int &row)
 
   m_cmbCurveName = new QComboBox ();
   m_cmbCurveName->setWhatsThis (tr ("Name of the curve that is currently selected for editing"));
-  connect (m_cmbCurveName, SIGNAL (activated (const QString &)), this, SLOT (slotCurveName (const QString &))); // activated() ignores code changes
+  connect (m_cmbCurveName, SIGNAL (activated (int)), this, SLOT (slotCurveName (int))); // activated() ignores code changes
   layout->addWidget (m_cmbCurveName, row++, 1);
 
   QLabel *labelProfile = new QLabel (QString ("%1:").arg (tr ("Filter mode")));
@@ -296,7 +296,7 @@ void DlgSettingsColorFilter::setSmallDialogs(bool smallDialogs)
   }
 }
 
-void DlgSettingsColorFilter::slotCurveName(const QString & /* curveName */)
+void DlgSettingsColorFilter::slotCurveName(int)
 {
   LOG4CPP_INFO_S ((*mainCat)) << "DlgSettingsColorFilter::slotCurveName";
 

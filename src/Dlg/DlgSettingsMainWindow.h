@@ -41,7 +41,7 @@ public:
 
 private slots:
   void slotDragDropExport (bool);
-  void slotGuidelineColor (const QString &);
+  void slotGuidelineColor (int);
   void slotHighlightOpacity (double);
   void slotImageReplaceRenamesDocument (bool);
   void slotImportCropping (int index);

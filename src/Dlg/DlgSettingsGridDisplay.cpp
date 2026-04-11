@@ -85,7 +85,7 @@ void DlgSettingsGridDisplay::createDisplayCommon (QGridLayout *layout, int &row)
   m_cmbColor = new QComboBox;
   m_cmbColor->setWhatsThis (tr ("Select a color for the lines"));
   populateColorComboWithoutTransparent (*m_cmbColor);
-  connect (m_cmbColor, SIGNAL (activated (const QString &)), this, SLOT (slotColor (const QString &))); // activated() ignores code changes
+  connect (m_cmbColor, SIGNAL (activated (int)), this, SLOT (slotColor (int))); // activated() ignores code changes
   layoutCommon->addWidget (m_cmbColor, rowCommon++, 2);
 
   // Make sure there is an empty column, for padding, on the left and right sides
@@ -121,7 +121,7 @@ void DlgSettingsGridDisplay::createDisplayGridLinesX (QGridLayout *layout, int &
                          QVariant (GRID_COORD_DISABLE_STEP));
   m_cmbDisableX->addItem(gridCoordDisableToString (GRID_COORD_DISABLE_STOP),
                          QVariant (GRID_COORD_DISABLE_STOP));
-  connect (m_cmbDisableX, SIGNAL (activated (const QString &)), this, SLOT (slotDisableX (const QString &))); // activated() ignores code changes
+  connect (m_cmbDisableX, SIGNAL (activated (int)), this, SLOT (slotDisableX (int))); // activated() ignores code changes
   layoutGroup->addWidget (m_cmbDisableX, 0, 1);
 
   QLabel *labelCount = new QLabel (QString ("%1:").arg (tr ("Count")));
@@ -197,7 +197,7 @@ void DlgSettingsGridDisplay::createDisplayGridLinesY (QGridLayout *layout, int &
                          QVariant (GRID_COORD_DISABLE_STEP));
   m_cmbDisableY->addItem(gridCoordDisableToString (GRID_COORD_DISABLE_STOP),
                          QVariant (GRID_COORD_DISABLE_STOP));
-  connect (m_cmbDisableY, SIGNAL (activated (const QString &)), this, SLOT (slotDisableY (const QString &))); // activated() ignores code changes
+  connect (m_cmbDisableY, SIGNAL (activated (int)), this, SLOT (slotDisableY (int))); // activated() ignores code changes
   layoutGroup->addWidget (m_cmbDisableY, 0, 1);
 
   QLabel *labelCount = new QLabel (QString ("%1:").arg (tr ("Count")));
@@ -370,7 +370,7 @@ void DlgSettingsGridDisplay::setSmallDialogs(bool smallDialogs)
   }
 }
 
-void DlgSettingsGridDisplay::slotColor (QString const &)
+void DlgSettingsGridDisplay::slotColor (int)
 {
   LOG4CPP_INFO_S ((*mainCat)) << "DlgSettingsGridDisplay::slotColor";
 
@@ -399,7 +399,7 @@ void DlgSettingsGridDisplay::slotCountY(const QString &count)
   updatePreview();
 }
 
-void DlgSettingsGridDisplay::slotDisableX(const QString &)
+void DlgSettingsGridDisplay::slotDisableX(int)
 {
   LOG4CPP_INFO_S ((*mainCat)) << "DlgSettingsGridDisplay::slotDisableX";
 
@@ -410,7 +410,7 @@ void DlgSettingsGridDisplay::slotDisableX(const QString &)
   updatePreview();
 }
 
-void DlgSettingsGridDisplay::slotDisableY(const QString &)
+void DlgSettingsGridDisplay::slotDisableY(int)
 {
   LOG4CPP_INFO_S ((*mainCat)) << "DlgSettingsGridDisplay::slotDisableY";
 

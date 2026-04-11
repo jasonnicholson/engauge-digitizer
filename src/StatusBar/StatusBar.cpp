@@ -60,7 +60,7 @@ void StatusBar::createGroupUnits ()
                                "Values at cursor coordinates to display. Coordinates are in screen (pixels) or "
                                "graph units. Resolution (which is the number of graph units per pixel) is "
                                "in graph units. Graph units are only available after axis points have been defined."));
-  connect (m_cmbUnits, SIGNAL (activated(const QString &)), this, SLOT (slotComboUnits (const QString &))); // activated() ignores code changes
+  connect (m_cmbUnits, SIGNAL (activated (int)), this, SLOT (slotComboUnits (int))); // activated() ignores code changes
 
   m_editCoords = new QTextEdit;
   m_editCoords->setEnabled (false); // Disabled until file is opened
@@ -281,9 +281,9 @@ void StatusBar::showTemporaryMessage(const QString &message)
   }
 }
 
-void StatusBar::slotComboUnits (const QString &text)
+void StatusBar::slotComboUnits (int)
 {
-  LOG4CPP_DEBUG_S ((*mainCat)) << "StatusBar::slotComboUnits text=" << text.toLatin1 ().data ();
+  LOG4CPP_DEBUG_S ((*mainCat)) << "StatusBar::slotComboUnits";
 
   updateCoordsText();
 }

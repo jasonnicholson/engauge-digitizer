@@ -40,11 +40,11 @@ public:
 
 private slots:
   void slotCartesianPolar (bool);
-  void slotDate (const QString &);
+  void slotDate (int);
   void slotPolarOriginRadius(const QString &);
-  void slotTime (const QString &);
-  void slotUnitsXTheta(const QString &);
-  void slotUnitsYRadius(const QString &);
+  void slotTime (int);
+  void slotUnitsXTheta(int);
+  void slotUnitsYRadius(int);
   void slotXThetaLinear();
   void slotXThetaLog();
   void slotYRadiusLinear();

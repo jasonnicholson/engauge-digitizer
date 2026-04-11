@@ -85,7 +85,7 @@ void DlgSettingsSegments::createControls (QGridLayout *layout,
                                      "Only segments with more points will be created.\n\n"
                                      "This value should be as large as possible to reduce memory usage. This value has "
                                      "a lower limit"));
-  connect (m_spinMinLength, SIGNAL (valueChanged (const QString &)), this, SLOT (slotMinLength (const QString &)));
+  connect (m_spinMinLength, SIGNAL (valueChanged (int)), this, SLOT (slotMinLength (int)));
   layout->addWidget(m_spinMinLength, row++, 2);
 
   QLabel *labelPointSeparation = new QLabel(QString ("%1:").arg (tr ("Point separation (pixels)")));
@@ -98,7 +98,7 @@ void DlgSettingsSegments::createControls (QGridLayout *layout,
                                            "If Fill Corners is enabled, then additional points will be inserted at corners so some points "
                                            "will be closer.\n\n"
                                            "This value has a lower limit"));
-  connect (m_spinPointSeparation, SIGNAL (valueChanged (const QString &)), this, SLOT (slotPointSeparation (const QString &)));
+  connect (m_spinPointSeparation, SIGNAL (valueChanged (int)), this, SLOT (slotPointSeparation (int)));
   layout->addWidget (m_spinPointSeparation, row++, 2);
 
   QLabel *labelFillCorners = new QLabel (QString ("%1:").arg (tr ("Fill corners")));
@@ -127,8 +127,8 @@ void DlgSettingsSegments::createControls (QGridLayout *layout,
   m_cmbLineColor = new QComboBox;
   m_cmbLineColor->setWhatsThis (tr ("Select a color for the lines drawn along a segment"));
   populateColorComboWithTransparent (*m_cmbLineColor);
-  connect (m_cmbLineColor, SIGNAL (activated (const QString &)),
-           this, SLOT (slotLineColor (const QString &))); // activated() ignores code changes
+  connect (m_cmbLineColor, SIGNAL (activated (int)),
+           this, SLOT (slotLineColor (int))); // activated() ignores code changes
   layout->addWidget (m_cmbLineColor, row++, 2);
 
   QLabel *labelInactiveOpacity = new QLabel(QString ("%1:").arg (tr ("Inactive opacity")));
@@ -154,8 +154,8 @@ void DlgSettingsSegments::createControls (QGridLayout *layout,
                                 QVariant (INACTIVE_OPACITY_224));
   m_cmbInactiveOpacity->addItem (inactiveOpacityEnumToQString (INACTIVE_OPACITY_256),
                                 QVariant (INACTIVE_OPACITY_256));
-  connect (m_cmbInactiveOpacity, SIGNAL (activated (const QString &)),
-           this, SLOT (slotInactiveOpacity (const QString &))); // activated() ignores code changes
+  connect (m_cmbInactiveOpacity, SIGNAL (activated (int)),
+           this, SLOT (slotInactiveOpacity (int))); // activated() ignores code changes
   layout->addWidget (m_cmbInactiveOpacity, row++, 2);
 }
 
@@ -355,7 +355,7 @@ void DlgSettingsSegments::slotFillCorners (int state)
   updatePreview();
 }
 
-void DlgSettingsSegments::slotInactiveOpacity (const QString &)
+void DlgSettingsSegments::slotInactiveOpacity (int)
 {
   LOG4CPP_INFO_S ((*mainCat)) << "DlgSettingsSegments::slotInactiveOpacity";
 
@@ -365,7 +365,7 @@ void DlgSettingsSegments::slotInactiveOpacity (const QString &)
   updatePreview();
 }
 
-void DlgSettingsSegments::slotLineColor (const QString &)
+void DlgSettingsSegments::slotLineColor (int)
 {
   LOG4CPP_INFO_S ((*mainCat)) << "DlgSettingsSegments::slotLineColor";
 
@@ -383,20 +383,20 @@ void DlgSettingsSegments::slotLineWidth (int lineWidth)
   updatePreview();
 }
 
-void DlgSettingsSegments::slotMinLength (const QString &minLength)
+void DlgSettingsSegments::slotMinLength (int)
 {
   LOG4CPP_INFO_S ((*mainCat)) << "DlgSettingsSegments::slotMinLength";
 
-  m_modelSegmentsAfter->setMinLength(minLength.toDouble());
+  m_modelSegmentsAfter->setMinLength(m_spinMinLength->value());
   updateControls();
   updatePreview();
 }
 
-void DlgSettingsSegments::slotPointSeparation (const QString &pointSeparation)
+void DlgSettingsSegments::slotPointSeparation (int)
 {
   LOG4CPP_INFO_S ((*mainCat)) << "DlgSettingsSegments::slotPointSeparation";
 
-  m_modelSegmentsAfter->setPointSeparation(pointSeparation.toDouble());
+  m_modelSegmentsAfter->setPointSeparation(m_spinPointSeparation->value());
   updateControls();
   updatePreview();
 }

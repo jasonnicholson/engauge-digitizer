@@ -91,7 +91,7 @@ void DlgSettingsCurveProperties::createCurveName (QGridLayout *layout,
 
   m_cmbCurveName = new QComboBox ();
   m_cmbCurveName->setWhatsThis (tr ("Name of the curve that is currently selected for editing"));
-  connect (m_cmbCurveName, SIGNAL (activated (const QString &)), this, SLOT (slotCurveName (const QString &))); // activated() ignores code changes
+  connect (m_cmbCurveName, SIGNAL (activated (int)), this, SLOT (slotCurveName (int))); // activated() ignores code changes
   layout->addWidget (m_cmbCurveName, row++, 2);
 }
 
@@ -123,7 +123,7 @@ void DlgSettingsCurveProperties::createLine (QGridLayout *layout,
   m_cmbLineColor->setWhatsThis (tr ("Select a color for the lines drawn between points.\n\n"
                                     "This applies only to graph curves. No lines are ever drawn between axis points."));
   populateColorComboWithTransparent (*m_cmbLineColor);
-  connect (m_cmbLineColor, SIGNAL (activated (const QString &)), this, SLOT (slotLineColor (const QString &))); // activated() ignores code changes
+  connect (m_cmbLineColor, SIGNAL (activated (int)), this, SLOT (slotLineColor (int))); // activated() ignores code changes
   layoutGroup->addWidget (m_cmbLineColor, 1, 1);
 
   QLabel *labelLineType = new QLabel (QString ("%1:").arg (tr ("Connect as")));
@@ -146,7 +146,7 @@ void DlgSettingsCurveProperties::createLine (QGridLayout *layout,
                                    "with smooth lines between successive points, using natural cubic splines of (x,y) pairs versus "
                                    "scalar ordinal (t) values.\n\n"
                                     "This applies only to graph curves. No lines are ever drawn between axis points."));
-  connect (m_cmbLineType, SIGNAL (activated (const QString &)), this, SLOT (slotLineType (const QString &))); // activated() ignores code changes
+  connect (m_cmbLineType, SIGNAL (activated (int)), this, SLOT (slotLineType (int))); // activated() ignores code changes
   layoutGroup->addWidget (m_cmbLineType, 2, 1);
 }
 
@@ -182,7 +182,7 @@ void DlgSettingsCurveProperties::createPoint (QGridLayout *layout,
                             POINT_SHAPE_TRIANGLE2);
   m_cmbPointShape->addItem (pointShapeToString (POINT_SHAPE_X),
                             POINT_SHAPE_X);
-  connect (m_cmbPointShape, SIGNAL (activated (const QString &)), this, SLOT (slotPointShape (const QString &))); // activated() ignores code changes
+  connect (m_cmbPointShape, SIGNAL (activated (int)), this, SLOT (slotPointShape (int))); // activated() ignores code changes
   layoutGroup->addWidget (m_cmbPointShape, 0, 1);
 
   QLabel *labelPointRadius = new QLabel (QString ("%1:").arg (tr ("Radius")));
@@ -212,7 +212,7 @@ void DlgSettingsCurveProperties::createPoint (QGridLayout *layout,
   m_cmbPointColor = new QComboBox (m_groupPoint);
   m_cmbPointColor->setWhatsThis (tr ("Select a color for the line used to draw the point shapes"));
   populateColorComboWithoutTransparent (*m_cmbPointColor);
-  connect (m_cmbPointColor, SIGNAL (activated (const QString &)), this, SLOT (slotPointColor (const QString &))); // activated() ignores code changes
+  connect (m_cmbPointColor, SIGNAL (activated (int)), this, SLOT (slotPointColor (int))); // activated() ignores code changes
   layoutGroup->addWidget (m_cmbPointColor, 3, 1);
 }
 
@@ -476,22 +476,23 @@ void DlgSettingsCurveProperties::setSmallDialogs(bool smallDialogs)
   }
 }
 
-void DlgSettingsCurveProperties::slotCurveName(const QString &curveName)
+void DlgSettingsCurveProperties::slotCurveName(int index)
 {
   LOG4CPP_INFO_S ((*mainCat)) << "DlgSettingsCurveProperties::slotCurveName";
 
   // Dirty flag is not set when simply changing to new curve
 
   // Do nothing if combobox is getting cleared, or load has not been called yet
+  QString curveName = m_cmbCurveName->itemText (index);
   if (!curveName.isEmpty () && (m_modelCurveStylesAfter != nullptr)) {
 
     loadForCurveName (curveName);
   }
 }
 
-void DlgSettingsCurveProperties::slotLineColor(const QString &lineColor)
+void DlgSettingsCurveProperties::slotLineColor(int)
 {
-  LOG4CPP_INFO_S ((*mainCat)) << "DlgSettingsCurveProperties::slotLineColor color=" << lineColor.toLatin1().data();
+  LOG4CPP_INFO_S ((*mainCat)) << "DlgSettingsCurveProperties::slotLineColor";
 
   m_isDirty = true;
 
@@ -513,9 +514,9 @@ void DlgSettingsCurveProperties::slotLineWidth(int width)
   updatePreview();
 }
 
-void DlgSettingsCurveProperties::slotLineType(const QString &lineType)
+void DlgSettingsCurveProperties::slotLineType(int)
 {
-  LOG4CPP_INFO_S ((*mainCat)) << "DlgSettingsCurveProperties::slotLineType lineType=" << lineType.toLatin1().data();
+  LOG4CPP_INFO_S ((*mainCat)) << "DlgSettingsCurveProperties::slotLineType";
 
   m_isDirty = true;
 
@@ -525,9 +526,9 @@ void DlgSettingsCurveProperties::slotLineType(const QString &lineType)
   updatePreview();
 }
 
-void DlgSettingsCurveProperties::slotPointColor(const QString &pointColor)
+void DlgSettingsCurveProperties::slotPointColor(int)
 {
-  LOG4CPP_INFO_S ((*mainCat)) << "DlgSettingsCurveProperties::slotPointColor pointColor=" << pointColor.toLatin1().data();
+  LOG4CPP_INFO_S ((*mainCat)) << "DlgSettingsCurveProperties::slotPointColor";
 
   m_isDirty = true;
 
@@ -561,7 +562,7 @@ void DlgSettingsCurveProperties::slotPointRadius(int radius)
   updatePreview();
 }
 
-void DlgSettingsCurveProperties::slotPointShape(const QString &)
+void DlgSettingsCurveProperties::slotPointShape(int)
 {
   LOG4CPP_INFO_S ((*mainCat)) << "DlgSettingsCurveProperties::slotPointShape";
 

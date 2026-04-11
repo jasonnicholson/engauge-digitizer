@@ -280,7 +280,7 @@ void DlgSettingsMainWindow::createControls (QGridLayout *layout,
                                          "Set the color of the guidelines that can be dragged from the edges of the scene, and used "
                                          "to align points"));
   populateColorComboWithoutTransparent (*m_cmbGuidelineColor);
-  connect (m_cmbGuidelineColor, SIGNAL (activated (const QString &)), this, SLOT (slotGuidelineColor (const QString &))); // activated() ignores code changes
+  connect (m_cmbGuidelineColor, SIGNAL (activated (int)), this, SLOT (slotGuidelineColor (int))); // activated() ignores code changes
   layout->addWidget (m_cmbGuidelineColor, row++, 2);
 }
 
@@ -397,7 +397,7 @@ void DlgSettingsMainWindow::slotDragDropExport (bool)
   updateControls ();
 }
 
-void DlgSettingsMainWindow::slotGuidelineColor (QString const &)
+void DlgSettingsMainWindow::slotGuidelineColor (int)
 {
   LOG4CPP_INFO_S ((*mainCat)) << "DlgSettingsMainWindow::slotColor";
 

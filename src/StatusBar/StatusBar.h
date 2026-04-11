@@ -53,7 +53,7 @@ public slots:
 
 private slots:
   /// Receive new selection of coordinate units.
-  void slotComboUnits (const QString &);
+  void slotComboUnits (int);
 
   /// Receive zoom selection from StatusBar
   void slotComboZoom (const QString &);

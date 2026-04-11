@@ -39,7 +39,7 @@ class DlgImportAdvanced : public DlgSettingsAbstractBase
 
  private slots:
   void slotAxesPointCount(bool);
-  void slotCoordSystemCount(const QString &);
+  void slotCoordSystemCount(int);
 
  private:
   DlgImportAdvanced();
