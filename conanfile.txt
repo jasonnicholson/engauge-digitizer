@@ -1,0 +1,7 @@
+[requires]
+fftw/3.3.10
+openjpeg/2.5.3
+
+[generators]
+CMakeToolchain
+PkgConfigDeps
