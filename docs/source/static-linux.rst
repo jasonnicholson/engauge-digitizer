@@ -1,7 +1,9 @@
-Linux Static and Near-Static Strategy
-=====================================
+Linux Static Build Strategy
+===========================
 
-Near-static portability is the current primary target for Linux distribution.
+The Linux build links dynamically against the distribution's Qt6 packages.
+This page documents notes on fully static or near-static approaches that
+have been explored but are **not actively maintained**.
 
 Why Fully Static Is Hard
 ------------------------
@@ -15,42 +17,16 @@ Why Fully Static Is Hard
 Decision
 --------
 
-- Near-static binary plus documented runtime/system assumptions is the
-  **primary direction**.
-- AppImage/Flatpak is the preferred portable Linux deliverable if near-static
-  proves insufficient.
-- Fully static Linux binary: not yet achieved; effort is tracked below.
+- The primary Linux build uses system Qt6 (``build_linux_systemqt.sh``).
+- AppImage/Flatpak is the preferred portable Linux deliverable if cross-distro
+  portability is needed in the future.
 
 Current Status
 --------------
 
-- Windows static build via MXE with Qt6: **in progress** (Qt6/CMake lane established).
-- Linux dynamic build against distro Qt6: **working**.
-- Linux almost-static bundle using custom Qt6 + bundled libs/plugins: **working**.
-- Linux fully static build: **not yet achieved**.
-
-Almost-Static Build (Current Working Path)
-------------------------------------------
-
-Use a custom Qt6 install (for example ``/opt/qt6-linux``), build Engauge
-with CMake and that Qt6, then package Qt ``.so`` libraries and plugins alongside
-the binary.
-
-From repository root::
-
-  sudo apt-get install patchelf
-  bash build_linux_almoststaticqt.sh
-
-Artifacts:
-
-- ``build-linux-almoststaticqt/engauge``
-- ``dist/almoststatic-linux-x86_64`` (self-contained bundle)
-- ``dist/engauge-linux-almoststatic-x86_64.tar.gz``
-
-This produces a portable Linux build that does not require distro Qt packages.
-
-Building Against Fully Static Qt6 (Experimental Guide)
--------------------------------------------------------
+- Windows static build via MXE with Qt6: **working**.
+- Linux dynamic build against distro Qt6: **working** (primary).
+- Linux fully static build: **not achieved**; not actively pursued.
 
 Phase 1 — Baseline::
 

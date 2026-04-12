@@ -4,14 +4,13 @@ Build and Release
 Distribution direction:
 
 - **Windows** — static cross-build via MXE toolchain with Qt6; produces a single portable ``.exe``
-- **Linux (distro Qt)** — dynamically linked against the OS Qt6 packages; simple and fast
-- **Linux (almost-static)** — linked against a self-built Qt6 install; portable across distros
+- **Linux** — dynamically linked against the OS Qt6 packages
 
 Building from Source
 --------------------
 
-Linux — distro Qt (quick build)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Linux (system Qt6)
+^^^^^^^^^^^^^^^^^
 
 Install dependencies::
 
@@ -23,28 +22,6 @@ Build::
    bash build_linux_systemqt.sh
 
 Binary: ``build-linux-systemqt/engauge``
-
-Linux — almost-static Qt6 (portable build)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Builds against a custom Qt6 install (for example ``/opt/qt6-linux``),
-then bundles Qt ``.so`` libraries and plugins next to the executable. This
-removes runtime dependency on distro Qt packages while still relying on core
-system libraries (``glibc``, X11, OpenGL, etc.).
-
-Prerequisite::
-
-   sudo apt-get install patchelf
-
-Build and package::
-
-   bash build_linux_almoststaticqt.sh
-
-Binary: ``build-linux-almoststaticqt/engauge``
-Tarball: ``dist/engauge-linux-almoststatic-x86_64.tar.gz``
-Bundle root: ``dist/almoststatic-linux-x86_64``
-
-Set ``QT_PREFIX`` if your Qt6 install is not under ``/opt/qt6-linux``.
 
 Windows (MXE cross-compile with Qt6)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -104,13 +81,6 @@ Windows binary interactively::
 
 Legacy test scripts
 ^^^^^^^^^^^^^^^^^^^
-
-The ``src/`` directory still contains older shell-based test runners::
-
-   cd src && ./build_and_run_all_cli_tests
-   cd src && ./build_and_run_all_gui_tests
-
-These use the qmake build and are not maintained for Qt6.
 
 Packaging Artifacts
 -------------------

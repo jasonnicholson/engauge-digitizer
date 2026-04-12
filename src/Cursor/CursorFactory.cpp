@@ -7,7 +7,6 @@
 #include "CursorFactory.h"
 #include "CursorSize.h"
 #include "DocumentModelDigitizeCurve.h"
-#include <QBitmap>
 #include <QPainter>
 #include <QPixmap>
 
@@ -32,42 +31,32 @@ QCursor CursorFactory::generate (const DocumentModelDigitizeCurve &modelDigitize
 
   } else {
 
-    // Custom cursor
-    const int BACKGROUND_COLOR = Qt::white, FOREGROUND_COLOR = Qt::black;
+    // Custom cursor drawn on a transparent pixmap
+    QPixmap pic (size, size);
+    pic.fill (Qt::transparent);
 
-    // Cursor is created with pic image (which has nontrivial pen) masked by picMask image
-    // (which has single color pen)
-    QPixmap picMask (size,
-                     size);
-    QPainter picMaskPaint (&picMask);
-    picMask.fill (QColor (BACKGROUND_COLOR));
+    QPainter painter (&pic);
+    QPen pen (Qt::black, modelDigitizeCurve.cursorLineWidth());
+    painter.setPen (pen);
 
-    QPen pen (QBrush (FOREGROUND_COLOR),
-              modelDigitizeCurve.cursorLineWidth());
-    picMaskPaint.setPen (pen);
+    painter.drawLine (QPointF (halfSize,
+                               halfSize - innerRadius - halfLineWidth),
+                      QPointF (halfSize,
+                               lineWidth)); // Up
+    painter.drawLine (QPointF (halfSize - innerRadius - halfLineWidth,
+                               halfSize),
+                      QPointF (lineWidth,
+                               halfSize)); // Left
+    painter.drawLine (QPointF (halfSize,
+                               halfSize + innerRadius + halfLineWidth),
+                      QPointF (halfSize,
+                               size - 1 - lineWidth)); // Down
+    painter.drawLine (QPointF (halfSize + innerRadius + halfLineWidth,
+                               halfSize),
+                      QPointF (size - 1 - lineWidth,
+                               halfSize)); // Right
+    painter.end ();
 
-    picMaskPaint.drawLine (QPointF (halfSize,
-                                    halfSize - innerRadius - halfLineWidth),
-                           QPointF (halfSize,
-                                    lineWidth)); // Up
-    picMaskPaint.drawLine (QPointF (halfSize - innerRadius - halfLineWidth,
-                                    halfSize),
-                           QPointF (lineWidth,
-                                    halfSize)); // Left
-    picMaskPaint.drawLine (QPointF (halfSize,
-                                    halfSize + innerRadius + halfLineWidth),
-                           QPointF (halfSize,
-                                    size - 1 - lineWidth)); // Down
-    picMaskPaint.drawLine (QPointF (halfSize + innerRadius + halfLineWidth,
-                                    halfSize),
-                           QPointF (size - 1 - lineWidth,
-                                    halfSize)); // Right
-
-    QPixmap pic (size,
-                 size);
-    pic.fill (QColor (FOREGROUND_COLOR));
-
-    return QCursor (pic.createMaskFromColor(QColor (BACKGROUND_COLOR)),
-                  picMask.createMaskFromColor(QColor (BACKGROUND_COLOR)));
+    return QCursor (pic, halfSize, halfSize);
   }
 }

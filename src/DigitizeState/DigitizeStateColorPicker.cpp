@@ -14,12 +14,12 @@
 #include "EngaugeAssert.h"
 #include "Logger.h"
 #include "MainWindow.h"
-#include <QBitmap>
 #include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
 #include <QImage>
 #include <qmath.h>
 #include <QMessageBox>
+#include <QPixmap>
 
 DigitizeStateColorPicker::DigitizeStateColorPicker (DigitizeStateContext &context) :
   DigitizeStateAbstractBase (context)
@@ -165,10 +165,10 @@ QCursor DigitizeStateColorPicker::cursor(CmdMediator * /* cmdMediator */) const
   const int HOT_Y_IN_BITMAP = 24;
   LOG4CPP_DEBUG_S ((*mainCat)) << "DigitizeStateColorPicker::cursor";
 
-  QBitmap bitmap (":/engauge/img/cursor_eyedropper.xpm");
-  QBitmap bitmapMask (":/engauge/img/cursor_eyedropper_mask.xpm");
-  return QCursor (bitmap,
-                  bitmapMask,
+  QPixmap pixmap (":/engauge/img/cursor_eyedropper.xpm");
+  QPixmap pixmapMask (":/engauge/img/cursor_eyedropper_mask.xpm");
+  pixmap.setMask (pixmapMask.createMaskFromColor (Qt::transparent));
+  return QCursor (pixmap,
                   HOT_X_IN_BITMAP,
                   HOT_Y_IN_BITMAP);
 }
