@@ -23,6 +23,44 @@ Build::
 
 Binary: ``build-linux-systemqt/engauge``
 
+Windows Prerequisites: Setting up MXE
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The Windows build uses `MXE (M Cross Environment) <https://mxe.cc>`_ to cross-compile
+from Linux. MXE provides a pre-built MinGW-w64 toolchain with Qt6 and other libraries
+as static packages.
+
+**Install MXE:**
+
+1. Clone the MXE repository (or download a pre-built version)::
+
+      git clone https://github.com/mxe/mxe.git
+      cd mxe
+
+2. Build MXE with Qt6 support for the x86_64 static target (this takes 30+ minutes)::
+
+      make qt6 MXE_TARGETS=x86_64-w64-mingw32.static -j$(nproc)
+
+   Alternatively, if you only need CMake (already included in the Qt6 build):
+
+      make cmake MXE_TARGETS=x86_64-w64-mingw32.static -j$(nproc)
+
+3. Add MXE to your environment (in your ``.bashrc`` or ``.zshrc``)::
+
+      export MXE_ROOT=$HOME/mxe   # adjust path if installed elsewhere
+      export PATH="$MXE_ROOT/usr/bin:$PATH"
+
+   Verify the toolchain is available::
+
+      x86_64-w64-mingw32.static-gcc --version
+      x86_64-w64-mingw32.static-cmake --version
+
+**MXE Build Options:**
+
+- Use ``MXE_TARGETS=x86_64-w64-mingw32.shared`` for a shared-lib build (larger, but faster to link)
+- Use ``MXE_TARGETS=i686-w64-mingw32.static`` for 32-bit Windows
+- See `MXE documentation <https://mxe.cc>`_ for detailed build customization
+
 Windows (MXE Qt6 + Conan cross-compile)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
