@@ -34,8 +34,10 @@ TranslatorContainer::TranslatorContainer(QApplication & /* app */)
 
     // Basic translators, like buttons in QWizard
     m_translatorGeneric = new QTranslator;
-    m_translatorGeneric->load ("qt_" + localeName,
-                                QLibraryInfo::location (QLibraryInfo::TranslationsPath));
+    if (!m_translatorGeneric->load ("qt_" + localeName,
+                                     QLibraryInfo::path (QLibraryInfo::TranslationsPath))) {
+      // Translations not found is not fatal — English will be used
+    }
     QApplication::installTranslator (m_translatorGeneric);
 
     // Engauge-specific translators. As documented in engauge.pro, the country-specific engauge_XX_YY locale is loaded
@@ -54,7 +56,7 @@ TranslatorContainer::TranslatorContainer(QApplication & /* app */)
       QString localeNameUpper = QString ("%1%2")
           .arg (localeName.left (localeName.length() - 2))
           .arg (localeName.right (2).toUpper ());
-      m_translatorEngauge->load ("engauge_" + localeNameUpper,
+      (void) m_translatorEngauge->load ("engauge_" + localeNameUpper,
                                  qmDirectory(),
                                  delimiters);
     }

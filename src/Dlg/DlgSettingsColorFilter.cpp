@@ -54,6 +54,8 @@ DlgSettingsColorFilter::~DlgSettingsColorFilter()
 {
   LOG4CPP_INFO_S ((*mainCat)) << "DlgSettingsColorFilter::~DlgSettingsColorFilter";
 
+  m_filterThread->quit ();
+  m_filterThread->wait ();
   delete m_filterThread;
 }
 

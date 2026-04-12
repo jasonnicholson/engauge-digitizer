@@ -64,7 +64,7 @@ QString MimePointsExport::htmlGraph () const
 }
 
 QVariant MimePointsExport::retrieveData (const QString &format,
-                                         QVariant::Type /* preferredType */) const
+                                         QMetaType /* preferredType */) const
 {
   if (format == FORMAT_CSV) {
     return m_csvGraph;

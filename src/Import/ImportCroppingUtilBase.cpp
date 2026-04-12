@@ -9,7 +9,7 @@
 #include <QHash>
 #include <QObject>
 
-const ImportCropping DEFAULT_IMPORT_CROPPING = IMPORT_CROPPING_MULTIPAGE_PDFS; // Traditional, and simplest, option
+const ImportCropping DEFAULT_IMPORT_CROPPING = IMPORT_CROPPING_NEVER;
 
 ImportCroppingUtilBase::ImportCroppingUtilBase()
 {
@@ -20,7 +20,6 @@ QString ImportCroppingUtilBase::importCroppingToString (ImportCropping importCro
   QHash<ImportCropping, QString> lookupTable;
 
   lookupTable.insert (IMPORT_CROPPING_NEVER, QObject::tr ("No cropping"));
-  lookupTable.insert (IMPORT_CROPPING_MULTIPAGE_PDFS, QObject::tr ("Crop pdf files with multiple pages"));
   lookupTable.insert (IMPORT_CROPPING_ALWAYS, QObject::tr ("Always crop"));
 
   ENGAUGE_ASSERT (lookupTable.count() == NUMBER_IMPORT_CROPPING);
