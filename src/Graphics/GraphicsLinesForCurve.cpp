@@ -12,6 +12,7 @@
 #include "GraphicsLinesForCurve.h"
 #include "GraphicsPoint.h"
 #include "GraphicsScene.h"
+#include <iterator>
 #include "LineStyle.h"
 #include "Logger.h"
 #include "Point.h"
@@ -139,7 +140,7 @@ QPainterPath GraphicsLinesForCurve::drawLinesSmooth (const LineStyle &lineStyle,
         path.moveTo (point->pos ());
 
         // Show curveMultiValued instead in what would have been the original curve's path
-        OrdinalToGraphicsPoint::const_iterator itrBefore = itr - 1;
+        OrdinalToGraphicsPoint::const_iterator itrBefore = std::prev (itr);
         const GraphicsPoint *pointBefore = itrBefore.value();
         pathMultiValued.moveTo (pointBefore->pos ());
         pathMultiValued.cubicTo (p1,

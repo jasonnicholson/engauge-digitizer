@@ -15,15 +15,9 @@ MXE_TARGET_DIR="$MXE_ROOT/usr/$TARGET"
 BUILD_DIR="${BUILD_DIR:-build-win-mxe}"
 BUILD_TYPE="${BUILD_TYPE:-Release}"
 
-CMAKE_TOOLCHAIN="$MXE_ROOT/usr/${TARGET}/share/cmake/mxe-conf.cmake"
-if [[ ! -f "$CMAKE_TOOLCHAIN" ]]; then
-  # Fallback: try deprecated location
-  CMAKE_TOOLCHAIN="$MXE_ROOT/usr/lib/cmake/${TARGET}-toolchain.cmake"
-fi
-
-if [[ ! -f "$CMAKE_TOOLCHAIN" ]]; then
-  echo "ERROR: MXE CMake toolchain file not found."
-  echo "Expected at: $MXE_ROOT/usr/${TARGET}/share/cmake/mxe-conf.cmake"
+MXE_CMAKE="$MXE_ROOT/usr/bin/${TARGET}-cmake"
+if [[ ! -x "$MXE_CMAKE" ]]; then
+  echo "ERROR: MXE cmake wrapper not found: $MXE_CMAKE"
   echo "Ensure MXE was built with CMake support and Qt6."
   exit 1
 fi
@@ -46,10 +40,9 @@ cd "$ROOT_DIR"
 export PATH="$MXE_ROOT/usr/bin:$PATH"
 
 echo "Using MXE target: $TARGET"
-echo "Using CMake toolchain: $CMAKE_TOOLCHAIN"
+echo "Using MXE cmake: $MXE_CMAKE"
 
-cmake -B "$BUILD_DIR" -S . \
-  -DCMAKE_TOOLCHAIN_FILE="$CMAKE_TOOLCHAIN" \
+"$MXE_CMAKE" -B "$BUILD_DIR" -S . \
   -DCMAKE_BUILD_TYPE="$BUILD_TYPE" \
   -DENGAUGE_LOG4CPP_NULL=ON \
   -DBUILD_TESTING=OFF \

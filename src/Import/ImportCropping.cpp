@@ -8,7 +8,6 @@
 #include <QObject>
 
 const QString IMPORT_CROPPING_NEVER_STRING (QObject::tr ("Never crop during import"));
-const QString IMPORT_CROPPING_MULTIPAGE_PDFS_STRING (QObject::tr ("Crop during import only for multiple-page pdf files"));
 const QString IMPORT_CROPPING_ALWAYS_STRING (QObject::tr ("Always crop during import"));
 
 const ImportCropping DEFAULT_IMPORT_CROPPING = IMPORT_CROPPING_NEVER;

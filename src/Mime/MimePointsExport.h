@@ -7,6 +7,7 @@
 #ifndef MIME_POINTS_EXPORT_H
 #define MIME_POINTS_EXPORT_H
 
+#include <QMetaType>
 #include <QMimeData>
 #include <QString>
 #include <QStringList>
@@ -47,7 +48,7 @@ public:
 protected:
   /// Returns a variant with the data for the specified format.
   virtual QVariant retrieveData (const QString &format,
-                                 QVariant::Type preferredType) const;
+                                 QMetaType preferredType) const;
 
 private:
   QString m_csvGraph;
