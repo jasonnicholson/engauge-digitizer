@@ -191,7 +191,7 @@ void FormatDegreesMinutesSecondsBase::stripSymbols (QString &field0,
   QRegularExpression regExpDegrees (strExpDegrees);
 
   if (regExpDegrees.match (field0).hasMatch () && regExpDegrees.match (field0).capturedLength () == field0.length ()) {
-    field0 = field0.left (field0.count() - 1);
+    field0 = field0.left (field0.size() - 1);
   }
 
   // Clean up minutes
@@ -202,7 +202,7 @@ void FormatDegreesMinutesSecondsBase::stripSymbols (QString &field0,
   QRegularExpression regExpMinutes (strExpMinutes);
 
   if (regExpMinutes.match (field1).hasMatch () && regExpMinutes.match (field1).capturedLength () == field1.length ()) {
-    field1 = field1.left (field1.count() - 1);
+    field1 = field1.left (field1.size() - 1);
   }
 
   // Clean up seconds
@@ -216,9 +216,9 @@ void FormatDegreesMinutesSecondsBase::stripSymbols (QString &field0,
   QRegularExpression regExpSeconds1Char (strExpSeconds1Char), regExpSeconds2Chars (strExpSeconds2Chars);
 
   if (regExpSeconds1Char.match (field2).hasMatch () && regExpSeconds1Char.match (field2).capturedLength () == field2.length ()) {
-    field2 = field2.left (field2.count() - 1);
+    field2 = field2.left (field2.size() - 1);
   }
   if (regExpSeconds2Chars.match (field2).hasMatch () && regExpSeconds2Chars.match (field2).capturedLength () == field2.length ()) {
-    field2 = field2.left (field2.count() - 2);
+    field2 = field2.left (field2.size() - 2);
   }
 }

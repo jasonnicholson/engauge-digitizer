@@ -106,7 +106,7 @@ void CmdAbstract::saveOrCheckPostCommandDocumentStateHash (const Document &docum
   DocumentHashGenerator documentHashGenerator;
   DocumentHash documentHash = documentHashGenerator.generate (document);
 
-  if (m_documentHashPost.count() == 0) {
+  if (m_documentHashPost.size() == 0) {
 
     // This is the first time through here so save the initial value
     m_documentHashPost = documentHash;
@@ -129,7 +129,7 @@ void CmdAbstract::saveOrCheckPreCommandDocumentStateHash (const Document &docume
   DocumentHashGenerator documentHashGenerator;
   DocumentHash documentHash = documentHashGenerator.generate (document);
 
-  if (m_documentHashPre.count() == 0) {
+  if (m_documentHashPre.size() == 0) {
 
     // This is the first time through here so save the initial value
     m_documentHashPre = documentHash;

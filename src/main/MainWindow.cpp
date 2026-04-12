@@ -1090,7 +1090,7 @@ void MainWindow::loadErrorReportFile(const QString &errorReportFile)
 
   // Open the error report file as if it was a regular Document file
   QXmlStreamReader reader (&file);
-  file.open(QIODevice::ReadOnly | QIODevice::Text);
+  (void) file.open(QIODevice::ReadOnly | QIODevice::Text);
   m_cmdMediator = new CmdMediator(*this,
                                   errorReportFile);
 
@@ -1441,7 +1441,7 @@ void MainWindow::saveErrorReportFileAndExit (const char *context,
         // Save the error report
         QFile fileError (fileName);
         QTextStream str (&fileError);
-        fileError.open (QIODevice::WriteOnly | QIODevice::Text);
+        (void) fileError.open (QIODevice::WriteOnly | QIODevice::Text);
         str << report;
         fileError.close ();
       }
@@ -3433,7 +3433,7 @@ void MainWindow::startRegressionDropTest (const QStringList &loadStartupFiles)
     }
 
     QFile file (filenameCsv);
-    file.open (QIODevice::WriteOnly);
+    (void) file.open (QIODevice::WriteOnly);
     QTextStream str (&file);
     str << siz.width() << "x" << siz.height() << "\n";
     file.close ();
