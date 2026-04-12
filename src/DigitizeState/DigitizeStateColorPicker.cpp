@@ -14,7 +14,6 @@
 #include "EngaugeAssert.h"
 #include "Logger.h"
 #include "MainWindow.h"
-#include <QBitmap>
 #include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
 #include <QImage>
@@ -166,10 +165,9 @@ QCursor DigitizeStateColorPicker::cursor(CmdMediator * /* cmdMediator */) const
   const int HOT_Y_IN_BITMAP = 24;
   LOG4CPP_DEBUG_S ((*mainCat)) << "DigitizeStateColorPicker::cursor";
 
-  QPixmap pixmap (":/engauge/img/cursor_eyedropper.xpm");
-  QPixmap maskPix (":/engauge/img/cursor_eyedropper_mask.xpm");
-  QBitmap mask = maskPix.createMaskFromColor (QColor (0, 0, 0, 0), Qt::MaskInColor);
-  pixmap.setMask (mask);
+  // The mask XPM has 'c None' for transparent areas, so the QPixmap loader
+  // produces a proper alpha channel directly — no QBitmap mask needed.
+  QPixmap pixmap (":/engauge/img/cursor_eyedropper_mask.xpm");
   return QCursor (pixmap,
                   HOT_X_IN_BITMAP,
                   HOT_Y_IN_BITMAP);
