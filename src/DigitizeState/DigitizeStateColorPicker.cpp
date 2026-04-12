@@ -19,7 +19,6 @@
 #include <QImage>
 #include <qmath.h>
 #include <QMessageBox>
-#include <QPixmap>
 
 DigitizeStateColorPicker::DigitizeStateColorPicker (DigitizeStateContext &context) :
   DigitizeStateAbstractBase (context)
@@ -160,17 +159,11 @@ bool DigitizeStateColorPicker::computeFilterFromPixel (CmdMediator *cmdMediator,
 
 QCursor DigitizeStateColorPicker::cursor(CmdMediator * /* cmdMediator */) const
 {
-  // Hot point is at the point of the eye dropper
-  const int HOT_X_IN_BITMAP = 8;
-  const int HOT_Y_IN_BITMAP = 24;
   LOG4CPP_DEBUG_S ((*mainCat)) << "DigitizeStateColorPicker::cursor";
 
-  // The mask XPM has 'c None' for transparent areas, so the QPixmap loader
-  // produces a proper alpha channel directly — no QBitmap mask needed.
-  QPixmap pixmap (":/engauge/img/cursor_eyedropper_mask.xpm");
-  return QCursor (pixmap,
-                  HOT_X_IN_BITMAP,
-                  HOT_Y_IN_BITMAP);
+  // Some Linux cursor backends reject custom bitmap/pixmap cursors and emit
+  // "Cannot create bitmap cursor" warnings. Use a built-in cursor for robust behavior.
+  return QCursor (Qt::CrossCursor);
 }
 
 void DigitizeStateColorPicker::end ()
