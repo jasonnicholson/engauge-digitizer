@@ -73,7 +73,6 @@ const QString SETTINGS_GROUP_GENERAL ("GeneralEngauge"); // "General" group name
 // Import group
 const QString SETTINGS_GROUP_IMPORT ("Import");
 const QString SETTINGS_IMPORT_CROPPING ("Cropping");
-const QString SETTINGS_IMPORT_PDF_RESOLUTION ("PdfResolution");
 
 // Export group. Any new entries here should probably be added to DlgSettingsExportFormat::slotSaveDefault()
 // and DocumentModelExportFormat::DocumentModelExportFormat()

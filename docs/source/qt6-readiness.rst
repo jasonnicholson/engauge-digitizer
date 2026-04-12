@@ -14,9 +14,9 @@ Build system
 - C++ standard raised to C++17.
 - All build scripts (``build_linux_systemqt.sh``, ``build_linux_almoststaticqt.sh``,
   ``build_windows_mxe.sh``) converted to CMake/Qt6; no qmake or Qt5 references remain.
-- Optional PDF support now requires ``poppler-qt6`` (configured via CMake option
-  ``-DENGAUGE_PDF=ON``), and optional JPEG2000 support uses ``libopenjp2``
+- Optional JPEG2000 support uses ``libopenjp2``
   (``-DENGAUGE_JPEG2000=ON``).
+  PDF support has been removed; see the README for rationale.
 
 Source compatibility
 ^^^^^^^^^^^^^^^^^^^^
@@ -45,9 +45,8 @@ Documentation
 Validation status
 -----------------
 
-- Linux system-Qt build succeeds with ``ENGAUGE_JPEG2000=ON`` and
-  ``ENGAUGE_PDF=ON``.
-- Windows MXE cross-build succeeds with ``openjpeg`` and ``poppler-qt6`` in
+- Linux system-Qt build succeeds with ``ENGAUGE_JPEG2000=ON``.
+- Windows MXE cross-build succeeds with ``openjpeg`` in
   the target sysroot.
 - ``build_windows_mxe.sh`` now checks for required MXE dependencies up front
-  (``fftw``, ``openjpeg``, ``poppler-qt6``).
+  (``fftw``, ``openjpeg``).

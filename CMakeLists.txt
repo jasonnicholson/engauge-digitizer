@@ -33,7 +33,6 @@ set(CMAKE_AUTOUIC ON)
 # Optional features
 # ---------------------------------------------------------------------------
 option(ENGAUGE_JPEG2000 "Enable JPEG2000 input support (requires OpenJPEG)" OFF)
-option(ENGAUGE_PDF      "Enable PDF input support (requires poppler-qt6)"   OFF)
 option(ENGAUGE_LOG4CPP_NULL "Use bundled log4cpp_null stub instead of system log4cpp" ON)
 option(ENGAUGE_NETWORKING "Enable network features" ON)
 option(BUILD_TESTING     "Build unit tests (requires Qt6::Test)" ON)
@@ -392,7 +391,6 @@ set(ENGAUGE_SOURCES
     src/NonPdf/NonPdfCropping.cpp
     src/NonPdf/NonPdfFrameHandle.cpp
     src/Ordinal/OrdinalGenerator.cpp
-    src/Pdf/PdfResolution.cpp
     src/Point/Point.cpp
     src/Point/PointIdentifiers.cpp
     src/Point/PointMatchAlgorithm.cpp
@@ -591,7 +589,6 @@ target_include_directories(engauge_core PUBLIC
     src/Network
     src/NonPdf
     src/Ordinal
-    src/Pdf
     src/Plot
     src/Point
     src/ScaleBar
@@ -651,39 +648,6 @@ if(ENGAUGE_JPEG2000)
     message(STATUS "JPEG2000 support: enabled")
 else()
     message(STATUS "JPEG2000 support: disabled")
-endif()
-
-# ---------------------------------------------------------------------------
-# Optional: PDF support via poppler-qt6
-# ---------------------------------------------------------------------------
-if(ENGAUGE_PDF)
-    find_package(PkgConfig REQUIRED)
-    pkg_check_modules(POPPLER REQUIRED IMPORTED_TARGET poppler-qt6)
-    target_compile_definitions(engauge_core PUBLIC ENGAUGE_PDF)
-    target_include_directories(engauge_core PUBLIC ${POPPLER_INCLUDE_DIRS} src/Pdf)
-    target_link_libraries(engauge_core PUBLIC PkgConfig::POPPLER)
-    # MXE poppler-qt6 advertises private Qt libs as -lQt6Gui/-lQt6Core without
-    # always adding the Qt libdir to the link line, so add it explicitly.
-    if(MINGW)
-        get_target_property(_qt6core_location Qt6::Core IMPORTED_LOCATION_RELEASE)
-        if(NOT _qt6core_location)
-            get_target_property(_qt6core_location Qt6::Core IMPORTED_LOCATION)
-        endif()
-        if(_qt6core_location)
-            get_filename_component(_qt6_libdir "${_qt6core_location}" DIRECTORY)
-            target_link_directories(engauge_core PUBLIC "${_qt6_libdir}")
-        endif()
-    endif()
-    target_sources(engauge_core PRIVATE
-        src/Dlg/DlgImportCroppingPdf.cpp
-        src/Import/ImportCroppingUtilPdf.cpp
-        src/Pdf/Pdf.cpp
-        src/Pdf/PdfCropping.cpp
-        src/Pdf/PdfFrameHandle.cpp
-    )
-    message(STATUS "PDF support: enabled (poppler-qt6)")
-else()
-    message(STATUS "PDF support: disabled")
 endif()
 
 # ---------------------------------------------------------------------------

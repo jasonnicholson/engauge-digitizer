@@ -70,9 +70,6 @@ public:
   /// Get method for maximum number of grid lines
   int maximumGridLines () const;
 
-  /// Get method for resolution of imported PDF files, in dots per inch
-  int pdfResolution () const;
-
   /// Debugging method that supports print method of this class and printStream method of some other class(es)
   void printStream (QString indentation,
                     QTextStream &str) const;
@@ -110,9 +107,6 @@ public:
   /// Set method for maximum number of exported points per curve
   void setMaximumExportedPointsPerCurve (int maximumExportedPointsPerCurve);
 
-  /// Set method for resolution of imported PDF files, in dots per inch
-  void setPdfResolution (int resolution);
-
   /// Set method for significant digits
   void setSignificantDigits (int significantDigits);
 
@@ -143,7 +137,6 @@ private:
   ZoomControl m_zoomControl;
   ZoomFactorInitial m_zoomFactorInitial;
   MainTitleBarFormat m_mainTitleBarFormat;
-  int m_pdfResolution;
   ImportCropping m_importCropping;
   int m_maximumGridLines;
   double m_highlightOpacity;

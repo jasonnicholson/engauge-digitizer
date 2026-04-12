@@ -18,12 +18,6 @@ Install dependencies::
    sudo apt install qt6-base-dev qt6-tools-dev qt6-tools-dev-tools qt6-l10n-tools \
                     libfftw3-dev libjpeg-dev libopenjp2-7-dev cmake
 
-For PDF support (``-DENGAUGE_PDF=ON`` in the build script), install
-``poppler-qt6`` development files. On Ubuntu 22.04 this is typically built
-from source and installed under ``$HOME/.local``. Ensure ``PKG_CONFIG_PATH``
-contains that location (the Linux build script already prepends
-``$HOME/.local/lib/pkgconfig``).
-
 Build::
 
    bash build_linux_systemqt.sh
@@ -57,7 +51,7 @@ Windows (MXE cross-compile with Qt6)
 
 From repository root::
 
-   export MXE_ROOT=$HOME/mxe
+   export MXE_ROOT=/path/to/your/mxe   # e.g. $HOME/workspace/mxe-qt6
    ./build_windows_mxe.sh
 
 Requires MXE built with Qt6 and CMake support for the x86_64 static target.
@@ -67,12 +61,11 @@ The script expects these MXE target packages to be present:
 
 - ``fftw``
 - ``openjpeg`` (JPEG2000)
-- ``poppler-qt6`` (PDF)
 
 Example MXE package install commands::
 
    make -C "$MXE_ROOT" qt6 MXE_TARGETS=x86_64-w64-mingw32.static
-   make -C "$MXE_ROOT" fftw openjpeg poppler-qt6 MXE_TARGETS=x86_64-w64-mingw32.static
+   make -C "$MXE_ROOT" fftw openjpeg MXE_TARGETS=x86_64-w64-mingw32.static
 
 Unit tests are disabled automatically for this MXE build lane
 (``-DBUILD_TESTING=OFF``) so cross-builds do not require ``Qt6::Test``.
@@ -84,15 +77,40 @@ Binary: ``build-win-mxe/engauge.exe``
 Tests
 -----
 
-Command-line tests::
+Linux unit tests (CMake / CTest)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-   cd src
-   ./build_and_run_all_cli_tests
+The Linux build script enables ``BUILD_TESTING=ON`` by default. After
+building, run::
 
-GUI tests::
+   cd build-linux-systemqt
+   ctest --output-on-failure -j$(nproc)
 
-   cd src
-   ./build_and_run_all_gui_tests
+Thirteen of the sixteen tests are pure math/utility tests that run without
+a display server. ``TestExport`` and ``TestGuidelines`` instantiate
+``MainWindow`` and require a display (real or virtual). On a headless CI
+machine, wrap them in ``xvfb-run``::
+
+   xvfb-run ctest --output-on-failure -j$(nproc)
+
+Windows tests via Wine
+^^^^^^^^^^^^^^^^^^^^^^
+
+Unit tests are disabled for the MXE cross-build (``BUILD_TESTING=OFF``),
+because Qt6::Test is not easily available under Wine. To smoke-test the
+Windows binary interactively::
+
+   xvfb-run wine build-win-mxe/engauge.exe
+
+Legacy test scripts
+^^^^^^^^^^^^^^^^^^^
+
+The ``src/`` directory still contains older shell-based test runners::
+
+   cd src && ./build_and_run_all_cli_tests
+   cd src && ./build_and_run_all_gui_tests
+
+These use the qmake build and are not maintained for Qt6.
 
 Packaging Artifacts
 -------------------

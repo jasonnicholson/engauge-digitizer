@@ -59,7 +59,7 @@ bash build_linux_systemqt.sh
 **Windows** (MXE cross-compile):
 
 ```bash
-export MXE_ROOT=$HOME/mxe
+export MXE_ROOT=/path/to/your/mxe   # e.g. $HOME/workspace/mxe-qt6
 ./build_windows_mxe.sh
 ```
 

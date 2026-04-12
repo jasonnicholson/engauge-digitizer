@@ -48,7 +48,6 @@ private slots:
   void slotLocale (int index);
   void slotMaximumExportedPointsPerCurve (int limit);
   void slotMaximumGridLines (int limit);
-  void slotPdfResolution (const QString);
   void slotRecentFileClear ();
   void slotSignificantDigits (int);
   void slotSmallDialogs(bool);
@@ -72,7 +71,6 @@ private:
   QComboBox *m_cmbImportCropping;
   QPushButton *m_btnRecentClear;
   QCheckBox *m_chkTitleBarFormat;
-  QComboBox *m_cmbPdfResolution;
   QSpinBox *m_spinMaximumGridLines;
   QSpinBox *m_spinMaximumExportedPointsPerCurve;
   QDoubleSpinBox *m_spinHighlightOpacity;

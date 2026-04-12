@@ -80,10 +80,6 @@
 #include "NetworkClient.h"
 #endif
 #include "NonPdf.h"
-#ifdef ENGAUGE_PDF
-#include "Pdf.h"
-#endif // ENGAUGE_PDF
-#include "PdfResolution.h"
 #include <QAction>
 #include <QApplication>
 #include <QClipboard>
@@ -560,26 +556,6 @@ void MainWindow::fileImport (const QString &fileName,
   loaded = jpeg2000.load (fileName,
                           image);
 #endif // ENGAUGE_JPEG2000
-
-#ifdef ENGAUGE_PDF
-  if (!loaded) {
-    
-    Pdf pdf;
-    PdfReturn pdfReturn = pdf.load (fileName,
-                                    image,
-                                    m_modelMainWindow.pdfResolution(),
-                                    m_modelMainWindow.importCropping(),
-                                    m_isErrorReportRegressionTest);
-    if (pdfReturn == PDF_RETURN_CANCELED) {
-
-      // User canceled so exit immediately
-      return;
-
-    }
-
-    loaded = (pdfReturn == PDF_RETURN_SUCCESS);
-  }
-#endif // ENGAUGE_PDF
 
   if (!loaded) {
     NonPdf nonPdf;
@@ -1809,8 +1785,6 @@ void MainWindow::settingsReadMainWindow (QSettings &settings)
                                                                               QVariant (ZOOM_CONTROL_MENU_WHEEL_PLUSMINUS)).toInt()));
   m_modelMainWindow.setMainTitleBarFormat (static_cast<MainTitleBarFormat> (settings.value (SETTINGS_MAIN_TITLE_BAR_FORMAT,
                                                                                             QVariant (MAIN_TITLE_BAR_FORMAT_PATH)).toInt()));
-  m_modelMainWindow.setPdfResolution (settings.value (SETTINGS_IMPORT_PDF_RESOLUTION,
-                                                      QVariant (DEFAULT_IMPORT_PDF_RESOLUTION)).toInt ());
   m_modelMainWindow.setImportCropping (static_cast<ImportCropping> (settings.value (SETTINGS_IMPORT_CROPPING,
                                                                                     QVariant (DEFAULT_IMPORT_CROPPING)).toInt ()));
   m_modelMainWindow.setMaximumGridLines (settings.value (SETTINGS_MAXIMUM_GRID_LINES,
@@ -1889,7 +1863,6 @@ void MainWindow::settingsWrite ()
   settings.setValue (SETTINGS_HIGHLIGHT_OPACITY, m_modelMainWindow.highlightOpacity());
   settings.setValue (SETTINGS_IMAGE_REPLACE_RENAMES_DOCUMENT, m_modelMainWindow.imageReplaceRenamesDocument());
   settings.setValue (SETTINGS_IMPORT_CROPPING, m_modelMainWindow.importCropping());
-  settings.setValue (SETTINGS_IMPORT_PDF_RESOLUTION, m_modelMainWindow.pdfResolution ());
   settings.setValue (SETTINGS_LOCALE_NAME, m_modelMainWindow.locale().bcp47Name());
   settings.setValue (SETTINGS_MAIN_DIRECTORY_EXPORT_SAVE,
                      directoryPersist.getDirectoryExportSave().absolutePath());

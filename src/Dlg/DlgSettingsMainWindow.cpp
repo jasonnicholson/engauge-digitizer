@@ -146,26 +146,6 @@ void DlgSettingsMainWindow::createControls (QGridLayout *layout,
   connect (m_cmbImportCropping, SIGNAL (currentIndexChanged (int)), this, SLOT (slotImportCropping (int)));
   layout->addWidget (m_cmbImportCropping, row++, 2);
 
-#ifdef ENGAUGE_PDF
-  QLabel *labelPdfResolution = new QLabel (QString ("%1:").arg (tr ("Import PDF resolution (dots per inch)")));
-  layout->addWidget (labelPdfResolution, row, 1);
-
-  m_cmbPdfResolution = new QComboBox;
-  m_cmbPdfResolution->setWhatsThis (tr ("Import PDF Resolution\n\n"
-                                        "Imported Portable Document Format (PDF) files will be converted to this pixel resolution "
-                                        "in dots per inch (DPI), where each pixel is one dot. A higher value increases the picture resolution "
-                                        "and may also improve numeric digitizing accuracy. However, a very high value can make the image so "
-                                        "large that Engauge will slow down."));
-  m_cmbPdfResolution->addItem ("75", 75);
-  m_cmbPdfResolution->addItem ("100", 100);
-  m_cmbPdfResolution->addItem ("150", 150);
-  m_cmbPdfResolution->addItem ("200", 200);
-  m_cmbPdfResolution->addItem ("250", 250);
-  m_cmbPdfResolution->addItem ("300", 300);
-  connect (m_cmbPdfResolution, SIGNAL (currentTextChanged (QString)), this, SLOT (slotPdfResolution (QString)));
-  layout->addWidget (m_cmbPdfResolution, row++, 2);
-#endif
-
   QLabel *labelMaximumGridLines = new QLabel (QString ("%1:").arg (tr ("Maximum grid lines")));
   layout->addWidget (labelMaximumGridLines, row, 1);
 
@@ -365,10 +345,6 @@ void DlgSettingsMainWindow::loadMainWindowModel (CmdMediator &cmdMediator,
   index = m_cmbImportCropping->findData (m_modelMainWindowAfter->importCropping());
   m_cmbImportCropping->setCurrentIndex (index);
   m_chkTitleBarFormat->setChecked (m_modelMainWindowAfter->mainTitleBarFormat() == MAIN_TITLE_BAR_FORMAT_PATH);
-#ifdef ENGAUGE_PDF
-  index = m_cmbPdfResolution->findData (m_modelMainWindowAfter->pdfResolution());
-  m_cmbPdfResolution->setCurrentIndex(index);
-#endif
   m_spinMaximumGridLines->setValue (m_modelMainWindowAfter->maximumGridLines());
   m_spinHighlightOpacity->setValue (m_modelMainWindowAfter->highlightOpacity());
   m_chkSmallDialogs->setChecked (m_modelMainWindowAfter->smallDialogs());
@@ -453,16 +429,6 @@ void DlgSettingsMainWindow::slotMaximumGridLines (int limit)
 
   m_modelMainWindowAfter->setMaximumGridLines (limit);
   updateControls ();
-}
-
-void DlgSettingsMainWindow::slotPdfResolution(const QString)
-{
-  LOG4CPP_INFO_S ((*mainCat)) << "DlgSettingsMainWIndow::slotPdfResolution";
-
-#ifdef ENGAUGE_PDF
-  m_modelMainWindowAfter->setPdfResolution(m_cmbPdfResolution->currentData().toInt());
-  updateControls();
-#endif
 }
 
 void DlgSettingsMainWindow::slotRecentFileClear()
