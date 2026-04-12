@@ -13,6 +13,35 @@
 #include <QXmlStreamWriter>
 #include "Xml.h"
 
+namespace {
+
+CursorSize cursorSizeFromStoredValue (int storedValue)
+{
+  // Legacy documents may store pixel sizes directly instead of enum indexes.
+  switch (storedValue) {
+  case 16:
+    return CURSOR_SIZE_16;
+  case 32:
+    return CURSOR_SIZE_32;
+  case 48:
+    return CURSOR_SIZE_48;
+  case 64:
+    return CURSOR_SIZE_64;
+  default:
+    break;
+  }
+
+  if (storedValue >= int (CURSOR_SIZE_16) && storedValue < int (NUM_CURSOR_SIZES)) {
+    return static_cast<CursorSize> (storedValue);
+  }
+
+  LOG4CPP_ERROR_S ((*mainCat)) << "Invalid stored cursor size value " << storedValue
+                               << ", using default CURSOR_SIZE_32";
+  return CURSOR_SIZE_32;
+}
+
+}
+
 const bool DEFAULT_CURSOR_STANDARD_CROSS = true;
 const int DEFAULT_CURSOR_INNER_RADIUS = 5;
 const int DEFAULT_CURSOR_LINE_WIDTH = 2;
@@ -90,7 +119,7 @@ void DocumentModelDigitizeCurve::loadXml(QXmlStreamReader &reader)
 
     setCursorInnerRadius (attributes.value(DOCUMENT_SERIALIZE_DIGITIZE_CURVE_CURSOR_INNER_RADIUS).toInt());
     setCursorLineWidth (attributes.value(DOCUMENT_SERIALIZE_DIGITIZE_CURVE_CURSOR_LINE_WIDTH).toInt());
-    setCursorSize (static_cast<CursorSize> (attributes.value(DOCUMENT_SERIALIZE_DIGITIZE_CURVE_CURSOR_SIZE).toInt()));
+    setCursorSize (cursorSizeFromStoredValue (attributes.value(DOCUMENT_SERIALIZE_DIGITIZE_CURVE_CURSOR_SIZE).toInt()));
     setCursorStandardCross (standardCrossValue == DOCUMENT_SERIALIZE_BOOL_TRUE);
 
     // Read until end of this subtree
@@ -148,7 +177,7 @@ void DocumentModelDigitizeCurve::setCursorLineWidth (int cursorLineWidth)
 
 void DocumentModelDigitizeCurve::setCursorSize (CursorSize cursorSize)
 {
-  m_cursorSize = cursorSize;
+  m_cursorSize = cursorSizeFromStoredValue (int (cursorSize));
 }
 
 void DocumentModelDigitizeCurve::setCursorStandardCross (bool cursorStandardCross)
