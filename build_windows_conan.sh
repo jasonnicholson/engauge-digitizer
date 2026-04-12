@@ -46,6 +46,13 @@ if [[ ! -x "$MXE_GCC" ]]; then
   exit 1
 fi
 
+MXE_CMAKE="$MXE_ROOT/usr/bin/${TARGET}-cmake"
+if [[ ! -x "$MXE_CMAKE" ]]; then
+  echo "ERROR: MXE cmake wrapper not found: $MXE_CMAKE"
+  echo "Ensure MXE was built with CMake support and Qt6."
+  exit 1
+fi
+
 # ---------------------------------------------------------------------------
 # Detect MXE GCC version for the Conan profile
 # ---------------------------------------------------------------------------
@@ -102,6 +109,7 @@ echo "== Installing Conan dependencies (Windows/MinGW cross-compile via MXE) =="
 conan install . \
   --output-folder "$BUILD_DIR" \
   --build=missing \
+  -cc core:skip_warnings='["deprecated"]' \
   -s build_type="$BUILD_TYPE" \
   -pr:h "$CONAN_HOST_PROFILE" \
   -pr:b "$CONAN_BUILD_PROFILE"
@@ -115,25 +123,19 @@ fi
 export PATH="$MXE_ROOT/usr/bin:$PATH"
 
 # ---------------------------------------------------------------------------
-# Configure with CMake
-#
-# - CMAKE_TOOLCHAIN_FILE: Conan-generated; sets CMAKE_SYSTEM_NAME=Windows,
-#   CMAKE_C/CXX_COMPILER to the MXE cross-compiler, and prepends the Conan
-#   build folder to CMAKE_PREFIX_PATH so find_package(FFTW3/OpenJPEG) works.
-#
-# - CMAKE_PREFIX_PATH: MXE target sysroot so find_package(Qt6) finds the
-#   MXE-built Qt6.  Conan's toolchain prepends its own paths on top of this.
-#
-# - CMAKE_FIND_ROOT_PATH / _MODE_PACKAGE=BOTH: allows CMake to search both
-#   the MXE sysroot (for Qt6) and the normal prefix path list (for Conan
-#   packages) when resolving find_package() calls in cross-compile mode.
+# Configure with MXE's CMake wrapper (not plain cmake) so MXE's toolchain and
+# required static link flags are applied consistently.
 # ---------------------------------------------------------------------------
-cmake -B "$BUILD_DIR" -S . \
+# Suppress MXE toolchain "direct use" warning (false positive when MXE is
+# behind a symlink, since CMAKE_COMMAND resolves symlinks but the toolchain
+# path doesn't).
+export _MXE_CMAKE_TOOLCHAIN_INCLUDED=TRUE
+
+"$MXE_CMAKE" --no-warn-unused-cli -B "$BUILD_DIR" -S . \
   -DCMAKE_BUILD_TYPE="$BUILD_TYPE" \
-  -DCMAKE_TOOLCHAIN_FILE="$BUILD_DIR/conan_toolchain.cmake" \
-  -DCMAKE_PREFIX_PATH="$MXE_TARGET_DIR" \
-  -DCMAKE_FIND_ROOT_PATH="$MXE_TARGET_DIR" \
-  -DCMAKE_FIND_ROOT_PATH_MODE_PACKAGE=BOTH \
+  -DCMAKE_PREFIX_PATH="$BUILD_DIR;$MXE_TARGET_DIR" \
+  -DFFTW3_DIR="$BUILD_DIR" \
+  -DOpenJPEG_DIR="$BUILD_DIR" \
   -DBUILD_TESTING=OFF \
   -DENGAUGE_LOG4CPP_NULL=ON \
   -DENGAUGE_JPEG2000=ON

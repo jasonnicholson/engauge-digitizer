@@ -77,16 +77,17 @@ build configurations are:
 
 .. code-block:: bash
 
-   # Linux — system Qt6
+  # Linux — system Qt6 + Conan-managed third-party deps
+  pipx install conan   # one-time
   ./build_linux_systemqt.sh
 
-   # Windows — MXE static cross-compile (Qt6 + CMake)
+  # Windows — MXE Qt6 + Conan-managed third-party deps
+  pipx install conan   # one-time
   export MXE_ROOT=/path/to/your/mxe   # e.g. $HOME/workspace/mxe-qt6
-   ./build_windows_mxe.sh
+  ./build_windows_conan.sh
 
 The default scripts enable optional JPEG2000 support.
-This feature requires ``libopenjp2`` to be available
-via pkg-config in the target environment.
+Dependencies such as FFTW3 and OpenJPEG are installed by Conan.
 
 See the :doc:`build-and-release` page for full instructions.
 

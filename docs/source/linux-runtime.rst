@@ -55,8 +55,8 @@ If the binary was not built against distro Qt6::
 
    ./build_linux_systemqt.sh
 
-This script enables optional JPEG2000 support. It expects
-``libopenjp2`` pkg-config entries to be available.
+This script enables optional JPEG2000 support and installs third-party
+dependencies via Conan.
 
 Then run::
 

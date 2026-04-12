@@ -25,11 +25,6 @@ if ! command -v conan >/dev/null 2>&1; then
   exit 1
 fi
 
-if ! command -v pkg-config >/dev/null 2>&1; then
-  echo "ERROR: pkg-config not found. Install pkg-config first."
-  exit 1
-fi
-
 CONAN_PROFILE="${CONAN_PROFILE:-default}"
 
 if ! conan profile list | grep -qx "$CONAN_PROFILE"; then
@@ -41,6 +36,7 @@ echo "== Installing Conan dependencies =="
 conan install . \
   --output-folder "$BUILD_DIR" \
   --build=missing \
+  -cc core:skip_warnings='["deprecated"]' \
   -s build_type="$BUILD_TYPE" \
   -pr:h "$CONAN_PROFILE" \
   -pr:b "$CONAN_PROFILE"

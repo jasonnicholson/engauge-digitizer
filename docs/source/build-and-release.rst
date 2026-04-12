@@ -3,8 +3,8 @@ Build and Release
 
 Distribution direction:
 
-- **Windows** — static cross-build via MXE toolchain with Qt6; produces a single portable ``.exe``
-- **Linux** — dynamically linked against the OS Qt6 packages
+- **Windows** — static cross-build via MXE Qt6 plus Conan-managed third-party deps; produces a single portable ``.exe``
+- **Linux** — dynamically linked against OS Qt6 packages with Conan-managed third-party deps
 
 Building from Source
 --------------------
@@ -14,8 +14,8 @@ Linux (system Qt6)
 
 Install dependencies::
 
-   sudo apt install qt6-base-dev qt6-tools-dev qt6-tools-dev-tools qt6-l10n-tools \
-                    libfftw3-dev libjpeg-dev libopenjp2-7-dev cmake
+   sudo apt install qt6-base-dev qt6-tools-dev qt6-tools-dev-tools qt6-l10n-tools cmake pipx
+   pipx install conan
 
 Build::
 
@@ -23,33 +23,28 @@ Build::
 
 Binary: ``build-linux-systemqt/engauge``
 
-Windows (MXE cross-compile with Qt6)
+Windows (MXE Qt6 + Conan cross-compile)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 From repository root::
 
+   pipx install conan
    export MXE_ROOT=/path/to/your/mxe   # e.g. $HOME/workspace/mxe-qt6
-   ./build_windows_mxe.sh
+   ./build_windows_conan.sh
 
 Requires MXE built with Qt6 and CMake support for the x86_64 static target.
 ``MXE_ROOT`` must be set to your MXE installation directory.
 
-The script expects these MXE target packages to be present:
-
-- ``fftw``
-- ``openjpeg`` (JPEG2000)
-
 Example MXE package install commands::
 
    make -C "$MXE_ROOT" qt6 MXE_TARGETS=x86_64-w64-mingw32.static
-   make -C "$MXE_ROOT" fftw openjpeg MXE_TARGETS=x86_64-w64-mingw32.static
 
 Unit tests are disabled automatically for this MXE build lane
 (``-DBUILD_TESTING=OFF``) so cross-builds do not require ``Qt6::Test``.
 
-See ``build_windows_mxe.sh`` for all overridable variables.
+See ``build_windows_conan.sh`` for all overridable variables.
 
-Binary: ``build-win-mxe/engauge.exe``
+Binary: ``build-win-conan/engauge.exe``
 
 Tests
 -----
@@ -77,7 +72,7 @@ Unit tests are disabled for the MXE cross-build (``BUILD_TESTING=OFF``),
 because Qt6::Test is not easily available under Wine. To smoke-test the
 Windows binary interactively::
 
-   xvfb-run wine build-win-mxe/engauge.exe
+   xvfb-run wine build-win-conan/engauge.exe
 
 Legacy test scripts
 ^^^^^^^^^^^^^^^^^^^
@@ -88,7 +83,7 @@ Packaging Artifacts
 From repository root::
 
    mkdir -p dist
-   cp build-win-mxe/engauge.exe dist/engauge-windows-x86_64.exe
+   cp build-win-conan/engauge.exe dist/engauge-windows-x86_64.exe
    cp build-linux-systemqt/engauge dist/engauge-linux-x86_64
 
    cd dist

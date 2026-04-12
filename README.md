@@ -61,11 +61,12 @@ bash build_linux_systemqt.sh
 The script uses Conan to install `fftw` and `openjpeg` and then configures
 CMake with the generated toolchain.
 
-**Windows** (MXE cross-compile):
+**Windows** (MXE Qt + Conan deps cross-compile):
 
 ```bash
+pipx install conan   # one-time
 export MXE_ROOT=/path/to/your/mxe   # e.g. $HOME/workspace/mxe-qt6
-./build_windows_mxe.sh
+./build_windows_conan.sh
 ```
 
 ## Releases

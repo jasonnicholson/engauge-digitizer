@@ -13,8 +13,8 @@ Build system
 - **CMakeLists.txt** created; targets Qt6 exclusively (``find_package(Qt6 REQUIRED)``).
 - C++ standard raised to C++17.
 - All build scripts (``build_linux_systemqt.sh``,
-  ``build_windows_mxe.sh``) converted to CMake/Qt6; no qmake or Qt5 references remain.
-- Optional JPEG2000 support uses ``libopenjp2``
+  ``build_windows_conan.sh``) converted to CMake/Qt6; no qmake or Qt5 references remain.
+- Optional JPEG2000 support uses Conan-managed OpenJPEG
   (``-DENGAUGE_JPEG2000=ON``).
   PDF support has been removed; see the README for rationale.
 
@@ -46,7 +46,6 @@ Validation status
 -----------------
 
 - Linux system-Qt build succeeds with ``ENGAUGE_JPEG2000=ON``.
-- Windows MXE cross-build succeeds with ``openjpeg`` in
-  the target sysroot.
-- ``build_windows_mxe.sh`` now checks for required MXE dependencies up front
-  (``fftw``, ``openjpeg``).
+- Windows MXE Qt6 + Conan cross-build succeeds.
+- ``build_windows_conan.sh`` uses Conan for ``fftw`` and ``openjpeg`` and MXE
+  for Qt6/toolchain.
