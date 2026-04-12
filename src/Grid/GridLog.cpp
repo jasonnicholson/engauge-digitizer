@@ -50,7 +50,7 @@ GridLog::~GridLog()
 
     std::cout << GNUPLOT_FILE_MESSAGE.toLatin1().data() << filename.toLatin1().data() << "\n";
 
-    file.open (QIODevice::WriteOnly | QIODevice::Append);
+    (void) file.open (QIODevice::WriteOnly | QIODevice::Append);
     fileStr << m_log;
     file.close ();
   }

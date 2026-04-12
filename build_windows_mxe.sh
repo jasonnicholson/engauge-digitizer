@@ -42,7 +42,11 @@ export PATH="$MXE_ROOT/usr/bin:$PATH"
 echo "Using MXE target: $TARGET"
 echo "Using MXE cmake: $MXE_CMAKE"
 
-"$MXE_CMAKE" -B "$BUILD_DIR" -S . \
+# Suppress MXE toolchain "direct use" warning (false positive when MXE is behind
+# a symlink, since CMAKE_COMMAND resolves symlinks but the toolchain path doesn't).
+export _MXE_CMAKE_TOOLCHAIN_INCLUDED=TRUE
+
+"$MXE_CMAKE" --no-warn-unused-cli -B "$BUILD_DIR" -S . \
   -DCMAKE_BUILD_TYPE="$BUILD_TYPE" \
   -DENGAUGE_LOG4CPP_NULL=ON \
   -DBUILD_TESTING=OFF \

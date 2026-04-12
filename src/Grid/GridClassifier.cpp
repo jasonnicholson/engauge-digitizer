@@ -190,7 +190,7 @@ void GridClassifier::dumpGnuplotCoordinate (const QString &coordinateLabel,
   cout << GNUPLOT_FILE_MESSAGE.toLatin1().data() << filename.toLatin1().data() << "\n";
 
   QFile fileDump (filename);
-  fileDump.open (QIODevice::WriteOnly | QIODevice::Text);
+  (void) fileDump.open (QIODevice::WriteOnly | QIODevice::Text);
   QTextStream strDump (&fileDump);
 
   int bin;
@@ -249,7 +249,7 @@ void GridClassifier::dumpGnuplotCorrelations (const QString &coordinateLabel,
   cout << GNUPLOT_FILE_MESSAGE.toLatin1().data() << filename.toLatin1().data() << "\n";
 
   QFile fileDump (filename);
-  fileDump.open (QIODevice::WriteOnly | QIODevice::Text);
+  (void) fileDump.open (QIODevice::WriteOnly | QIODevice::Text);
   QTextStream strDump (&fileDump);
 
   int bin;

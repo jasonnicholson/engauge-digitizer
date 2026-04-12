@@ -39,7 +39,7 @@ All Qt6 migration blockers resolved:
 Documentation
 ^^^^^^^^^^^^^
 
-- ``build-and-release.rst``, ``static-linux.rst``, ``linux-runtime.rst``,
+- ``build-and-release.rst``, ``linux-runtime.rst``,
   and ``developer.rst`` updated to reference Qt6 and CMake only.
 
 Validation status

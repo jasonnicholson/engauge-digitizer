@@ -21,7 +21,6 @@ Engauge Digitizer Documentation
 
    build-and-release
    linux-runtime
-   static-linux
 
 .. toctree::
    :maxdepth: 1
