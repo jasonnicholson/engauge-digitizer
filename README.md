@@ -1,6 +1,6 @@
 # Engauge Digitizer (Maintained Fork)
 
-This repository is an actively maintained work fork of Engauge Digitizer.
+This repository is an actively maintained fork of Engauge Digitizer.
 
 Current focus:
 
@@ -16,11 +16,11 @@ that is encouraged.
 
 ### Why am I maintaining a fork?
 
-Mark Mitchell's version on GitHub disappeared. It was here: https://github.com/markummitchell/engauge-digitizer/releases/latest. I found a fork and stashed it around May 2025. As of 2026-April-11, engauge-digitizer is maintained in here: https://engaugedigitizer.com/.
+Mark Mitchell's version on GitHub disappeared. It was here: https://github.com/markummitchell/engauge-digitizer/releases/latest. I found a fork and stashed it around May 2025. As of 2026-04-11, Engauge Digitizer is maintained here: https://engaugedigitizer.com/.
 
 ### Why Engauge Digitizer? Why not just use another tool?
 
-WebPlotDigitizer is a great tool but either you have to upload sensitive data into a web service or download an AGPL-licensed binary. AGPL licenses give users access to all source code on servers running the software. Therefore, most corporation completely forbid use of AGPL software. Engauge is a great, free alternative with an acceptable license.
+WebPlotDigitizer is a great tool, but you either have to upload sensitive data to a web service or download an AGPL-licensed binary. AGPL licenses give users access to all source code on servers running the software. Therefore, most corporations completely forbid use of AGPL software. Engauge is a great, free alternative with an acceptable license.
 
 ### Why not just use the original Engauge Digitizer?
 
@@ -30,13 +30,13 @@ I am upgrading from Qt5 to Qt6. v13.0.0 is Qt5 and works fine. v14.0.0 and beyon
 
 I am dropping PDF support. The PDF support adds complexity disproportionate to the value it provides. Export an image from the PDF and import that instead.
 
-I am also not going to build for MacOS. I am gong cross-compile for Windows and build on Linux.
+I am also not going to build for macOS. I am going to cross-compile for Windows and build on Linux.
 
 Overall, I don't have a lot of bandwidth to maintain or improve this project. My plan is to keep binaries working but not much more than that.
 
-I have no plans to try to distribute this project through Linux distro package managers. I will provide static builds for Linux and Windows on GitHub releases. If others want to repackage this project for platform package managers or native installers, that is encouraged.
+I have no plans to distribute this project through Linux distro package managers. I will provide static builds for Linux and Windows on GitHub Releases. If others want to repackage this project for platform package managers or native installers, that is encouraged.
 
-No installer will be provided for any platform. Static builds mean the folder of stuff is standalone.
+No installer will be provided for any platform. Static builds mean the folder of files is standalone.
 
 
 ## Documentation
