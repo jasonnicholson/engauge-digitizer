@@ -12,6 +12,31 @@ Packaging into distro-specific packages and installers is welcome. If others wan
 to repackage this project for platform package managers or native installers,
 that is encouraged.
 
+## Why?
+
+### Why am I maintaining a fork?
+
+Mark Mitchell's version on GitHub disappeared. It was here: https://github.com/markummitchell/engauge-digitizer/releases/latest. I found a fork and stashed it around May 2025. As of 2026-April-11, engauge-digitizer is maintained in here: https://engaugedigitizer.com/.
+
+### Why Engauge Digitizer? Why not just use another tool?
+
+WebPlotDigitizer is a great tool but either you have to upload sensitive data into a web service or download an AGPL-licensed binary. AGPL licenses give users access to all source code on servers running the software. Therefore, most corporation completely forbid use of AGPL software. Engauge is a great, free alternative with an acceptable license.
+
+### Why not just use the original Engauge Digitizer?
+
+Go ahead. That is a fine choice. My plan here is static builds and a Sphinx site for documentation. If this suits your needs, great. If not, the original may be a better fit.
+
+I am upgrading from Qt5 to Qt6. v13.0.0 is Qt5 and works fine. v14.0.0 and beyond is Qt6.
+
+I am dropping PDF support. The PDF support adds complexity disproportionate to the value it provides. Export an image from the PDF and import that instead.
+
+I am also not going to build for MacOS. I am gong cross-compile for Windows and build on Linux.
+
+Overall, I don't have a lot of bandwidth to maintain or improve this project. My plan is to keep binaries working but not much more than that.
+
+I have no plans to try to distribute this project through Linux distro package managers. I will provide static builds for Linux and Windows on GitHub releases. If others want to repackage this project for platform package managers or native installers, that is encouraged.
+
+
 ## Documentation
 
 Full documentation is at: **https://jasonnicholson.github.io/engauge-digitizer/**
