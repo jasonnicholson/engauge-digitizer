@@ -47,16 +47,19 @@ Key sections:
 
 - [Build and Release](https://jasonnicholson.github.io/engauge-digitizer/build-and-release.html)
 - [Linux Runtime Troubleshooting](https://jasonnicholson.github.io/engauge-digitizer/linux-runtime.html)
-- [Linux Static Build Strategy](https://jasonnicholson.github.io/engauge-digitizer/static-linux.html)
 - [Developer Guide](https://jasonnicholson.github.io/engauge-digitizer/developer.html)
 
 ## Quick Build
 
-**Linux** (distro Qt):
+**Linux** (system Qt + Conan for third-party deps):
 
 ```bash
+pipx install conan   # one-time
 bash build_linux_systemqt.sh
 ```
+
+The script uses Conan to install `fftw` and `openjpeg` and then configures
+CMake with the generated toolchain.
 
 **Windows** (MXE cross-compile):
 
