@@ -12,7 +12,7 @@ Build system
 
 - **CMakeLists.txt** created; targets Qt6 exclusively (``find_package(Qt6 REQUIRED)``).
 - C++ standard raised to C++17.
-- All build scripts (``build_linux_systemqt.sh``, ``build_linux_almoststaticqt.sh``,
+- All build scripts (``build_linux_systemqt.sh``,
   ``build_windows_mxe.sh``) converted to CMake/Qt6; no qmake or Qt5 references remain.
 - Optional JPEG2000 support uses ``libopenjp2``
   (``-DENGAUGE_JPEG2000=ON``).
