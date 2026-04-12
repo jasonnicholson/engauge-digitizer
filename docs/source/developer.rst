@@ -37,8 +37,8 @@ module with a clear single responsibility:
 
 **Import / image handling**
 
-- ``Import/`` — Image import pipeline (JPEG, PNG, PDF, …)
-- ``Pdf/`` / ``NonPdf/`` — PDF vs. raster-specific import paths
+- ``Import/`` — Image import pipeline (JPEG, PNG, JPEG2000, …)
+- ``NonPdf/`` — Raster-specific import cropping paths
 - ``Jpeg2000/`` — Optional JPEG 2000 support via OpenJPEG
 - ``Filter/`` / ``Color/`` — Image discretization and color filters
 - ``Segment/`` — Segment-fill path tracing
@@ -81,11 +81,11 @@ build configurations are:
   ./build_linux_systemqt.sh
 
    # Windows — MXE static cross-compile (Qt6 + CMake)
-  export MXE_ROOT=$HOME/mxe
+  export MXE_ROOT=/path/to/your/mxe   # e.g. $HOME/workspace/mxe-qt6
    ./build_windows_mxe.sh
 
-The default scripts enable optional JPEG2000 and PDF support.
-Those features require ``libopenjp2`` and ``poppler-qt6`` to be available
+The default scripts enable optional JPEG2000 support.
+This feature requires ``libopenjp2`` to be available
 via pkg-config in the target environment.
 
 See the :doc:`build-and-release` page for full instructions.

@@ -32,10 +32,6 @@ QStringList ImportImageExtensions::fileExtensionsWithAsterisks () const
     supportedImageFormatStrings << jpeg2000.supportedImageWildcards();
 #endif // ENGAUGE_JPEG2000
 
-#ifdef ENGAUGE_PDF
-    supportedImageFormatStrings << "*.pdf";
-#endif // ENGAUGE_PDF
-
     supportedImageFormatStrings.sort();
 
     return supportedImageFormatStrings;

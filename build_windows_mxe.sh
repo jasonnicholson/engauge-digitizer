@@ -40,12 +40,6 @@ if [[ ! -f "$MXE_TARGET_DIR/lib/libopenjp2.a" ]]; then
   exit 1
 fi
 
-if [[ ! -f "$MXE_TARGET_DIR/lib/pkgconfig/poppler-qt6.pc" ]]; then
-  echo "ERROR: PDF dependency not found: $MXE_TARGET_DIR/lib/pkgconfig/poppler-qt6.pc"
-  echo "Build MXE package 'poppler-qt6' for your target first."
-  exit 1
-fi
-
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$ROOT_DIR"
 
@@ -59,8 +53,7 @@ cmake -B "$BUILD_DIR" -S . \
   -DCMAKE_BUILD_TYPE="$BUILD_TYPE" \
   -DENGAUGE_LOG4CPP_NULL=ON \
   -DBUILD_TESTING=OFF \
-  -DENGAUGE_JPEG2000=ON \
-  -DENGAUGE_PDF=ON
+  -DENGAUGE_JPEG2000=ON
 
 cmake --build "$BUILD_DIR" --parallel "$(nproc)"
 

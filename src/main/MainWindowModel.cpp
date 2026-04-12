@@ -11,7 +11,6 @@
 #include "ImportCroppingUtilBase.h"
 #include "Logger.h"
 #include "MainWindowModel.h"
-#include "PdfResolution.h"
 #include <QLocale>
 #include <QObject>
 #include <QTextStream>
@@ -34,7 +33,6 @@ MainWindowModel::MainWindowModel() :
   m_zoomControl (ZOOM_CONTROL_MENU_WHEEL_PLUSMINUS),
   m_zoomFactorInitial (DEFAULT_ZOOM_FACTOR_INITIAL),
   m_mainTitleBarFormat (MAIN_TITLE_BAR_FORMAT_PATH),
-  m_pdfResolution (DEFAULT_IMPORT_PDF_RESOLUTION),
   m_importCropping (DEFAULT_IMPORT_CROPPING),
   m_maximumGridLines (DEFAULT_MAXIMUM_GRID_LINES),
   m_highlightOpacity (DEFAULT_HIGHLIGHT_OPACITY),
@@ -53,7 +51,6 @@ MainWindowModel::MainWindowModel(const MainWindowModel &other) :
   m_zoomControl (other.zoomControl()),
   m_zoomFactorInitial (other.zoomFactorInitial()),
   m_mainTitleBarFormat (other.mainTitleBarFormat()),
-  m_pdfResolution (other.pdfResolution()),
   m_importCropping (other.importCropping()),
   m_maximumGridLines (other.maximumGridLines()),
   m_highlightOpacity (other.highlightOpacity()),
@@ -72,7 +69,6 @@ MainWindowModel &MainWindowModel::operator=(const MainWindowModel &other)
   m_zoomControl = other.zoomControl();
   m_zoomFactorInitial = other.zoomFactorInitial();
   m_mainTitleBarFormat = other.mainTitleBarFormat();
-  m_pdfResolution = other.pdfResolution();
   m_importCropping = other.importCropping();
   m_maximumGridLines = other.maximumGridLines();
   m_highlightOpacity = other.highlightOpacity();
@@ -152,11 +148,6 @@ int MainWindowModel::maximumGridLines() const
   return m_maximumGridLines;
 }
 
-int MainWindowModel::pdfResolution() const
-{
-  return m_pdfResolution;
-}
-
 void MainWindowModel::printStream(QString indentation,
                                      QTextStream &str) const
 {
@@ -170,7 +161,6 @@ void MainWindowModel::printStream(QString indentation,
   str << indentation << "mainWindowTitleBarFormat=" << (m_mainTitleBarFormat == MAIN_TITLE_BAR_FORMAT_NO_PATH ?
                                                         "NoPath" :
                                                         "Path") << "\n";
-  str << indentation << "pdfResolution=" << m_pdfResolution << "\n";
   str << indentation << "importCropping=" << ImportCroppingUtilBase::importCroppingToString (m_importCropping).toLatin1().data() << "\n";
   str << indentation << "maximumGridLines=" << m_maximumGridLines << "\n";
   str << indentation << "highlightOpacity=" << m_highlightOpacity << "\n";
@@ -244,11 +234,6 @@ void MainWindowModel::setMaximumExportedPointsPerCurve(int maximumExportedPoints
 void MainWindowModel::setMaximumGridLines(int maximumGridLines)
 {
   m_maximumGridLines = maximumGridLines;
-}
-
-void MainWindowModel::setPdfResolution(int resolution)
-{
-  m_pdfResolution = resolution;
 }
 
 void MainWindowModel::setSignificantDigits (int significantDigits)
