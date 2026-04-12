@@ -79,12 +79,12 @@ build configurations are:
 
   # Linux — system Qt6 + Conan-managed third-party deps
   pipx install conan   # one-time
-  ./build_linux_systemqt.sh
+  ./scripts/build_linux_systemqt.sh
 
   # Windows — MXE Qt6 + Conan-managed third-party deps
   pipx install conan   # one-time
   export MXE_ROOT=/path/to/your/mxe   # e.g. $HOME/workspace/mxe-qt6
-  ./build_windows_conan.sh
+  ./scripts/build_windows_conan.sh
 
 The default scripts enable optional JPEG2000 support.
 Dependencies such as FFTW3 and OpenJPEG are installed by Conan.

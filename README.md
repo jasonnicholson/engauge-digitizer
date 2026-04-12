@@ -55,7 +55,7 @@ Key sections:
 
 ```bash
 pipx install conan   # one-time
-bash build_linux_systemqt.sh
+bash scripts/build_linux_systemqt.sh
 ```
 
 The script uses Conan to install `fftw` and `openjpeg` and then configures
@@ -66,7 +66,7 @@ CMake with the generated toolchain.
 ```bash
 pipx install conan   # one-time
 export MXE_ROOT=/path/to/your/mxe   # e.g. $HOME/workspace/mxe-qt6
-./build_windows_conan.sh
+./scripts/build_windows_conan.sh
 ```
 
 ## Releases

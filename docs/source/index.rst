@@ -27,6 +27,5 @@ Engauge Digitizer Documentation
    :caption: Project
 
    developer
-   qt6-readiness
    privacy-policy
    changelog

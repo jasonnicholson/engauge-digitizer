@@ -9,6 +9,8 @@
 
 #include <QString>
 
+#define ENGAUGE_VERSION "@PROJECT_VERSION@"
+
 extern const char *VERSION_NUMBER;
 
 /// Text for title bars of dialogs

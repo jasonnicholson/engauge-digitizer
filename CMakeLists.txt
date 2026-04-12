@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.16)
 project(engauge VERSION 13.0.0 LANGUAGES CXX)
 
+# Generate Version.h from template so the C++ code picks up PROJECT_VERSION.
+configure_file(src/util/Version.h.in "${CMAKE_CURRENT_BINARY_DIR}/generated/Version.h" @ONLY)
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -549,6 +552,7 @@ qt_import_plugins(engauge
 # Include directories (mirrors INCLUDEPATH in engauge.pro)
 # ---------------------------------------------------------------------------
 target_include_directories(engauge_core PUBLIC
+    "${CMAKE_CURRENT_BINARY_DIR}/generated"
     src
     src/Background
     src/Callback

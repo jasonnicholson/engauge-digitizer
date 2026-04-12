@@ -6,7 +6,7 @@ set -euo pipefail
 BUILD_DIR="${BUILD_DIR:-build-linux-systemqt}"
 BUILD_TYPE="${BUILD_TYPE:-Release}"
 
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")"/../ && pwd)"
 cd "$ROOT_DIR"
 
 mkdir -p "$BUILD_DIR"

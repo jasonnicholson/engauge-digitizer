@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# deploy.sh — Build Sphinx docs and deploy to gh-pages as a single orphan commit.
+# deploy_docs.sh — Build Sphinx docs and deploy to gh-pages as a single orphan commit.
 #
 # Strategy: use a throwaway index to stage docs/build/, extract its tree with
 # git-write-tree --prefix, then create a parentless commit via git-commit-tree
@@ -7,8 +7,9 @@
 
 set -euo pipefail
 
-DOCS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(git -C "$DOCS_DIR" rev-parse --show-toplevel)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(git -C "$SCRIPT_DIR" rev-parse --show-toplevel)"
+DOCS_DIR="$REPO_ROOT/docs"
 BUILD_DIR="$DOCS_DIR/build"
 DOCS_REL="docs/build"   # path relative to repo root
 

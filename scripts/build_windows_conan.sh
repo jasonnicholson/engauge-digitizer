@@ -22,7 +22,7 @@ MXE_TARGET_DIR="$MXE_ROOT/usr/$TARGET"
 BUILD_DIR="${BUILD_DIR:-build-win-conan}"
 BUILD_TYPE="${BUILD_TYPE:-Release}"
 
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")"/../ && pwd)"
 cd "$ROOT_DIR"
 
 # ---------------------------------------------------------------------------

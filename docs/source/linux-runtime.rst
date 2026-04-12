@@ -53,7 +53,7 @@ Fix: Rebuild against distro Qt6
 
 If the binary was not built against distro Qt6::
 
-   ./build_linux_systemqt.sh
+   ./scripts/build_linux_systemqt.sh
 
 This script enables optional JPEG2000 support and installs third-party
 dependencies via Conan.

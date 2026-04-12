@@ -7,7 +7,7 @@ set -euo pipefail
 BUILD_DIR="${BUILD_DIR:-build-linux-coverage}"
 REPORT_DIR="${REPORT_DIR:-coverage-report}"
 
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")"/../ && pwd)"
 cd "$ROOT_DIR"
 
 for tool in cmake gcov lcov genhtml; do
