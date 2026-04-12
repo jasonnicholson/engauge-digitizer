@@ -634,11 +634,10 @@ target_compile_definitions(engauge_core PUBLIC
 # Optional: JPEG2000 support
 # ---------------------------------------------------------------------------
 if(ENGAUGE_JPEG2000)
-    find_package(PkgConfig REQUIRED)
-    pkg_check_modules(OPENJPEG REQUIRED IMPORTED_TARGET libopenjp2)
+    find_package(OpenJPEG REQUIRED)
     target_compile_definitions(engauge_core PUBLIC ENGAUGE_JPEG2000)
-    target_include_directories(engauge_core PUBLIC ${OPENJPEG_INCLUDE_DIRS} src/Jpeg2000)
-    target_link_libraries(engauge_core PUBLIC PkgConfig::OPENJPEG)
+    target_include_directories(engauge_core PUBLIC src/Jpeg2000)
+    target_link_libraries(engauge_core PUBLIC openjp2)
     target_sources(engauge_core PRIVATE
         src/Jpeg2000/Jpeg2000.cpp
         src/Jpeg2000/Jpeg2000Callbacks.cpp
@@ -680,10 +679,8 @@ endif()
 # ---------------------------------------------------------------------------
 # FFTW3 (required)
 # ---------------------------------------------------------------------------
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(FFTW3 REQUIRED IMPORTED_TARGET fftw3)
-target_include_directories(engauge_core PUBLIC ${FFTW3_INCLUDE_DIRS})
-target_link_libraries(engauge_core PUBLIC PkgConfig::FFTW3)
+find_package(FFTW3 REQUIRED)
+target_link_libraries(engauge_core PUBLIC fftw::fftw)
 
 # ---------------------------------------------------------------------------
 # Installation
