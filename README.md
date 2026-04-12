@@ -36,6 +36,8 @@ Overall, I don't have a lot of bandwidth to maintain or improve this project. My
 
 I have no plans to try to distribute this project through Linux distro package managers. I will provide static builds for Linux and Windows on GitHub releases. If others want to repackage this project for platform package managers or native installers, that is encouraged.
 
+No installer will be provided for any platform. Static builds mean the folder of stuff is standalone.
+
 
 ## Documentation
 
