@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Run cccc to produce cyclomatic complexity statistics in doc/cccc/.
+#
+# Usage: scripts/docccc
+#
+# Prerequisite: sudo apt install cccc
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(git -C "$SCRIPT_DIR" rev-parse --show-toplevel)"
+cd "$REPO_ROOT"
+
+OUTDIR="doc/cccc"
+mkdir -p "$OUTDIR"
+cccc --outdir="$OUTDIR" --html_outfile="$OUTDIR/index.html" \
+  $(find src -name '*.cpp' | grep -v moc | grep -v rcc)
+echo "Report written to $OUTDIR/index.html"
