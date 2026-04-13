@@ -88,8 +88,8 @@ fi
 TAG="v${NEW_VERSION}"
 
 # Stamp the version into source files so the build picks it up.
-sed -i "s/^set(ENGAUGE_VERSION_FULL \"[^\"]*\"/set(ENGAUGE_VERSION_FULL \"${NEW_VERSION}\"/" CMakeLists.txt
-sed -i "s/\"version\": \"[^\"]*\"/\"version\": \"${NEW_VERSION}\"/" package.json
+sed -i 's/^set(ENGAUGE_VERSION_FULL "[^"]*"/set(ENGAUGE_VERSION_FULL "'"${NEW_VERSION}"'"/' CMakeLists.txt
+sed -i 's/^  "version": "[^"]*"/  "version": "'"${NEW_VERSION}"'"/' package.json
 echo "Updated CMakeLists.txt and package.json to ${NEW_VERSION}"
 echo ""
 
