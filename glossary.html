@@ -1,0 +1,489 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="./">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Community Feedback" href="community.html"><link rel="prev" title="Point Match Requirements" href="faq/point-match-requirements.html">
+
+    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>Glossary - Engauge Digitizer fork documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">Engauge Digitizer fork documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  <span class="sidebar-brand-text">Engauge Digitizer fork documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="export.html">Export Format</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="dialogs.html">Dialogs Reference</a><input aria-label="Toggle navigation of Dialogs Reference" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="dialogs/curves.html">Curve List Dialog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dialogs/measures.html">Measures Dialog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dialogs/coordinates.html">Coordinate System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dialogs/discretize.html">Color Filter Dialog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dialogs/segments.html">Segment Fill Dialog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dialogs/point-match.html">Point Match Dialog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dialogs/export.html">Export Format Dialog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dialogs/geometry-window.html">Geometry Window</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dialogs/curve-geometry.html">Curve Geometry Window</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dialogs/measure-geometry.html">Measure Geometry Window</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="tutorials.html">Tutorials</a><input aria-label="Toggle navigation of Tutorials" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/auto-line-graph.html">Automatic Line Graph Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/auto-point-graph.html">Automatic Point Graph Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/manual-line-graph.html">Manual Line Graph Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/manual-point-graph.html">Manual Point Graph Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/manual-map.html">Manual Map Tutorial</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="faq.html">FAQ</a><input aria-label="Toggle navigation of FAQ" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="faq/discretizing.html">Discretizing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq/digitize-line-graphs.html">Digitizing Line Graphs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq/digitize-point-graphs.html">Digitizing Point Graphs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq/getting-data-out.html">Getting Data Out</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq/measuring.html">Measuring Angles, Distances, and Areas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq/selecting-points.html">Selecting Points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq/select-mode.html">Select Mode Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq/floating-axes.html">Floating Axes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq/multiple-coord-systems.html">Multiple Coordinate Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq/timezone.html">Timezone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq/other-help.html">Other Help Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq/better-accuracy.html">Better Accuracy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq/context-menu-windows.html">Windows Explorer Context Menu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq/date-formats.html">Date/Time Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq/fixing-axis-points.html">Fixing Axis Points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq/point-match-requirements.html">Point Match Requirements</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Community Feedback</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Build &amp; Release</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="build-and-release.html">Build and Release</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linux-runtime.html">Linux Runtime Troubleshooting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developer.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="privacy-policy.html">Privacy Policy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="_sources/glossary.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="glossary">
+<h1>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">¶</a></h1>
+<dl class="simple glossary">
+<dt id="term-advanced-import-mode">advanced import mode<a class="headerlink" href="#term-advanced-import-mode" title="Link to this term">¶</a></dt><dd><p>The advanced Import mode offers the following advanced options for the
+imported file: floating axes and multiple coordinate systems. The advanced
+options are only used by a small percentage of users and are therefore not
+made available during the normal Import process. Once a file has been
+imported, the advanced mode settings cannot be changed.</p>
+</dd>
+<dt id="term-axes-checker">axes checker<a class="headerlink" href="#term-axes-checker" title="Link to this term">¶</a></dt><dd><p>Red box that briefly appears whenever the coordinate system has just
+changed. The red box is drawn as a simple rectangle in cartesian
+coordinates, or as an annular arc in polar coordinates. The axes checker
+can indicate when there is a mistake with the axis points, especially data
+entry errors and accidental transposition. An axis point error usually
+makes the axes checker appear skewed.</p>
+</dd>
+<dt id="term-axis-point">axis point<a class="headerlink" href="#term-axis-point" title="Link to this term">¶</a></dt><dd><p>Point that is added to a graph to define the scale. The two coordinate
+values must be defined for each axis point. Three axis points are needed
+to define the scales in the two coordinate directions.</p>
+</dd>
+<dt id="term-checklist-guide">checklist guide<a class="headerlink" href="#term-checklist-guide" title="Link to this term">¶</a></dt><dd><p>List of steps to follow to digitize a graph, with checkmarks showing
+progress. This can be created during import, by running the checklist
+guide wizard.</p>
+</dd>
+<dt id="term-checklist-guide-wizard">checklist guide wizard<a class="headerlink" href="#term-checklist-guide-wizard" title="Link to this term">¶</a></dt><dd><p>Wizard that can be used during import to create a checklist guide.</p>
+</dd>
+<dt id="term-collinear">collinear<a class="headerlink" href="#term-collinear" title="Link to this term">¶</a></dt><dd><p>Collinear points lie along a straight line. The three axis points cannot
+be collinear because graph coordinates are therefore impossible to
+compute.</p>
+</dd>
+<dt id="term-collocated">collocated<a class="headerlink" href="#term-collocated" title="Link to this term">¶</a></dt><dd><p>Collocated points are close to each other or at the same location.
+Multiple axis points cannot share the same location because graph
+coordinates are therefore impossible to compute, and should be widely
+separated so computed graph coordinates are most accurate.</p>
+</dd>
+<dt id="term-coordinate-system">coordinate system<a class="headerlink" href="#term-coordinate-system" title="Link to this term">¶</a></dt><dd><p>A coordinate system is defined by a pair of x and y axes. A graph with
+multiple coordinate systems is digitized using the advanced
+<a class="reference internal" href="faq/multiple-coord-systems.html"><span class="doc">Multiple Coordinate Systems</span></a> steps.</p>
+</dd>
+<dt id="term-coordinates">coordinates<a class="headerlink" href="#term-coordinates" title="Link to this term">¶</a></dt><dd><p>Two values used in a graph to specify position. If the coordinates are
+cartesian, the two values are X and Y. If the coordinates are polar, the
+two values are the radius R and the angle theta. The X, Y and R
+coordinates can be logarithmic.</p>
+</dd>
+<dt id="term-corner">corner<a class="headerlink" href="#term-corner" title="Link to this term">¶</a></dt><dd><p>The point at the junction of two line segments in a piecewise linear
+curve.</p>
+</dd>
+<dt id="term-curve">curve<a class="headerlink" href="#term-curve" title="Link to this term">¶</a></dt><dd><p>Continuous line in a graph or map. This is digitized by creating curve
+points along the line.</p>
+</dd>
+<dt id="term-curve-point">curve point<a class="headerlink" href="#term-curve-point" title="Link to this term">¶</a></dt><dd><p>Point that is added to a graph on top of either a curve or point in the
+original image.</p>
+</dd>
+<dt id="term-digitize">digitize<a class="headerlink" href="#term-digitize" title="Link to this term">¶</a></dt><dd><p>Process of converting non-digital data into numbers. The specific type of
+digitizing performed by Engauge Digitizer is the conversion of graph and
+map images into numbers. These numbers can be exported to spreadsheets and
+other math software.</p>
+</dd>
+<dt id="term-discretize">discretize<a class="headerlink" href="#term-discretize" title="Link to this term">¶</a></dt><dd><p>Process that converts each pixel of an original image into either the
+black foreground, or the white background. The colors and grays of the
+original image are lost. Discretizing is controlled through the
+<strong>Settings &gt; Color Filter…</strong> dialog. By adjusting the filter settings,
+unwanted parts of the original image can be removed.</p>
+</dd>
+<dt id="term-engauge">engauge<a class="headerlink" href="#term-engauge" title="Link to this term">¶</a></dt><dd><p>Process of converting an image file containing a graph or map into
+numbers. The word ‘engauge’ was invented to distinguish this process from
+other types of digitizing.</p>
+</dd>
+<dt id="term-export">export<a class="headerlink" href="#term-export" title="Link to this term">¶</a></dt><dd><p>Process of copying digitized information from Engauge Digitizer to other
+software or a file.</p>
+</dd>
+<dt id="term-fast-correlation">fast correlation<a class="headerlink" href="#term-fast-correlation" title="Link to this term">¶</a></dt><dd><p>A preferred method of performing template matching, which is identifying
+various places in an image where a template (or sample) appears. This
+method is fast because it uses a highly efficient <a class="reference external" href="http://www.fftw.org">Fast Fourier Transform</a>, and is therefore used by Engauge to perform point
+matching.</p>
+</dd>
+<dt id="term-floating-axis">floating axis<a class="headerlink" href="#term-floating-axis" title="Link to this term">¶</a></dt><dd><p>A floating axis is an x axis with unknown y value, or y axis with unknown
+x value. A graph with a floating axis is digitized according to
+<a class="reference internal" href="faq/floating-axes.html"><span class="doc">Floating Axes</span></a>.</p>
+</dd>
+<dt id="term-graph">graph<a class="headerlink" href="#term-graph" title="Link to this term">¶</a></dt><dd><p>Image that normally has one coordinate system consisting of two coordinate
+directions. Three axis points define the scales in the two coordinate
+directions, and the location of the origin. Graphs have either points or
+curves. An image may also have multiple coordinate systems.</p>
+</dd>
+<dt id="term-grid-display">grid display<a class="headerlink" href="#term-grid-display" title="Link to this term">¶</a></dt><dd><p>Grid lines may be added to a graph after the axis points have been
+defined. Any errors while creating the axis points are usually apparent
+when grid lines are displayed.</p>
+</dd>
+<dt id="term-grid-removal">grid removal<a class="headerlink" href="#term-grid-removal" title="Link to this term">¶</a></dt><dd><p>Process that removes the grid from an original graph image so automated
+digitizing techniques perform better.</p>
+</dd>
+<dt id="term-import">import<a class="headerlink" href="#term-import" title="Link to this term">¶</a></dt><dd><p>Process of loading an original graph or map image into Engauge Digitizer.</p>
+</dd>
+<dt id="term-line-graph">line graph<a class="headerlink" href="#term-line-graph" title="Link to this term">¶</a></dt><dd><p>Graph containing lines.</p>
+</dd>
+<dt id="term-line-segment">line segment<a class="headerlink" href="#term-line-segment" title="Link to this term">¶</a></dt><dd><p>Part of a straight line that lies between two end points.</p>
+</dd>
+<dt id="term-map">map<a class="headerlink" href="#term-map" title="Link to this term">¶</a></dt><dd><p>Image without any coordinates, and having the same scale in any
+direction. A scale bar defines the scale in a map.</p>
+</dd>
+<dt id="term-measure">measure<a class="headerlink" href="#term-measure" title="Link to this term">¶</a></dt><dd><p>Set of one or more connected line segments that is used to measure
+distance and/or area in a graph or map.</p>
+</dd>
+<dt id="term-piecewise-linear">piecewise linear<a class="headerlink" href="#term-piecewise-linear" title="Link to this term">¶</a></dt><dd><p>Curve that is composed of multiple line segments. A graph of the absolute
+value function is a simple example of a piecewise linear curve.</p>
+</dd>
+<dt id="term-point-graph">point graph<a class="headerlink" href="#term-point-graph" title="Link to this term">¶</a></dt><dd><p>Graph containing distinct points in the original image.</p>
+</dd>
+<dt id="term-point-match">point match<a class="headerlink" href="#term-point-match" title="Link to this term">¶</a></dt><dd><p>Automated digitizing technique used on graphs containing points. The user
+selects a representative sample point, and then similar points are
+automatically digitized starting with the closest match.</p>
+</dd>
+<dt id="term-resolution">resolution<a class="headerlink" href="#term-resolution" title="Link to this term">¶</a></dt><dd><p>The distance in graph units corresponding to the pixel separation of the
+original image. This distance is displayed in the status bar, since it
+represents the accuracy of the graph measurements.</p>
+</dd>
+<dt id="term-sample-point">sample point<a class="headerlink" href="#term-sample-point" title="Link to this term">¶</a></dt><dd><p>The point, chosen by the user during point matching, that best represents
+the points to be matched.</p>
+</dd>
+<dt id="term-scale">scale<a class="headerlink" href="#term-scale" title="Link to this term">¶</a></dt><dd><p>Relationship between the actual distance on the graph or map, and the
+represented units. Typically, actual distance is measured in pixels on the
+screen, or centimeters or inches on a printout. The represented units may
+be distance, time, percent, counts, etc.</p>
+</dd>
+<dt id="term-scale-bar">scale bar<a class="headerlink" href="#term-scale-bar" title="Link to this term">¶</a></dt><dd><p>Line segment that defines the scale of a map.</p>
+</dd>
+<dt id="term-segment">segment<a class="headerlink" href="#term-segment" title="Link to this term">¶</a></dt><dd><p>Piece of a curve, in a graph, that can be automatically digitized using
+segment fill mode. A segment is a set of adjoining points that lie between
+two endpoints.</p>
+</dd>
+<dt id="term-segment-fill">segment fill<a class="headerlink" href="#term-segment-fill" title="Link to this term">¶</a></dt><dd><p>Process of automatically digitizing a curve in a graph, by creating curve
+points along each segment along the curve.</p>
+</dd>
+<dt id="term-select-mode">select mode<a class="headerlink" href="#term-select-mode" title="Link to this term">¶</a></dt><dd><p>Digitizing mode in which existing points can be selected by clicking on
+individual points, or clicking and dragging to select all points in a box.
+Shift-click adds a new point to the points that are already selected. The
+control key temporarily hides points that do not belong to the currently
+selected curve.</p>
+</dd>
+<dt id="term-session">session<a class="headerlink" href="#term-session" title="Link to this term">¶</a></dt><dd><p>Period of time spent using Engauge Digitizer, from starting the software
+to stopping it.</p>
+</dd>
+</dl>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="community.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Community Feedback</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="faq/point-match-requirements.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Point Match Requirements</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=51ea20a5"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/scripts/furo.js?v=46bd48cc"></script>
+    </body>
+</html>
