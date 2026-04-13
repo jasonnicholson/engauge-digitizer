@@ -1,6 +1,10 @@
 Windows Explorer Context Menu
 =============================
 
+.. note::
+   These instructions reference older versions of Windows Explorer and may need
+   adjustment for current Windows versions.
+
 Introduction
 ------------
 
@@ -25,10 +29,11 @@ menu:
 4. Click on the **Advanced** button
 5. Select the **open** action
 6. Click on the **Edit** button
-7. In the "Application used to perform action" field, enter the following line,
-   being careful to include the quotation marks::
+7. In the "Application used to perform action" field, enter the path to the
+   Engauge executable followed by ``"%1"``, being careful to include the
+   quotation marks::
 
-      c:\engauge\digitizer.exe -import "%1"
+      "C:\path\to\engauge.exe" "%1"
 
 8. Click on the **OK** button to finish editing the open action
 9. Click on the **OK** button to finish modifying the file type actions

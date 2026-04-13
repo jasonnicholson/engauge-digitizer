@@ -1,21 +1,21 @@
-Curves Dialog
-=============
+Curve List Dialog
+=================
 
-The Curves dialog can:
+The Curve List dialog (**Settings > Curve List...**) can:
 
 - Add new curves
 - Remove existing curves (at least one must always exist)
 - Rename curves (every curve name must be unique)
-- Change curve display settings
 - Reorder curves
+- Save or reset default curve names
 
 Each curve is drawn as a series of points with lines between them. To control
-how those points and lines are drawn, change the curve settings.
+how those points and lines are drawn, use the Curve Properties dialog
+(**Settings > Curve Properties...**).
 
 The order of curve names defined in this dialog determines the column order in
-every exported file. Use the **Move Up** and **Move Down** buttons to reorder
-curves.
+every exported file. Drag curves in the list to reorder them.
 
 .. image:: ../_images/dlgcurves1.png
-   :alt: Curves dialog with two curves
+   :alt: Curve List dialog
    :align: center

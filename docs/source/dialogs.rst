@@ -11,6 +11,6 @@ Dialogs Reference
    dialogs/segments
    dialogs/point-match
    dialogs/export
-   dialogs/sessions
+   dialogs/geometry-window
    dialogs/curve-geometry
    dialogs/measure-geometry

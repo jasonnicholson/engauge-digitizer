@@ -43,17 +43,13 @@ Tips from Community Discussions
 
 **Duplicate x-values in export:** If two manually-placed points share the
 same x-value, the second may be dropped when exporting in interpolated mode.
-Workaround: use **Raw Xs And Ys** export mode (**Settings > Export Setup**) to
+Workaround: use **Raw Xs And Ys** export mode (**Settings > Export Format...**) to
 get every point exactly as placed, then perform any desired interpolation
 externally.
 
 **Controlling interpolation range:** To avoid extrapolation beyond the
 measured data range, export as **Raw Xs And Ys** and discard points outside
 the range of your first and last measured points in post-processing.
-
-**Automatic axis placement:** The ``--axes`` command-line flag can be combined
-with ``--import`` to auto-generate three axis points when batch-processing
-many images. See :doc:`cli` for details.
 
 ----
 

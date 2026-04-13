@@ -34,13 +34,13 @@ The following steps automatically digitize a linear Cartesian graph with one cur
    .. image:: ../_images/tutorautolinegraph5.png
       :alt: Third axis point dialog
 
-6. View the processed image by selecting **View > Processed Image**.
+6. View the filtered image by selecting **View > Background > Show Filtered Image**.
 
    .. image:: ../_images/tutorautolinegraph6.png
       :alt: Processed image view
 
-7. Tune the discretize settings using **Settings > Discretize** so unwanted
-   information in the image is removed.
+7. Tune the color filter settings using **Settings > Color Filter...** so
+   unwanted information in the image is removed.
 
    .. image:: ../_images/tutorautolinegraph7.png
       :alt: Discretize dialog
@@ -56,9 +56,9 @@ The following steps automatically digitize a linear Cartesian graph with one cur
    .. image:: ../_images/tutorautolinegraph10.png
       :alt: Curve points added via segment fill
 
-10. Export the curve points into a tabular text file using **File > Export As**.
-    Other export methods include copy-and-paste and drag-and-drop from the curve
-    geometry window.
+10. Export the curve points into a tabular text file using **File > Export...**.
+    Other export methods include copy-and-paste and drag-and-drop from the
+    Geometry Window.
 
     .. image:: ../_images/tutorautolinegraph11.png
-       :alt: File Export As menu
+       :alt: File Export menu

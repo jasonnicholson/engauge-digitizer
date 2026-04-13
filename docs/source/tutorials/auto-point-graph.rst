@@ -37,13 +37,14 @@ The following steps automatically digitize a linear Cartesian graph with one cur
    .. image:: ../_images/tutorautopointgraph5.png
       :alt: Third axis point dialog
 
-6. View the processed image by selecting **View > Background > Filtered Image**.
+6. View the filtered image by selecting **View > Background > Show Filtered Image**.
 
    .. image:: ../_images/tutorautopointgraph6.png
       :alt: Filtered image view
 
-7. Tune the discretize settings using **Settings > Discretize** to remove
-   unwanted information. For the PointPlot sample, use Intensity from 90 to 99.
+7. Tune the color filter settings using **Settings > Color Filter...** to
+   remove unwanted information. For the PointPlot sample, use Intensity from
+   90 to 99.
 
    .. image:: ../_images/tutorautopointgraph7.png
       :alt: Discretize dialog
@@ -72,7 +73,7 @@ The following steps automatically digitize a linear Cartesian graph with one cur
     .. image:: ../_images/tutorautopointgraph12.png
        :alt: Leaving Point Match mode
 
-12. Export the curve points using **File > Export As**.
+12. Export the curve points using **File > Export...**.
 
     .. image:: ../_images/tutorautopointgraph13.png
-       :alt: File Export As menu
+       :alt: File Export menu

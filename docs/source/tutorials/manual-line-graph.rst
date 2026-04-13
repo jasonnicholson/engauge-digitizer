@@ -48,7 +48,7 @@ These steps are essentially the same as
    .. image:: ../_images/tutormanlinegraph7.png
       :alt: Curve points placed manually
 
-8. Export the curve points using **File > Export As**.
+8. Export the curve points using **File > Export...**.
 
    .. image:: ../_images/tutormanlinegraph8.png
-      :alt: File Export As menu
+      :alt: File Export menu

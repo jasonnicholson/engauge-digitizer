@@ -58,5 +58,5 @@ By changing the discretizing settings, curves can often be extracted from color,
 low-contrast, and low-resolution images — such as those produced by fax
 machines, microfiche, cheap scanners, or excessive enlarging.
 
-Use **Settings > Discretize** to experiment with various settings. See
-:doc:`../dialogs/discretize` for a full description of the Discretize dialog.
+Use **Settings > Color Filter...** to experiment with various settings. See
+:doc:`../dialogs/discretize` for a full description of the Color Filter dialog.

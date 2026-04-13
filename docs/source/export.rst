@@ -1,7 +1,8 @@
-Export Setup
-============
+Export Format
+=============
 
-The Export Setup dialog controls how digitized data is written to a file,
+The Export Format dialog (**Settings > Export Format...**) controls how
+digitized data is written to a file,
 making it easy to import into tools such as Excel, LibreOffice Calc, and
 Gnuplot.
 
@@ -69,8 +70,8 @@ An **X Label** field lets you customise the name of the X column in the header.
 Dialog
 ------
 
-An example of the Export Setup dialog is shown below:
+An example of the Export Format dialog is shown below:
 
 .. image:: _images/dlgexport1.png
-   :alt: Export Setup dialog example
+   :alt: Export Format dialog example
    :align: center

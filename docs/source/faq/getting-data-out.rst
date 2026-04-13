@@ -18,16 +18,15 @@ Use **File > Export** to save curves as a tabular text file, which can be
 imported directly into tools like Excel and Gnumeric.
 
 The format of the export file (delimiters, headers, point selection) is
-controlled by **File > Export Setup** — see :doc:`../export`.
+controlled by **Settings > Export Format...** — see :doc:`../export`.
 
 This approach does not work for maps using scale bars.
 
-Copying from the Geometry Info Windows
----------------------------------------
+Copying from the Geometry Window
+--------------------------------
 
-All information in the :doc:`../dialogs/curve-geometry` and
-:doc:`../dialogs/measure-geometry` windows can be copied via the system
-clipboard. Selected lines are automatically copied to the clipboard for pasting
-into other applications.
+All information in the :doc:`../dialogs/geometry-window` can be copied via the
+system clipboard. Selected lines are automatically copied to the clipboard for
+pasting into other applications. Open it from **View > Geometry Window**.
 
 This approach works for both curves and maps using scale bars.

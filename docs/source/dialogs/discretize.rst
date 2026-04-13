@@ -1,9 +1,11 @@
-Discretize Dialog
-=================
+Color Filter Dialog
+===================
 
-The Discretize dialog controls how the original image is converted into a
-processed (black-and-white) image. The processed image is used by Segment Fill
-and Point Match. To view the processed image select **View > Processed Image**.
+The Color Filter dialog (**Settings > Color Filter...**) controls how the
+original image is converted into a filtered (black-and-white) image. The
+filtered image is used by Segment Fill and Point Match. To view the filtered
+image, select **View > Background > Show Filtered Image** (or choose
+**Show Filtered Image** from the Background toolbar).
 
 Pixel Attribute
 ---------------

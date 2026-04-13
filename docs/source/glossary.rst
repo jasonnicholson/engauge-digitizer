@@ -75,8 +75,9 @@ Glossary
    discretize
       Process that converts each pixel of an original image into either the
       black foreground, or the white background. The colors and grays of the
-      original image are lost. By controlling discretizing, unwanted parts of
-      the original image can be removed.
+      original image are lost. Discretizing is controlled through the
+      **Settings > Color Filter...** dialog. By adjusting the filter settings,
+      unwanted parts of the original image can be removed.
 
    engauge
       Process of converting an image file containing a graph or map into

@@ -32,8 +32,8 @@ curve:
 6. Export curve points using one of:
 
    - **File > Export** — saves selected curves to a tabular text file
-   - Copy-and-paste from the :doc:`../dialogs/curve-geometry` window
-   - Drag-and-drop from the :doc:`../dialogs/curve-geometry` window
+   - Copy-and-paste from the :doc:`../dialogs/geometry-window`
+   - Drag-and-drop from the :doc:`../dialogs/geometry-window`
 
 Optional Steps
 --------------
@@ -41,16 +41,17 @@ Optional Steps
 To improve Segment Fill and Point Match performance:
 
 - Select **View > Background > Show Filtered Image** to see the processed image.
-- Adjust **Settings > Discretize** until unwanted image features disappear.
-- Remove grid lines with **Settings > Grid Removal**.
+- Adjust **Settings > Color Filter...** until unwanted image features disappear.
+- Remove grid lines with **Settings > Grid Line Removal...**.
 
 For a logarithmic or polar graph:
 
-- Open **Settings > Coords** (see :doc:`../dialogs/coordinates`) and select the
-  appropriate coordinate settings.
+- Open **Settings > Coordinates...** (see :doc:`../dialogs/coordinates`) and
+  select the appropriate coordinate settings.
 
 For a graph with more than one curve:
 
-- Open **Settings > Curves** (see :doc:`../dialogs/curves`) and add curve names.
+- Open **Settings > Curve List...** (see :doc:`../dialogs/curves`) and add curve
+  names.
 - Use the Curves combobox in the main window to select the active curve before
   digitizing each one.
