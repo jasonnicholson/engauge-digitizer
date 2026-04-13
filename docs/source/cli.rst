@@ -1,99 +1,75 @@
 Command Line Options
 ====================
 
-Engauge Digitizer accepts many command line options, and one environment variable,
+Engauge Digitizer accepts command line options and one environment variable
 for more flexibility and power.
 
-Startup
+::
+
+   engauge [OPTIONS] [FILE ...]
+
+Any positional arguments are treated as document or image files to open at
+startup.
+
+General
 -------
 
-``-import FILE``
-    Automatically import the specified image file at startup. Image files may
-    also be imported manually using the menu.
-
-``-open FILE``
-    Automatically open the specified Engauge Digitizer document file at startup.
-    Document files may also be opened manually using the menu.
-
 ``-help``
-    Display a list of command line options with some brief comments, and then exit.
-
-``-manual DIRECTORY``
-    Look for the user manual in the specified directory. If Engauge Digitizer is
-    run in a directory other than the installation directory, then the user manual
-    directory must be specified using either this option or the
-    ``ENGAUGE_USERMANUAL`` environment variable.
-
-``-axes XMIN XMAX YMIN YMAX``
-    Scan the imported file at startup, and locate the X and Y axes. Then digitize
-    axis points assuming the X axis ranges from *XMIN* to *XMAX*, and the Y axis
-    ranges from *YMIN* to *YMAX*. The X axis is assumed to be near the bottom of
-    the image, and the Y axis is assumed to be on the left side. No rotation is
-    attempted, so the digitized points may require adjustment. Useful when using
-    scripts to digitize many images with known axis ranges.
-
-``-lazysegments``
-    Postpone scanning for segments that is normally performed during startup,
-    until either the Segments dialog is used or the Segment Fill button is selected.
-
-Shutdown
---------
-
-``-export FILE``
-    Automatically export the active document at shutdown. Documents may also be
-    exported manually using the menu.
-
-Settings
---------
+    Display a list of command line options and exit.
 
 ``-reset``
-    Reset all settings to the factory defaults. A fast way to restore a useful
-    configuration when settings have become problematic.
+    Reset all settings to the factory defaults, including window positions.
+    Useful when windows start up offscreen or settings have become problematic.
 
-``-text``
-    Load settings from a text file at startup and save settings to the same text
-    file when done, rather than using the Windows registry. On Linux and Unix,
-    settings are always stored in a text file (e.g. ``$HOME/.qt/engaugerc``), so
-    this option has no effect on those platforms.
+``-style <STYLE>``
+    Set the window style. Qt processes this flag automatically.
 
-Internationalization
---------------------
+``-styles``
+    List the available window styles that may be passed to ``-style``, then
+    exit.
 
-``-onlybmp``
-    Import all images as bitmap (BMP) files. This is a fix for Chinese Windows.
+Batch Processing
+----------------
 
-Debugging
----------
+``-exportonly``
+    Export each loaded startup file (which must have all axis points defined),
+    then exit. Requires one or more load files.
 
-``-pixels``
-    Show cursor location in pixel coordinates rather than graph coordinates.
+``-extractimageonly <EXTENSION>``
+    Extract the embedded image in each loaded startup file to a file with the
+    given extension (e.g. ``png``), then exit. Requires one or more load files.
 
-``-ctor``
-    Trace constructor calls.
+``-upgrade``
+    Upgrade each loaded startup file to the most recent document format, then
+    exit.
 
-``-dtor``
-    Trace destructor calls.
+Debugging and Testing
+---------------------
 
-``-curvecmb``
-    Trace curve combobox operations.
+``-debug``
+    Enable extra debug information.
 
-``-measurecmb``
-    Trace measure combobox operations.
+``-errorreport <FILE>``
+    Load the specified error report file for replay. Used for debugging and
+    regression testing.
 
-``-refresh``
-    Trace screen refreshes.
+``-filecmdscript <FILE>``
+    Execute the specified file command script. Used for debugging and testing.
 
-``-scanning``
-    Trace image scanning.
+``-gnuplot``
+    Output diagnostic gnuplot input files.
+
+``-regression``
+    Execute the loaded error report file or file command script automatically.
+    Used for regression testing.
+
+``-dropregression``
+    Treat files opened at startup as drag-and-drop test inputs. Used for
+    regression testing.
 
 Environment Variables
 ---------------------
 
-``ENGAUGE_BROWSER``
-    Shell command that runs a JavaScript-capable browser, used to start the
-    date/time converter from within Engauge. Not used on Windows. Examples:
-    ``firefox``, ``konqueror``.
-
-``ENGAUGE_USERMANUAL``
-    Directory containing the user manual. Used when running Engauge Digitizer
-    from a directory other than the installation directory.
+``TZ``
+    Set the timezone to add or subtract hours in time values. Values are listed
+    as "TZ Database Names" on Wikipedia.
