@@ -7,7 +7,6 @@ Engauge Digitizer Documentation
 
    overview
    cli
-   coordinates
    export
    dialogs
    tutorials

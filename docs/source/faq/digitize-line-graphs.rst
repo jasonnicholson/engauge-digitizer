@@ -40,7 +40,7 @@ To improve Segment Fill and Point Match performance:
 
 For a logarithmic or polar graph:
 
-- Open **Settings > Coords** (see :doc:`../coordinates`) and select the
+- Open **Settings > Coords** (see :doc:`../dialogs/coordinates`) and select the
   appropriate coordinate settings.
 
 For a graph with more than one curve:
