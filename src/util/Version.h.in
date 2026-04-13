@@ -9,7 +9,7 @@
 
 #include <QString>
 
-#define ENGAUGE_VERSION "@PROJECT_VERSION@"
+#define ENGAUGE_VERSION "@ENGAUGE_VERSION_FULL@"
 
 extern const char *VERSION_NUMBER;
 

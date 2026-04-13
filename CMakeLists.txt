@@ -1,7 +1,13 @@
 cmake_minimum_required(VERSION 3.16)
-project(engauge VERSION 13.0.0 LANGUAGES CXX)
 
-# Generate Version.h from template so the C++ code picks up PROJECT_VERSION.
+# Full version string — may include a pre-release suffix (e.g. 14.0.0-beta.1).
+set(ENGAUGE_VERSION_FULL "14.0.0-beta.1")
+
+# CMake project(VERSION ...) accepts only numeric components.
+string(REGEX MATCH "^[0-9]+(\\.[0-9]+)*" _numeric_ver "${ENGAUGE_VERSION_FULL}")
+project(engauge VERSION ${_numeric_ver} LANGUAGES CXX)
+
+# Generate Version.h using the full (possibly pre-release) version string.
 configure_file(src/util/Version.h.in "${CMAKE_CURRENT_BINARY_DIR}/generated/Version.h" @ONLY)
 
 set(CMAKE_CXX_STANDARD 17)
