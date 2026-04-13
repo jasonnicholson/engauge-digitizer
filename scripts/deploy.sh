@@ -34,7 +34,7 @@ while [[ $# -gt 0 ]]; do
       echo ""
       echo "  --no-dry-run         Perform real commits, pushes, and releases."
       echo "  --skip-windows       Skip the Windows cross-build step."
-      echo "  --version <X.Y.Z>   Use the given version instead of calculating it."
+      echo "  --version <X.Y.Z[-pre]>  Use the given version instead of calculating it."
       echo ""
       echo "By default runs in dry-run mode: builds and packages but does"
       echo "not commit, push, or create releases."
@@ -173,18 +173,8 @@ else
 fi
 echo ""
 
-# ── 8. Deploy documentation ─────────────────────────────────────────────────
-echo "== Step 8: Deploying documentation =="
-if $DRY_RUN; then
-  echo "[dry-run] Would run: scripts/deploy_docs.sh"
-else
-  bash "$SCRIPT_DIR/deploy_docs.sh"
-  echo "Documentation deployed to gh-pages."
-fi
-echo ""
-
-# ── 9. Create GitHub release ────────────────────────────────────────────────
-echo "== Step 9: Creating GitHub release =="
+# ── 8. Create GitHub release ────────────────────────────────────────────────
+echo "== Step 8: Creating GitHub release =="
 ASSETS=(dist/engauge-linux-x86_64.tar.gz dist/SHA256SUMS.txt)
 if ! $SKIP_WINDOWS; then
   ASSETS+=(dist/engauge-windows-x86_64.zip)
@@ -204,6 +194,16 @@ else
     --title "Engauge Digitizer $TAG" \
     --generate-notes
   echo "GitHub release $TAG created."
+fi
+echo ""
+
+# ── 9. Deploy documentation ─────────────────────────────────────────────────
+echo "== Step 9: Deploying documentation =="
+if $DRY_RUN; then
+  echo "[dry-run] Would run: scripts/deploy_docs.sh"
+else
+  bash "$SCRIPT_DIR/deploy_docs.sh"
+  echo "Documentation deployed to gh-pages."
 fi
 echo ""
 
