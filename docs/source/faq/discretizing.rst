@@ -59,4 +59,4 @@ low-contrast, and low-resolution images — such as those produced by fax
 machines, microfiche, cheap scanners, or excessive enlarging.
 
 Use **Settings > Color Filter...** to experiment with various settings. See
-:doc:`../dialogs/discretize` for a full description of the Color Filter dialog.
+:doc:`../dialogs/color-filter` for a full description of the Color Filter dialog.

@@ -1,4 +1,4 @@
-Coordinate System
+Coordinateres
 =================
 
 Engauge Digitizer initially assumes that the two coordinates are linear and
@@ -58,6 +58,6 @@ Dialog
 The coordinate system settings for a Cartesian graph with linear X values and
 logarithmic Y values are shown below:
 
-.. image:: ../_images/dlgcoordsys1.png
+.. image:: dlgcoordsys1.png
    :alt: Coordinates dialog showing linear X and logarithmic Y settings
    :align: center

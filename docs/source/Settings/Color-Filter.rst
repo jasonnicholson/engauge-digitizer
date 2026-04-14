@@ -39,6 +39,6 @@ attribute range. Changes appear immediately in the Preview window.
 The Discretize settings that successfully clean up the ``pointplot.bmp`` sample
 are shown below:
 
-.. image:: ../_images/dlgdiscretize1.png
+.. image:: dlgdiscretize1.png
    :alt: Discretize dialog example
    :align: center

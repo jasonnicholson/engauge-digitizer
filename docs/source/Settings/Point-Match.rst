@@ -29,6 +29,6 @@ Colors
 Colors distinguish accepted points, rejected points, and the candidate point
 from each other. The Preview window reflects the current settings.
 
-.. image:: ../_images/dlgpointmatch1.png
+.. image:: dlgpointmatch1.png
    :alt: Point Match dialog example
    :align: center

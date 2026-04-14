@@ -18,7 +18,7 @@ Use **File > Export** to save curves as a tabular text file, which can be
 imported directly into tools like Excel and Gnumeric.
 
 The format of the export file (delimiters, headers, point selection) is
-controlled by **Settings > Export Format...** — see :doc:`../export`.
+controlled by **Settings > Export Format...** — see :doc:`../dialogs/export`.
 
 This approach does not work for maps using scale bars.
 

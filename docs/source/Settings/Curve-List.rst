@@ -16,6 +16,7 @@ how those points and lines are drawn, use the Curve Properties dialog
 The order of curve names defined in this dialog determines the column order in
 every exported file. Drag curves in the list to reorder them.
 
-.. image:: ../_images/dlgcurves1.png
-   :alt: Curve List dialog
+.. image:: dlgcurves1.png
+   :alt: Curve list dialog with Include and Exclude lists
    :align: center
+

@@ -9,8 +9,8 @@ Most of the documentation is out of date. I am in process to update all of it. 2
 
    overview
    cli
-   export
-   dialogs
+   Settings/index
+   View/index
    tutorials
    faq
    glossary
@@ -30,3 +30,4 @@ Most of the documentation is out of date. I am in process to update all of it. 2
    developer
    privacy-policy
    changelog
+

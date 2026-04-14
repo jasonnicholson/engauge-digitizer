@@ -72,6 +72,6 @@ Dialog
 
 An example of the Export Format dialog is shown below:
 
-.. image:: _images/dlgexport1.png
+.. image:: dlgexport1.png
    :alt: Export Format dialog example
    :align: center

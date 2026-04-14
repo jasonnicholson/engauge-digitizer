@@ -18,6 +18,6 @@ points spaced by the specified point separation along the line.
 The preview windows display the current settings for both active (hovered) and
 inactive segments.
 
-.. image:: ../_images/dlgsegments1.png
+.. image:: dlgsegments1.png
    :alt: Segment Fill dialog example
    :align: center
