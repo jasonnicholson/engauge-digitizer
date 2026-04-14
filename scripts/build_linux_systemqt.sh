@@ -12,8 +12,8 @@ cd "$ROOT_DIR"
 mkdir -p "$BUILD_DIR"
 
 # Toolchain changes are ignored when an existing CMake cache is reused.
-rm -f "$BUILD_DIR/CMakeCache.txt"
-rm -rf "$BUILD_DIR/CMakeFiles"
+# rm -f "$BUILD_DIR/CMakeCache.txt"
+# rm -rf "$BUILD_DIR/CMakeFiles"
 
 if ! command -v cmake >/dev/null 2>&1; then
   echo "ERROR: cmake not found. Install cmake (>= 3.16)."
