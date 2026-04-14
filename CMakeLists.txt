@@ -542,7 +542,7 @@ add_library(engauge_core STATIC
     ${ENGAUGE_RESOURCES}
 )
 
-qt_add_executable(engauge
+qt_add_executable(engauge WIN32
     src/main/main.cpp
 )
 target_link_libraries(engauge PRIVATE engauge_core)
